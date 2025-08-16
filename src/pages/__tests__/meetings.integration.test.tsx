@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent, waitFor, mockMeeting, mockUser } from '../../test/utils'
 import MeetingsIndex from '../meetings/Index'
+import * as meetingsModule from '../../api/meetings'
 
 // Mock the API
 vi.mock('../../api/meetings', () => ({
@@ -41,12 +42,11 @@ describe('Meetings Page Integration', () => {
     vi.clearAllMocks()
     
     // Mock successful API responses
-    const { meetingsApi } = require('../../api/meetings')
-    meetingsApi.getMeetings.mockResolvedValue([
+    meetingsModule.meetingsApi.getMeetings.mockResolvedValue([
       mockMeeting({ id: '1', title: 'Team Standup' }),
       mockMeeting({ id: '2', title: 'Project Review' })
     ])
-    meetingsApi.getAttendees.mockResolvedValue([])
+    meetingsModule.meetingsApi.getAttendees.mockResolvedValue([])
   })
 
   it('renders meetings list correctly', async () => {
@@ -63,9 +63,8 @@ describe('Meetings Page Integration', () => {
   })
 
   it('allows creating a new meeting', async () => {
-    const { meetingsApi } = require('../../api/meetings')
     const newMeeting = mockMeeting({ title: 'New Meeting' })
-    meetingsApi.createMeeting.mockResolvedValue(newMeeting)
+    meetingsModule.meetingsApi.createMeeting.mockResolvedValue(newMeeting)
 
     render(<MeetingsIndex />)
 
@@ -91,7 +90,7 @@ describe('Meetings Page Integration', () => {
 
     // Verify API was called
     await waitFor(() => {
-      expect(meetingsApi.createMeeting).toHaveBeenCalledWith({
+      expect(meetingsModule.meetingsApi.createMeeting).toHaveBeenCalledWith({
         title: 'New Meeting',
         description: 'Meeting description',
         date: expect.any(String),
@@ -102,8 +101,7 @@ describe('Meetings Page Integration', () => {
   })
 
   it('allows editing existing meeting', async () => {
-    const { meetingsApi } = require('../../api/meetings')
-    meetingsApi.updateMeeting.mockResolvedValue(
+    meetingsModule.meetingsApi.updateMeeting.mockResolvedValue(
       mockMeeting({ id: '1', title: 'Updated Meeting' })
     )
 
@@ -133,15 +131,14 @@ describe('Meetings Page Integration', () => {
 
     // Verify API was called
     await waitFor(() => {
-      expect(meetingsApi.updateMeeting).toHaveBeenCalledWith('1', {
+      expect(meetingsModule.meetingsApi.updateMeeting).toHaveBeenCalledWith('1', {
         title: 'Updated Meeting'
       })
     })
   })
 
   it('allows deleting a meeting', async () => {
-    const { meetingsApi } = require('../../api/meetings')
-    meetingsApi.deleteMeeting.mockResolvedValue(undefined)
+    meetingsModule.meetingsApi.deleteMeeting.mockResolvedValue(undefined)
 
     render(<MeetingsIndex />)
 
@@ -164,12 +161,12 @@ describe('Meetings Page Integration', () => {
 
     // Verify API was called
     await waitFor(() => {
-      expect(meetingsApi.deleteMeeting).toHaveBeenCalledWith('1')
+      expect(meetingsModule.meetingsApi.deleteMeeting).toHaveBeenCalledWith('1')
     })
   })
 
   it('displays loading state while fetching meetings', () => {
-    const { meetingsApi } = require('../../api/meetings')
+    const { meetingsApi } = meetingsModule
     // Return a promise that never resolves to simulate loading
     meetingsApi.getMeetings.mockReturnValue(new Promise(() => {}))
 
@@ -180,7 +177,7 @@ describe('Meetings Page Integration', () => {
   })
 
   it('displays error state when API fails', async () => {
-    const { meetingsApi } = require('../../api/meetings')
+    const { meetingsApi } = meetingsModule
     meetingsApi.getMeetings.mockRejectedValue(new Error('API Error'))
 
     render(<MeetingsIndex />)

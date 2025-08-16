@@ -4,6 +4,7 @@ import { moduleController } from './moduleController'
 import { createCommandProcessor } from './commandProcessor'
 import type { ProcessedCommand, CommandResult } from './commandProcessor'
 import type { ActionContext } from './actions'
+import { logSystemError } from '../../services/errorService'
 
 export type WorkflowStep = {
   id: string
@@ -616,7 +617,11 @@ export class WorkflowEngine {
       rule.runCount++
       
     } catch (error: any) {
-      console.error(`Automation rule failed: ${rule.name}`, error)
+      logSystemError(error as Error, {
+        component: 'WorkflowEngine',
+        action: 'executeAutomationRule',
+        additionalData: { ruleName: rule.name }
+      })
     }
   }
 
