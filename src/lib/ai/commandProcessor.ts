@@ -1,5 +1,15 @@
 import { Command, CommandResult, Intent, ModuleController } from './types';
 
+// Export types for other modules
+export type { Command, CommandResult, Intent, ModuleController } from './types';
+
+export interface ProcessedCommand {
+  command: Command;
+  intent: Intent;
+  confidence: number;
+  metadata: Record<string, unknown>;
+}
+
 interface CommandContext {
   userId: string;
   sessionId: string;
@@ -151,7 +161,7 @@ export class CommandProcessor {
     };
   }
 
-  async suggestCommands(partialText: string, context: CommandContext): Promise<string[]> {
+  async suggestCommands(partialText: string, _context: CommandContext): Promise<string[]> {
     const suggestions: string[] = [];
     
     if (partialText.toLowerCase().includes('create')) {

@@ -46,14 +46,28 @@ const Analytics = lazy(() => import('./pages/messages/Analytics'))
 const MessageModuleInfo = lazy(() => import('./pages/messages/ModuleInfo'))
 
 // Scholarship
+const ScholarshipIndex = lazy(() => import('./pages/scholarship/Index'))
 const OrphansStudents = lazy(() => import('./pages/scholarship/OrphansStudents'))
 const ScholarshipReports = lazy(() => import('./pages/scholarship/Reports'))
+const VisualManagement = lazy(() => import('./pages/scholarship/VisualManagement'))
+const ScholarshipDefinitions = lazy(() => import('./pages/scholarship/Definitions'))
+const TrackingCategories = lazy(() => import('./pages/scholarship/TrackingCategories'))
+const OrphanForm = lazy(() => import('./pages/scholarship/OrphanForm'))
+const OrphanLetters = lazy(() => import('./pages/scholarship/OrphanLetters'))
+const ScholarshipCampaigns = lazy(() => import('./pages/scholarship/Campaigns'))
+const Schools = lazy(() => import('./pages/scholarship/Schools'))
+const FormDefinitions = lazy(() => import('./pages/scholarship/FormDefinitions'))
+const PriceDefinitions = lazy(() => import('./pages/scholarship/PriceDefinitions'))
+const AddressLabels = lazy(() => import('./pages/scholarship/AddressLabels'))
+const ScholarshipDataControl = lazy(() => import('./pages/scholarship/DataControl'))
+const ScholarshipModuleInfo = lazy(() => import('./pages/scholarship/ModuleInfo'))
 
 // Dashboard
 const DashboardIndex = lazy(() => import('./pages/dashboard/Index'))
 
-// Supabase Test
+// Supabase Test & Demo
 const SupabaseTest = lazy(() => import('./components/SupabaseTest'))
+const RelatedRecords = lazy(() => import('./pages/demo/RelatedRecords'))
 
 // Aid
 const AidIndex = lazy(() => import('./pages/aid/Index'))
@@ -202,6 +216,11 @@ function AppRoutes() {
           {withDonationsSuspense(PiggyBankTracking)}
         </ProtectedRoute>
       } />
+      <Route path="/donations/piggy-bank-tracking" element={
+        <ProtectedRoute>
+          {withDonationsSuspense(PiggyBankTracking)}
+        </ProtectedRoute>
+      } />
       <Route path="/donations/bulk-provisioning" element={
         <ProtectedRoute>
           {withDonationsSuspense(BulkProvisioning)}
@@ -251,6 +270,11 @@ function AppRoutes() {
       } />
       
       {/* Scholarship routes */}
+      <Route path="/scholarship" element={
+        <ProtectedRoute>
+          {withScholarshipSuspense(ScholarshipIndex)}
+        </ProtectedRoute>
+      } />
       <Route path="/scholarship/orphans-students" element={
         <ProtectedRoute>
           {withScholarshipSuspense(OrphansStudents)}
@@ -259,6 +283,66 @@ function AppRoutes() {
       <Route path="/scholarship/reports" element={
         <ProtectedRoute>
           {withScholarshipSuspense(ScholarshipReports)}
+        </ProtectedRoute>
+      } />
+      <Route path="/scholarship/visual-management" element={
+        <ProtectedRoute>
+          {withScholarshipSuspense(VisualManagement)}
+        </ProtectedRoute>
+      } />
+      <Route path="/scholarship/definitions" element={
+        <ProtectedRoute>
+          {withScholarshipSuspense(ScholarshipDefinitions)}
+        </ProtectedRoute>
+      } />
+      <Route path="/scholarship/tracking-categories" element={
+        <ProtectedRoute>
+          {withScholarshipSuspense(TrackingCategories)}
+        </ProtectedRoute>
+      } />
+      <Route path="/scholarship/orphan-form" element={
+        <ProtectedRoute>
+          {withScholarshipSuspense(OrphanForm)}
+        </ProtectedRoute>
+      } />
+      <Route path="/scholarship/orphan-letters" element={
+        <ProtectedRoute>
+          {withScholarshipSuspense(OrphanLetters)}
+        </ProtectedRoute>
+      } />
+      <Route path="/scholarship/campaigns" element={
+        <ProtectedRoute>
+          {withScholarshipSuspense(ScholarshipCampaigns)}
+        </ProtectedRoute>
+      } />
+      <Route path="/scholarship/schools" element={
+        <ProtectedRoute>
+          {withScholarshipSuspense(Schools)}
+        </ProtectedRoute>
+      } />
+      <Route path="/scholarship/form-definitions" element={
+        <ProtectedRoute>
+          {withScholarshipSuspense(FormDefinitions)}
+        </ProtectedRoute>
+      } />
+      <Route path="/scholarship/price-definitions" element={
+        <ProtectedRoute>
+          {withScholarshipSuspense(PriceDefinitions)}
+        </ProtectedRoute>
+      } />
+      <Route path="/scholarship/address-labels" element={
+        <ProtectedRoute>
+          {withScholarshipSuspense(AddressLabels)}
+        </ProtectedRoute>
+      } />
+      <Route path="/scholarship/data-control" element={
+        <ProtectedRoute>
+          {withScholarshipSuspense(ScholarshipDataControl)}
+        </ProtectedRoute>
+      } />
+      <Route path="/scholarship/module-info" element={
+        <ProtectedRoute>
+          {withScholarshipSuspense(ScholarshipModuleInfo)}
         </ProtectedRoute>
       } />
       
@@ -533,8 +617,13 @@ function AppRoutes() {
         </ProtectedRoute>
       } />
 
+      {/* Demo routes */}
+      <Route path="/demo/related-records" element={
+        <ProtectedRoute>
+          {withSystemSuspense(RelatedRecords)}
+        </ProtectedRoute>
+      } />
 
-      
       {/* Catch-all route for 404 errors */}
       <Route path="*" element={<NotFound />} />
     </Routes>

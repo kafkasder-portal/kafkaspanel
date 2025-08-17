@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect, startTransition } from 'react'
 import { Send, Bot, User, Settings, History, Zap, Loader2, Mic, MicOff } from 'lucide-react'
 import { toast } from 'sonner'
-import { workflowEngine } from '@/lib/ai/workflowEngine'
-import { getCommandSuggestions } from '@/lib/ai/commandProcessor'
 import { enhancedNlpProcessor } from '@/lib/ai/enhancedNlpProcessor'
 import { smartCommandProcessor } from '@/lib/ai/smartCommandProcessor'
 import type { ActionContext } from '@/lib/ai/actions'
-import type { CommandResult } from '@/lib/ai/commandProcessor'
+
+import { getCommandSuggestions } from '@/lib/ai/commandProcessor'
 import { AISettingsModal } from './modals/AISettingsModal'
 import { AIHistoryModal } from './modals/AIHistoryModal'
 import { AIAnalyticsModal } from './modals/AIAnalyticsModal'
@@ -177,7 +176,7 @@ export default function AICommandCenter({ isOpen, onClose, context, userId }: Pr
       if (smartCommand.requiredConfirmation) {
         addMessage({
           type: 'ai',
-          content: `⚠️ Bu işlem onay gerektiriyor. Devam etmek istiyor musunuz?\n\n${smartCommand.processedCommand.action} - ${smartCommand.processedCommand.module}\n\nTahmini süre: ${smartCommand.estimatedDuration} saniye`,
+          content: `⚠️ Bu işlem onay gerektiriyor. Devam etmek istiyor musunuz?\n\nTahmini süre: ${smartCommand.estimatedDuration} saniye`,
           suggestions: ['Evet, devam et', 'Hayır, iptal et', 'Detayları göster']
         })
         setIsProcessing(false)
@@ -196,7 +195,7 @@ export default function AICommandCenter({ isOpen, onClose, context, userId }: Pr
         setMessages(prev => prev.slice(0, -1))
       })
 
-      if (result.success) {
+      if (result.status === 'ok') {
         addMessage({
           type: 'ai',
           content: `✅ ${result.message}`,
@@ -406,22 +405,22 @@ export default function AICommandCenter({ isOpen, onClose, context, userId }: Pr
                 {nlpAnalysis.structuredEntities && (
                   <div className="mt-2 pt-2 border-t border-blue-200">
                     <div className="flex flex-wrap gap-1">
-                      {nlpAnalysis.structuredEntities.money?.map((money, index) => (
+                      {nlpAnalysis.structuredEntities.money?.map((money: any, index: number) => (
                         <span key={index} className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs">
                           💰 {money.amount} {money.currency}
                         </span>
                       ))}
-                      {nlpAnalysis.structuredEntities.persons?.map((person, index) => (
+                      {nlpAnalysis.structuredEntities.persons?.map((person: any, index: number) => (
                         <span key={index} className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">
                           👤 {person.fullName}
                         </span>
                       ))}
-                      {nlpAnalysis.structuredEntities.phones?.map((phone, index) => (
+                      {nlpAnalysis.structuredEntities.phones?.map((phone: string, index: number) => (
                         <span key={index} className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs">
                           📞 {phone}
                         </span>
                       ))}
-                      {nlpAnalysis.structuredEntities.emails?.map((email, index) => (
+                      {nlpAnalysis.structuredEntities.emails?.map((email: string, index: number) => (
                         <span key={index} className="px-2 py-1 bg-orange-100 text-orange-700 rounded text-xs">
                           📧 {email}
                         </span>
