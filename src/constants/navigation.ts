@@ -14,7 +14,7 @@ import {
   HelpingHand,
   Shield,
   Database,
-  Type as LucideIcon
+  LucideIcon
 } from 'lucide-react'
 
 export interface NavigationSubPage {
@@ -48,7 +48,7 @@ export const navigationItems: NavigationItem[] = [
     subPages: [
       { title: "Mesaj Analitiği", href: "/messages/analytics", description: "Mesaj istatistikleri" },
       { title: "Bağış Raporları", href: "/donations/reports", description: "Bağış analiz raporları" },
-      { title: "Kullanıcı Metrikleri", href: "/analytics/users", description: "Kullanıcı davranış analizi" }
+      { title: "Kullanıc�� Metrikleri", href: "/analytics/users", description: "Kullanıcı davranış analizi" }
     ]
   },
   {
