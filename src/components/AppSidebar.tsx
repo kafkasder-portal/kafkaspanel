@@ -61,17 +61,18 @@ const AppSidebar = memo(function AppSidebar() {
     <TooltipProvider>
       <Sidebar variant="inset" collapsible="icon">
         {/* Header */}
-        <SidebarHeader>
+        <SidebarHeader className="border-b border-sidebar-border">
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton size="lg" className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <Building2 className="size-4" />
+              <SidebarMenuButton size="sm" className="h-10">
+                <div className="flex aspect-square size-6 items-center justify-center rounded bg-blue-600 text-white">
+                  <Building2 className="size-3" />
                 </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">Dernek Paneli</span>
-                  <span className="truncate text-xs">Enterprise v2.0</span>
-                </div>
+                {!isCollapsed && (
+                  <div className="grid flex-1 text-left text-xs leading-tight">
+                    <span className="truncate font-medium">Panel</span>
+                  </div>
+                )}
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
