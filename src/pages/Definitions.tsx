@@ -4,7 +4,7 @@ import { Settings, Users, Building, Workflow } from 'lucide-react'
 
 export default function Definitions() {
   return (
-    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="flex min-h-screen bg-background">
       {/* Navigation Sidebar */}
       <DefinitionsNavigation />
       
@@ -21,7 +21,7 @@ export default function Definitions() {
 
           {/* Quick Access Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+            <div className="bg-card rounded-lg shadow p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 bg-blue-100 rounded-lg">
                   <Users className="h-6 w-6 text-blue-600" />
@@ -44,7 +44,7 @@ export default function Definitions() {
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+            <div className="bg-card rounded-lg shadow p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 bg-green-100 rounded-lg">
                   <Building className="h-6 w-6 text-green-600" />
@@ -67,7 +67,7 @@ export default function Definitions() {
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+            <div className="bg-card rounded-lg shadow p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 bg-purple-100 rounded-lg">
                   <Workflow className="h-6 w-6 text-purple-600" />
@@ -90,7 +90,7 @@ export default function Definitions() {
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+            <div className="bg-card rounded-lg shadow p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 bg-orange-100 rounded-lg">
                   <Settings className="h-6 w-6 text-orange-600" />
