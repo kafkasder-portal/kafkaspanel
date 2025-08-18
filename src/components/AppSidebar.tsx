@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import {
   Sidebar,
   SidebarContent,
