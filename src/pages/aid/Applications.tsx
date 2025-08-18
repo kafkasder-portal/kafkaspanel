@@ -24,6 +24,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
 import { getErrorMessage, createOperationErrorMessage, logErrorSafely } from '../../utils/errorMessageUtils'
+import { isSupabaseConfigured } from '../../utils/supabaseUtils'
 import { AdvancedSearchModal } from '@components/AdvancedSearchModal'
 import {
   createApplicationsFilterConfig,
