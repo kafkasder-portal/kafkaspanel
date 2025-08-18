@@ -54,6 +54,9 @@ const FinancialManagement = lazy(() => import('./pages/finance/FinancialManageme
 // Donor CRM
 const DonorCRM = lazy(() => import('./pages/donors/DonorCRM'))
 
+// Volunteer Management
+const VolunteerManagement = lazy(() => import('./pages/volunteers/VolunteerManagement'))
+
 // Messages
 const MessagesIndex = lazy(() => import('./pages/messages/Index'))
 const BulkSend = lazy(() => import('./pages/messages/BulkSend'))
