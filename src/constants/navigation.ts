@@ -62,7 +62,11 @@ export const navigationItems: NavigationItem[] = [
       { title: "Kurumlar", href: "/donations/institutions", description: "Bağışçı kurumlar" },
       { title: "Nakit Bağışlar", href: "/donations/cash", description: "Nakit bağış işlemleri" },
       { title: "Banka Bağışları", href: "/donations/bank", description: "Banka transferi bağışları" },
-      { title: "Online Bağışlar", href: "/donations/online", description: "Online bağış platformu" }
+      { title: "Online Bağışlar", href: "/donations/online", description: "Online bağış platformu" },
+      { title: "Kredi Kartı Bağışları", href: "/donations/credit-card", description: "Kredi kartı bağışları" },
+      { title: "Toplu Provizyon", href: "/donations/bulk-provisioning", description: "Toplu bağış provizyon işlemleri" },
+      { title: "Ramazan Dönemleri", href: "/donations/ramadan-periods", description: "Ramazan kampanya dönemleri" },
+      { title: "Kurban Dönemleri", href: "/donations/sacrifice-periods", description: "Kurban kampanya dönemleri" }
     ]
   },
   {
