@@ -34,7 +34,7 @@ export const navigationItems: NavigationItem[] = [
   {
     title: "Dashboard",
     icon: LayoutDashboard,
-    badge: null,
+    badge: undefined,
     subPages: [
       { title: "Genel Bakış", href: "/", description: "Ana sayfa ve özet bilgiler" },
       { title: "Performans", href: "/performance", description: "Sistem performans metrikleri" },
@@ -48,13 +48,13 @@ export const navigationItems: NavigationItem[] = [
     subPages: [
       { title: "Mesaj Analitiği", href: "/messages/analytics", description: "Mesaj istatistikleri" },
       { title: "Bağış Raporları", href: "/donations/reports", description: "Bağış analiz raporları" },
-      { title: "Kullanıc�� Metrikleri", href: "/analytics/users", description: "Kullanıcı davranış analizi" }
+      { title: "Kullanıcı Metrikleri", href: "/analytics/users", description: "Kullanıcı davranış analizi" }
     ]
   },
   {
     title: "Bağış Yönetimi",
     icon: Coins,
-    badge: null,
+    badge: undefined,
     subPages: [
       { title: "Bağış Listesi", href: "/donations", description: "Tüm bağışlar" },
       { title: "Bağış Veznesi", href: "/donations/vault", description: "Bağış kasası yönetimi" },
@@ -67,7 +67,7 @@ export const navigationItems: NavigationItem[] = [
   {
     title: "Toplantılar",
     icon: Calendar,
-    badge: null,
+    badge: undefined,
     subPages: [
       { title: "Tüm Toplantılar", href: "/meetings", description: "Toplantı listesi" },
       { title: "Toplantı Planla", href: "/meetings/create", description: "Yeni toplantı oluştur" },
@@ -77,7 +77,7 @@ export const navigationItems: NavigationItem[] = [
   {
     title: "Yardım Yönetimi",
     icon: HelpingHand,
-    badge: null,
+    badge: undefined,
     subPages: [
       { title: "İhtiyaç Sahipleri", href: "/aid/beneficiaries", description: "Yardım alan kişiler" },
       { title: "Yardım Başvuruları", href: "/aid/applications", description: "Başvuru yönetimi" },
@@ -101,7 +101,7 @@ export const navigationItems: NavigationItem[] = [
   {
     title: "Burs Yönetimi",
     icon: GraduationCap,
-    badge: null,
+    badge: undefined,
     subPages: [
       { title: "Yetim & Öğrenciler", href: "/scholarship", description: "Burs alan öğrenciler" },
       { title: "Burs Kampanyaları", href: "/scholarship/campaigns", description: "Burs kampanya yönetimi" },
@@ -115,7 +115,7 @@ export const supportItems: NavigationItem[] = [
   {
     title: "Sistem Yönetimi",
     icon: Shield,
-    badge: null,
+    badge: undefined,
     subPages: [
       { title: "Kullanıcı Yönetimi", href: "/system/user-management", description: "Kullanıcı hesapları" },
       { title: "IP Engelleme", href: "/system/ip-blocking", description: "Güvenlik ayarları" },
@@ -125,7 +125,7 @@ export const supportItems: NavigationItem[] = [
   {
     title: "Tanımlamalar",
     icon: Database,
-    badge: null,
+    badge: undefined,
     subPages: [
       { title: "Genel Tanımlar", href: "/definitions", description: "Sistem tanımlamaları" },
       { title: "Kullanıcı Hesapları", href: "/definitions/user-accounts", description: "Hesap tanımları" },
