@@ -70,7 +70,7 @@ function AppContent({
 export default function App() {
   const { initializing, initialize } = useAuthStore()
   const { user } = useAuthStore()
-  const { showOnboarding, completeOnboarding, resetOnboarding, setShowOnboarding, closeOnboarding } = useOnboarding()
+  const { resetOnboarding, setShowOnboarding } = useOnboarding()
 
   // Initialize auth on app start
   useEffect(() => {
