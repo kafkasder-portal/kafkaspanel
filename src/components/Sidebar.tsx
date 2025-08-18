@@ -175,9 +175,9 @@ export function Sidebar() {
       </div>
 
       {/* User Profile */}
-      <div className="p-2">
-        <button className="flex items-center gap-2 w-full h-7 px-2 rounded-lg text-white hover:bg-gray-700 transition-all duration-150 ease-out">
-          <span className="flex items-center justify-center w-7 h-7 bg-gray-600 rounded-lg text-sm font-medium flex-shrink-0">
+      <div className="p-2 border-t border-sidebar-border">
+        <button className="flex items-center gap-2 w-full h-7 px-2 rounded-lg text-sidebar-text hover:bg-sidebar-hover transition-all duration-150 ease-out">
+          <span className="flex items-center justify-center w-7 h-7 bg-accent text-accent-foreground rounded-lg text-sm font-medium flex-shrink-0">
             AK
           </span>
           {!isCollapsed && (
@@ -186,7 +186,7 @@ export function Sidebar() {
                 <span className="text-sm font-medium truncate">
                   Ahmet Kaya
                 </span>
-                <span className="text-xs text-gray-400 truncate">
+                <span className="text-xs text-sidebar-text-muted truncate">
                   ahmet@sirket.com
                 </span>
               </div>
