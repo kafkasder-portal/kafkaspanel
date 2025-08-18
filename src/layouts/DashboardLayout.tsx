@@ -12,7 +12,7 @@ export function DashboardLayout({ children, onOpenAICenter }: Props) {
     <div className="min-h-screen bg-background text-foreground">
       <div className="flex">
         <Sidebar />
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col ml-64">
           <Topbar onOpenAICenter={onOpenAICenter} />
           <main className="p-4 lg:p-6">
             {children}
