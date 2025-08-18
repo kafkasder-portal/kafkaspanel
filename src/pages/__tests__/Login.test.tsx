@@ -153,10 +153,10 @@ describe('Login Component', () => {
       </TestWrapper>
     )
 
-    const registerLink = screen.getByText(/hesap oluştur/i)
+    const registerLink = screen.getByText(/kayıt olun/i)
     await user.click(registerLink)
 
-    expect(screen.getByText('Hesap Oluştur')).toBeInTheDocument()
+    expect(screen.getByText('Yeni Hesap')).toBeInTheDocument()
     expect(screen.getByLabelText(/ad soyad/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/şifre tekrarı/i)).toBeInTheDocument()
   })
