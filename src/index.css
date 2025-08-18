@@ -1,6 +1,6 @@
 /* Import optimized color system */
 @import './styles/colors-optimized.css';
-@import './styles/mobile-responsiveness.css';
+@import './styles/mobile-optimized.css';
 
 @tailwind base;
 @tailwind components;
