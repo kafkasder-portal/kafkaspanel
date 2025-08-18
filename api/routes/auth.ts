@@ -158,7 +158,7 @@ router.post('/register', validateRequest(registerSchema), asyncHandler(async (re
  * User Login
  * POST /api/auth/login
  */
-router.post('/login', validate(schemas.login), asyncHandler(async (req: Request, res: Response): Promise<void> => {
+router.post('/login', validateRequest(loginSchema), asyncHandler(async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body;
 
   // Validate required fields
