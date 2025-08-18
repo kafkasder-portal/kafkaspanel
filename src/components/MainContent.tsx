@@ -2,7 +2,6 @@ import React, { memo } from 'react'
 import { SidebarInset, SidebarTrigger } from './ui/sidebar'
 import { HeaderActions } from './HeaderActions'
 import { Separator } from './ui/separator'
-import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from './ui/breadcrumb'
 import { useLocation } from 'react-router-dom'
 import { allPages } from '../constants/navigation'
 import { cn } from '../lib/utils'
@@ -29,9 +28,9 @@ const MainContent = memo(function MainContent({
   const currentPage = allPages.find(page => page.href === location.pathname)
 
   // Generate breadcrumbs - simplified to show only current page
-  const breadcrumbs = customBreadcrumbs || (currentPage ? [
-    { title: currentPage.title }
-  ] : [])
+  // const breadcrumbs = customBreadcrumbs || (currentPage ? [
+  //   { title: currentPage.title }
+  // ] : [])
 
   return (
     <SidebarInset>
