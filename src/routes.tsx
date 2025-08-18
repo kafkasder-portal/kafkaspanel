@@ -224,6 +224,15 @@ function ProtectedAppLayout() {
           <Route path="/finance/grants" element={<FinancialManagement />} />
           <Route path="/finance/reconciliation" element={<FinancialManagement />} />
           <Route path="/finance/tax" element={<FinancialManagement />} />
+
+          {/* Donor CRM routes */}
+          <Route path="/donors" element={<DonorCRM />} />
+          <Route path="/donors/list" element={<DonorCRM />} />
+          <Route path="/donors/segments" element={<DonorCRM />} />
+          <Route path="/donors/campaigns" element={<DonorCRM />} />
+          <Route path="/donors/tasks" element={<DonorCRM />} />
+          <Route path="/donors/analytics" element={<DonorCRM />} />
+          <Route path="/donors/communications" element={<DonorCRM />} />
           
           {/* Messages routes */}
           <Route path="/messages" element={withMessagesSuspense(MessagesIndex)} />
