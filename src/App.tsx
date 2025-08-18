@@ -1,5 +1,4 @@
-import { DashboardLayout } from './layouts/DashboardLayout'
-import AppRoutes from './routes'
+import { memo, useState, useEffect, startTransition } from 'react'
 import { Toaster } from 'sonner'
 import ErrorBoundary from './components/ErrorBoundary'
 import PWAPrompt from './components/PWAPrompt'
@@ -8,7 +7,6 @@ import { OfflineProvider } from './contexts/OfflineContext'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { LanguageProvider } from './contexts/LanguageContext'
 import ChatContainer from './components/Chat/ChatContainer'
-import { useState, useEffect, startTransition } from 'react'
 import CommandPalette from './components/CommandPalette'
 import AICommandCenter from './components/AICommandCenter'
 import { useAICommandCenter } from './hooks/useAICommandCenter'
@@ -22,18 +20,19 @@ import { OnboardingTestButton } from './components/onboarding/OnboardingTestButt
 import { useOnboarding } from './hooks/useOnboarding'
 import { onboardingSteps } from './constants/onboardingSteps.tsx'
 
-// Inner component that uses theme-dependent hooks
-function AppContent({ 
-  user, 
-  resetOnboarding, 
-  setShowOnboarding 
-}: { 
-  user: any
-  resetOnboarding: () => void
-  setShowOnboarding: (show: boolean) => void
-}) {
+// New Sidebar Components
+import { SidebarProvider } from './components/ui/sidebar'
+import { AppSidebar } from './components/AppSidebar'
+import { MainContent } from './components/MainContent'
+import AppRoutes from './routes'
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts'
+
+// Modern Layout with new sidebar
+const AppLayout = memo(function AppLayout() {
   const [isChatOpen, setIsChatOpen] = useState(false)
   const [isCmdOpen, setIsCmdOpen] = useState(false)
+  const { user } = useAuthStore()
+  
   const {
     isOpen: isAIOpen,
     openCommandCenter,
@@ -41,6 +40,17 @@ function AppContent({
     actionContext,
     userId
   } = useAICommandCenter()
+
+  // Setup keyboard shortcuts
+  useKeyboardShortcuts({
+    onSearch: () => {
+      // Search is handled in HeaderActions
+    },
+    onCloseModal: () => {
+      if (isAIOpen) closeCommandCenter()
+      if (isCmdOpen) setIsCmdOpen(false)
+    }
+  })
 
   useEffect(() => {
     const open = () => {
@@ -59,10 +69,15 @@ function AppContent({
   }
 
   return (
-    <DashboardLayout onOpenAICenter={openCommandCenter}>
-      <ErrorBoundary level="page">
-        <AppRoutes />
-      </ErrorBoundary>
+    <>
+      <AppSidebar />
+      <MainContent>
+        <ErrorBoundary level="page">
+          <AppRoutes />
+        </ErrorBoundary>
+      </MainContent>
+
+      {/* Global UI Components */}
       <Toaster
         position="top-right"
         expand={true}
@@ -71,6 +86,8 @@ function AppContent({
       />
       <PWAPrompt />
       <OfflineIndicator />
+      
+      {/* Chat System */}
       {user && (
         <ChatContainer
           currentUserId={user.id}
@@ -78,25 +95,56 @@ function AppContent({
           onToggle={toggleChat}
         />
       )}
+
+      {/* Command Palette */}
       <CommandPalette
         isOpen={isCmdOpen}
         onClose={() => setIsCmdOpen(false)}
         toggleChat={toggleChat}
         onOpenAICenter={openCommandCenter}
       />
+
+      {/* AI Command Center */}
       <AICommandCenter
         isOpen={isAIOpen}
         onClose={closeCommandCenter}
         context={actionContext}
         userId={userId}
       />
+    </>
+  )
+})
+
+// Inner component that uses theme-dependent hooks
+function AppContent({ 
+  user, 
+  resetOnboarding, 
+  setShowOnboarding 
+}: { 
+  user: any
+  resetOnboarding: () => void
+  setShowOnboarding: (show: boolean) => void
+}) {
+  return (
+    <SidebarProvider defaultOpen={true}>
+      <AppLayout />
+      
+      {/* Onboarding */}
+      <OnboardingModal
+        isOpen={false} // Disabled for now
+        onClose={() => {}}
+        onComplete={() => {}}
+        steps={onboardingSteps}
+      />
+      
+      {/* Development Tools */}
       {process.env.NODE_ENV === 'development' && (
         <OnboardingTestButton
           onReset={resetOnboarding}
           onStart={() => setShowOnboarding(true)}
         />
       )}
-    </DashboardLayout>
+    </SidebarProvider>
   )
 }
 
@@ -152,12 +200,6 @@ export default function App() {
                   resetOnboarding={resetOnboarding}
                   setShowOnboarding={setShowOnboarding}
                 />
-                        <OnboardingModal
-          isOpen={showOnboarding}
-          onClose={closeOnboarding}
-          onComplete={completeOnboarding}
-          steps={onboardingSteps}
-        />
               </SocketProvider>
             </OfflineProvider>
             <ReactQueryDevtools initialIsOpen={false} />
