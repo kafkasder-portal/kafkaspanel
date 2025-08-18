@@ -1,9 +1,15 @@
-import { lazy } from 'react'
+import { lazy, useState, useEffect, startTransition } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { SidebarProvider } from './components/ui/sidebar'
 import { AppSidebar } from './components/AppSidebar'
 import { MainContent } from './components/MainContent'
+import ChatContainer from './components/Chat/ChatContainer'
+import CommandPalette from './components/CommandPalette'
+import AICommandCenter from './components/AICommandCenter'
+import { useAICommandCenter } from './hooks/useAICommandCenter'
+import { useAuthStore } from './store/auth'
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts'
 import {
   withAidSuspense,
   withDonationsSuspense,
@@ -21,6 +27,9 @@ import {
 // Login page (no protection needed)
 const Login = lazy(() => import('./pages/Login'))
 const NotFound = lazy(() => import('./pages/NotFound'))
+
+// Dashboard
+const DashboardIndex = lazy(() => import('./pages/dashboard/Index'))
 
 // Donations
 const DonationsList = lazy(() => import('./pages/donations/List'))
@@ -65,16 +74,6 @@ const AddressLabels = lazy(() => import('./pages/scholarship/AddressLabels'))
 const ScholarshipDataControl = lazy(() => import('./pages/scholarship/DataControl'))
 const ScholarshipModuleInfo = lazy(() => import('./pages/scholarship/ModuleInfo'))
 
-// Dashboard
-const DashboardIndex = lazy(() => import('./pages/dashboard/Index'))
-
-// Supabase Test & Demo
-const SupabaseTest = lazy(() => import('./components/SupabaseTest'))
-const RelatedRecords = lazy(() => import('./pages/demo/RelatedRecords'))
-
-// Test pages
-const ErrorHandlingTest = lazy(() => import('./pages/test/ErrorHandlingTest'))
-
 // Aid
 const AidIndex = lazy(() => import('./pages/aid/Index'))
 const Beneficiaries = lazy(() => import('./pages/aid/Beneficiaries'))
@@ -108,10 +107,6 @@ const LocalIPs = lazy(() => import('./pages/system/LocalIPs'))
 const IPBlocking = lazy(() => import('./pages/system/IPBlocking'))
 const UserManagement = lazy(() => import('./pages/system/UserManagement'))
 
-
-
-
-
 // Meetings
 const MeetingsIndex = lazy(() => import('./pages/meetings/Index'))
 
@@ -143,502 +138,218 @@ const Translations = lazy(() => import('./pages/definitions/Translations'))
 const GeneralSettings = lazy(() => import('./pages/definitions/GeneralSettings'))
 const DefinitionsModuleInfo = lazy(() => import('./pages/definitions/ModuleInfo'))
 
+// Test pages
+const SupabaseTest = lazy(() => import('./components/SupabaseTest'))
+const RelatedRecords = lazy(() => import('./pages/demo/RelatedRecords'))
+const ErrorHandlingTest = lazy(() => import('./pages/test/ErrorHandlingTest'))
+
+// Protected Layout Component - sidebar ile korumalı sayfalar
+function ProtectedAppLayout() {
+  const [isChatOpen, setIsChatOpen] = useState(false)
+  const [isCmdOpen, setIsCmdOpen] = useState(false)
+  const { user } = useAuthStore()
+  
+  const {
+    isOpen: isAIOpen,
+    openCommandCenter,
+    closeCommandCenter,
+    actionContext,
+    userId
+  } = useAICommandCenter()
+
+  // Setup keyboard shortcuts
+  useKeyboardShortcuts({
+    onSearch: () => {
+      // Search is handled in HeaderActions
+    },
+    onCloseModal: () => {
+      if (isAIOpen) closeCommandCenter()
+      if (isCmdOpen) setIsCmdOpen(false)
+    }
+  })
+
+  useEffect(() => {
+    const open = () => {
+      startTransition(() => {
+        setIsCmdOpen(true)
+      })
+    }
+    window.addEventListener('open-command-palette', open as any)
+    return () => window.removeEventListener('open-command-palette', open as any)
+  }, [])
+
+  const toggleChat = () => {
+    startTransition(() => {
+      setIsChatOpen(!isChatOpen)
+    })
+  }
+
+  return (
+    <SidebarProvider defaultOpen={false}>
+      <AppSidebar />
+      <MainContent>
+        <Routes>
+          {/* Dashboard */}
+          <Route path="/" element={withDashboardSuspense(DashboardIndex)} />
+          
+          {/* Donations routes */}
+          <Route path="/donations" element={withDonationsSuspense(DonationsList)} />
+          <Route path="/donations/vault" element={withDonationsSuspense(DonationVault)} />
+          <Route path="/donations/institutions" element={withDonationsSuspense(Institutions)} />
+          <Route path="/donations/cash" element={withDonationsSuspense(CashDonations)} />
+          <Route path="/donations/bank" element={withDonationsSuspense(BankDonations)} />
+          <Route path="/donations/credit-card" element={withDonationsSuspense(CreditCardDonations)} />
+          <Route path="/donations/online" element={withDonationsSuspense(OnlineDonations)} />
+          <Route path="/donations/numbers" element={withDonationsSuspense(DonationNumbers)} />
+          <Route path="/donations/funding-definitions" element={withDonationsSuspense(FundingDefinitions)} />
+          <Route path="/donations/sacrifice-periods" element={withDonationsSuspense(SacrificePeriods)} />
+          <Route path="/donations/sacrifice-shares" element={withDonationsSuspense(SacrificeShares)} />
+          <Route path="/donations/ramadan-periods" element={withDonationsSuspense(RamadanPeriods)} />
+          <Route path="/donations/piggy-bank" element={withDonationsSuspense(PiggyBankTracking)} />
+          <Route path="/donations/piggy-bank-tracking" element={withDonationsSuspense(PiggyBankTracking)} />
+          <Route path="/donations/bulk-provisioning" element={withDonationsSuspense(BulkProvisioning)} />
+          
+          {/* Messages routes */}
+          <Route path="/messages" element={withMessagesSuspense(MessagesIndex)} />
+          <Route path="/messages/bulk-send" element={withMessagesSuspense(BulkSend)} />
+          <Route path="/messages/groups" element={withMessagesSuspense(Groups)} />
+          <Route path="/messages/templates" element={withMessagesSuspense(Templates)} />
+          <Route path="/messages/sms-deliveries" element={withMessagesSuspense(SmsDeliveries)} />
+          <Route path="/messages/email-deliveries" element={withMessagesSuspense(EmailDeliveries)} />
+          <Route path="/messages/analytics" element={withMessagesSuspense(Analytics)} />
+          <Route path="/messages/module-info" element={withMessagesSuspense(MessageModuleInfo)} />
+          
+          {/* Scholarship routes */}
+          <Route path="/scholarship" element={withScholarshipSuspense(ScholarshipIndex)} />
+          <Route path="/scholarship/orphans-students" element={withScholarshipSuspense(OrphansStudents)} />
+          <Route path="/scholarship/reports" element={withScholarshipSuspense(ScholarshipReports)} />
+          <Route path="/scholarship/visual-management" element={withScholarshipSuspense(VisualManagement)} />
+          <Route path="/scholarship/definitions" element={withScholarshipSuspense(ScholarshipDefinitions)} />
+          <Route path="/scholarship/tracking-categories" element={withScholarshipSuspense(TrackingCategories)} />
+          <Route path="/scholarship/orphan-form" element={withScholarshipSuspense(OrphanForm)} />
+          <Route path="/scholarship/orphan-letters" element={withScholarshipSuspense(OrphanLetters)} />
+          <Route path="/scholarship/campaigns" element={withScholarshipSuspense(ScholarshipCampaigns)} />
+          <Route path="/scholarship/schools" element={withScholarshipSuspense(Schools)} />
+          <Route path="/scholarship/form-definitions" element={withScholarshipSuspense(FormDefinitions)} />
+          <Route path="/scholarship/price-definitions" element={withScholarshipSuspense(PriceDefinitions)} />
+          <Route path="/scholarship/address-labels" element={withScholarshipSuspense(AddressLabels)} />
+          <Route path="/scholarship/data-control" element={withScholarshipSuspense(ScholarshipDataControl)} />
+          <Route path="/scholarship/module-info" element={withScholarshipSuspense(ScholarshipModuleInfo)} />
+          
+          {/* Aid routes */}
+          <Route path="/aid" element={withAidSuspense(AidIndex)} />
+          <Route path="/aid/beneficiaries" element={withAidSuspense(Beneficiaries)} />
+          <Route path="/aid/beneficiaries/:id" element={withAidSuspense(BeneficiariesDetail)} />
+          <Route path="/aid/reports" element={withAidSuspense(Reports)} />
+          <Route path="/aid/applications" element={withAidSuspense(Applications)} />
+          <Route path="/aid/cash-vault" element={withAidSuspense(CashVault)} />
+          <Route path="/aid/bank-orders" element={withAidSuspense(BankOrders)} />
+          <Route path="/aid/cash-operations" element={withAidSuspense(CashOperations)} />
+          <Route path="/aid/in-kind-operations" element={withAidSuspense(InKindOperations)} />
+          <Route path="/aid/service-tracking" element={withAidSuspense(ServiceTracking)} />
+          <Route path="/aid/hospital-referrals" element={withAidSuspense(HospitalReferrals)} />
+          <Route path="/aid/parameters" element={withAidSuspense(Parameters)} />
+          <Route path="/aid/data-control" element={withAidSuspense(DataControl)} />
+          <Route path="/aid/module-info" element={withAidSuspense(ModuleInfo)} />
+          
+          {/* Fund routes */}
+          <Route path="/fund/movements" element={withFundSuspense(FundMovements)} />
+          <Route path="/fund/complete-report" element={withFundSuspense(CompleteReport)} />
+          <Route path="/fund/regions" element={withFundSuspense(FundRegions)} />
+          <Route path="/fund/work-areas" element={withFundSuspense(WorkAreas)} />
+          <Route path="/fund/definitions" element={withFundSuspense(FundDefinitions)} />
+          <Route path="/fund/activity-definitions" element={withFundSuspense(ActivityDefinitions)} />
+          <Route path="/fund/sources-expenses" element={withFundSuspense(SourcesExpenses)} />
+          <Route path="/fund/aid-categories" element={withFundSuspense(AidCategories)} />
+          
+          {/* System routes */}
+          <Route path="/system/warning-messages" element={withSystemSuspense(WarningMessages)} />
+          <Route path="/system/structural-controls" element={withSystemSuspense(StructuralControls)} />
+          <Route path="/system/local-ips" element={withSystemSuspense(LocalIPs)} />
+          <Route path="/system/ip-blocking" element={withSystemSuspense(IPBlocking)} />
+          <Route path="/system/user-management" element={withSystemSuspense(UserManagement)} />
+          
+          {/* Definitions routes */}
+          <Route path="/definitions" element={withDefinitionsSuspense(DefinitionsIndex)} />
+          <Route path="/definitions/unit-roles" element={withDefinitionsSuspense(UnitRoles)} />
+          <Route path="/definitions/units" element={withDefinitionsSuspense(Units)} />
+          <Route path="/definitions/user-accounts" element={withDefinitionsSuspense(UserAccounts)} />
+          <Route path="/definitions/permission-groups" element={withDefinitionsSuspense(PermissionGroupsClean)} />
+          <Route path="/definitions/buildings" element={withDefinitionsSuspense(Buildings)} />
+          <Route path="/definitions/internal-lines" element={withDefinitionsSuspense(InternalLines)} />
+          <Route path="/definitions/process-flows" element={withDefinitionsSuspense(ProcessFlows)} />
+          <Route path="/definitions/passport-formats" element={withDefinitionsSuspense(PassportFormats)} />
+          <Route path="/definitions/countries-cities" element={withDefinitionsSuspense(CountriesCities)} />
+          <Route path="/definitions/institution-types" element={withDefinitionsSuspense(InstitutionTypes)} />
+          <Route path="/definitions/institution-status" element={withDefinitionsSuspense(InstitutionStatus)} />
+          <Route path="/definitions/donation-methods" element={withDefinitionsSuspense(DonationMethods)} />
+          <Route path="/definitions/delivery-types" element={withDefinitionsSuspense(DeliveryTypes)} />
+          <Route path="/definitions/meeting-requests" element={withDefinitionsSuspense(MeetingRequests)} />
+          <Route path="/definitions/gsm-codes" element={withDefinitionsSuspense(GSMCodes)} />
+          <Route path="/definitions/interface-languages" element={withDefinitionsSuspense(InterfaceLanguages)} />
+          <Route path="/definitions/translations" element={withDefinitionsSuspense(Translations)} />
+          <Route path="/definitions/general-settings" element={withDefinitionsSuspense(GeneralSettings)} />
+          <Route path="/definitions/module-info" element={withDefinitionsSuspense(DefinitionsModuleInfo)} />
+          
+          {/* Meetings */}
+          <Route path="/meetings" element={withMeetingsSuspense(MeetingsIndex, 'dashboard')} />
+          
+          {/* Internal Messages */}
+          <Route path="/internal-messages" element={withInternalMessagesSuspense(InternalMessagesIndex, 'dashboard')} />
+          
+          {/* Tasks */}
+          <Route path="/tasks" element={withTasksSuspense(TasksIndex, 'dashboard')} />
+
+          {/* Test routes */}
+          <Route path="/supabase-test" element={withSystemSuspense(SupabaseTest)} />
+          <Route path="/demo/related-records" element={withSystemSuspense(RelatedRecords)} />
+          <Route path="/test/error-handling" element={withSystemSuspense(ErrorHandlingTest)} />
+        </Routes>
+      </MainContent>
+
+      {/* Chat System - sadece authenticated kullanıcılar için */}
+      {user && (
+        <ChatContainer
+          currentUserId={user.id}
+          isOpen={isChatOpen}
+          onToggle={toggleChat}
+        />
+      )}
+
+      {/* Command Palette */}
+      <CommandPalette
+        isOpen={isCmdOpen}
+        onClose={() => setIsCmdOpen(false)}
+        toggleChat={toggleChat}
+        onOpenAICenter={openCommandCenter}
+      />
+
+      {/* AI Command Center */}
+      <AICommandCenter
+        isOpen={isAIOpen}
+        onClose={closeCommandCenter}
+        context={actionContext}
+        userId={userId}
+      />
+    </SidebarProvider>
+  )
+}
+
 function AppRoutes() {
   return (
     <Routes>
-      {/* Login route */}
+      {/* Login route - No sidebar/layout */}
       <Route path="/login" element={<Login />} />
       
-      {/* Dashboard */}
-      <Route path="/" element={
-        <ProtectedRoute>
-          {withDashboardSuspense(DashboardIndex)}
-        </ProtectedRoute>
-      } />
+      {/* Not Found - No sidebar/layout */}
+      <Route path="/404" element={<NotFound />} />
       
-      {/* Donations routes */}
-      <Route path="/donations" element={
+      {/* All protected routes with sidebar layout */}
+      <Route path="/*" element={
         <ProtectedRoute>
-          {withDonationsSuspense(DonationsList)}
+          <ProtectedAppLayout />
         </ProtectedRoute>
       } />
-      <Route path="/donations/vault" element={
-        <ProtectedRoute>
-          {withDonationsSuspense(DonationVault)}
-        </ProtectedRoute>
-      } />
-      <Route path="/donations/institutions" element={
-        <ProtectedRoute>
-          {withDonationsSuspense(Institutions)}
-        </ProtectedRoute>
-      } />
-      <Route path="/donations/cash" element={
-        <ProtectedRoute>
-          {withDonationsSuspense(CashDonations)}
-        </ProtectedRoute>
-      } />
-      <Route path="/donations/bank" element={
-        <ProtectedRoute>
-          {withDonationsSuspense(BankDonations)}
-        </ProtectedRoute>
-      } />
-      <Route path="/donations/credit-card" element={
-        <ProtectedRoute>
-          {withDonationsSuspense(CreditCardDonations)}
-        </ProtectedRoute>
-      } />
-      <Route path="/donations/online" element={
-        <ProtectedRoute>
-          {withDonationsSuspense(OnlineDonations)}
-        </ProtectedRoute>
-      } />
-      <Route path="/donations/numbers" element={
-        <ProtectedRoute>
-          {withDonationsSuspense(DonationNumbers)}
-        </ProtectedRoute>
-      } />
-      <Route path="/donations/funding-definitions" element={
-        <ProtectedRoute>
-          {withDonationsSuspense(FundingDefinitions)}
-        </ProtectedRoute>
-      } />
-      <Route path="/donations/sacrifice-periods" element={
-        <ProtectedRoute>
-          {withDonationsSuspense(SacrificePeriods)}
-        </ProtectedRoute>
-      } />
-      <Route path="/donations/sacrifice-shares" element={
-        <ProtectedRoute>
-          {withDonationsSuspense(SacrificeShares)}
-        </ProtectedRoute>
-      } />
-      <Route path="/donations/ramadan-periods" element={
-        <ProtectedRoute>
-          {withDonationsSuspense(RamadanPeriods)}
-        </ProtectedRoute>
-      } />
-      <Route path="/donations/piggy-bank" element={
-        <ProtectedRoute>
-          {withDonationsSuspense(PiggyBankTracking)}
-        </ProtectedRoute>
-      } />
-      <Route path="/donations/piggy-bank-tracking" element={
-        <ProtectedRoute>
-          {withDonationsSuspense(PiggyBankTracking)}
-        </ProtectedRoute>
-      } />
-      <Route path="/donations/bulk-provisioning" element={
-        <ProtectedRoute>
-          {withDonationsSuspense(BulkProvisioning)}
-        </ProtectedRoute>
-      } />
-      
-      {/* Messages routes */}
-      <Route path="/messages" element={
-        <ProtectedRoute>
-          {withMessagesSuspense(MessagesIndex)}
-        </ProtectedRoute>
-      } />
-      <Route path="/messages/bulk-send" element={
-        <ProtectedRoute>
-          {withMessagesSuspense(BulkSend)}
-        </ProtectedRoute>
-      } />
-      <Route path="/messages/groups" element={
-        <ProtectedRoute>
-          {withMessagesSuspense(Groups)}
-        </ProtectedRoute>
-      } />
-      <Route path="/messages/templates" element={
-        <ProtectedRoute>
-          {withMessagesSuspense(Templates)}
-        </ProtectedRoute>
-      } />
-      <Route path="/messages/sms-deliveries" element={
-        <ProtectedRoute>
-          {withMessagesSuspense(SmsDeliveries)}
-        </ProtectedRoute>
-      } />
-      <Route path="/messages/email-deliveries" element={
-        <ProtectedRoute>
-          {withMessagesSuspense(EmailDeliveries)}
-        </ProtectedRoute>
-      } />
-      <Route path="/messages/analytics" element={
-        <ProtectedRoute>
-          {withMessagesSuspense(Analytics)}
-        </ProtectedRoute>
-      } />
-      <Route path="/messages/module-info" element={
-        <ProtectedRoute>
-          {withMessagesSuspense(MessageModuleInfo)}
-        </ProtectedRoute>
-      } />
-      
-      {/* Scholarship routes */}
-      <Route path="/scholarship" element={
-        <ProtectedRoute>
-          {withScholarshipSuspense(ScholarshipIndex)}
-        </ProtectedRoute>
-      } />
-      <Route path="/scholarship/orphans-students" element={
-        <ProtectedRoute>
-          {withScholarshipSuspense(OrphansStudents)}
-        </ProtectedRoute>
-      } />
-      <Route path="/scholarship/reports" element={
-        <ProtectedRoute>
-          {withScholarshipSuspense(ScholarshipReports)}
-        </ProtectedRoute>
-      } />
-      <Route path="/scholarship/visual-management" element={
-        <ProtectedRoute>
-          {withScholarshipSuspense(VisualManagement)}
-        </ProtectedRoute>
-      } />
-      <Route path="/scholarship/definitions" element={
-        <ProtectedRoute>
-          {withScholarshipSuspense(ScholarshipDefinitions)}
-        </ProtectedRoute>
-      } />
-      <Route path="/scholarship/tracking-categories" element={
-        <ProtectedRoute>
-          {withScholarshipSuspense(TrackingCategories)}
-        </ProtectedRoute>
-      } />
-      <Route path="/scholarship/orphan-form" element={
-        <ProtectedRoute>
-          {withScholarshipSuspense(OrphanForm)}
-        </ProtectedRoute>
-      } />
-      <Route path="/scholarship/orphan-letters" element={
-        <ProtectedRoute>
-          {withScholarshipSuspense(OrphanLetters)}
-        </ProtectedRoute>
-      } />
-      <Route path="/scholarship/campaigns" element={
-        <ProtectedRoute>
-          {withScholarshipSuspense(ScholarshipCampaigns)}
-        </ProtectedRoute>
-      } />
-      <Route path="/scholarship/schools" element={
-        <ProtectedRoute>
-          {withScholarshipSuspense(Schools)}
-        </ProtectedRoute>
-      } />
-      <Route path="/scholarship/form-definitions" element={
-        <ProtectedRoute>
-          {withScholarshipSuspense(FormDefinitions)}
-        </ProtectedRoute>
-      } />
-      <Route path="/scholarship/price-definitions" element={
-        <ProtectedRoute>
-          {withScholarshipSuspense(PriceDefinitions)}
-        </ProtectedRoute>
-      } />
-      <Route path="/scholarship/address-labels" element={
-        <ProtectedRoute>
-          {withScholarshipSuspense(AddressLabels)}
-        </ProtectedRoute>
-      } />
-      <Route path="/scholarship/data-control" element={
-        <ProtectedRoute>
-          {withScholarshipSuspense(ScholarshipDataControl)}
-        </ProtectedRoute>
-      } />
-      <Route path="/scholarship/module-info" element={
-        <ProtectedRoute>
-          {withScholarshipSuspense(ScholarshipModuleInfo)}
-        </ProtectedRoute>
-      } />
-      
-      {/* Aid routes */}
-      <Route path="/aid" element={
-        <ProtectedRoute>
-          {withAidSuspense(AidIndex)}
-        </ProtectedRoute>
-      } />
-      <Route path="/aid/beneficiaries" element={
-        <ProtectedRoute>
-          {withAidSuspense(Beneficiaries)}
-        </ProtectedRoute>
-      } />
-      <Route path="/aid/beneficiaries/:id" element={
-        <ProtectedRoute>
-          {withAidSuspense(BeneficiariesDetail)}
-        </ProtectedRoute>
-      } />
-      <Route path="/aid/reports" element={
-        <ProtectedRoute>
-          {withAidSuspense(Reports)}
-        </ProtectedRoute>
-      } />
-      <Route path="/aid/applications" element={
-        <ProtectedRoute>
-          {withAidSuspense(Applications)}
-        </ProtectedRoute>
-      } />
-      <Route path="/aid/cash-vault" element={
-        <ProtectedRoute>
-          {withAidSuspense(CashVault)}
-        </ProtectedRoute>
-      } />
-      <Route path="/aid/bank-orders" element={
-        <ProtectedRoute>
-          {withAidSuspense(BankOrders)}
-        </ProtectedRoute>
-      } />
-      <Route path="/aid/cash-operations" element={
-        <ProtectedRoute>
-          {withAidSuspense(CashOperations)}
-        </ProtectedRoute>
-      } />
-      <Route path="/aid/in-kind-operations" element={
-        <ProtectedRoute>
-          {withAidSuspense(InKindOperations)}
-        </ProtectedRoute>
-      } />
-      <Route path="/aid/service-tracking" element={
-        <ProtectedRoute>
-          {withAidSuspense(ServiceTracking)}
-        </ProtectedRoute>
-      } />
-      <Route path="/aid/hospital-referrals" element={
-        <ProtectedRoute>
-          {withAidSuspense(HospitalReferrals)}
-        </ProtectedRoute>
-      } />
-      <Route path="/aid/parameters" element={
-        <ProtectedRoute>
-          {withAidSuspense(Parameters)}
-        </ProtectedRoute>
-      } />
-      <Route path="/aid/data-control" element={
-        <ProtectedRoute>
-          {withAidSuspense(DataControl)}
-        </ProtectedRoute>
-      } />
-      <Route path="/aid/module-info" element={
-        <ProtectedRoute>
-          {withAidSuspense(ModuleInfo)}
-        </ProtectedRoute>
-      } />
-      
-      {/* Fund routes */}
-      <Route path="/fund/movements" element={
-        <ProtectedRoute>
-          {withFundSuspense(FundMovements)}
-        </ProtectedRoute>
-      } />
-      <Route path="/fund/complete-report" element={
-        <ProtectedRoute>
-          {withFundSuspense(CompleteReport)}
-        </ProtectedRoute>
-      } />
-      <Route path="/fund/regions" element={
-        <ProtectedRoute>
-          {withFundSuspense(FundRegions)}
-        </ProtectedRoute>
-      } />
-      <Route path="/fund/work-areas" element={
-        <ProtectedRoute>
-          {withFundSuspense(WorkAreas)}
-        </ProtectedRoute>
-      } />
-      <Route path="/fund/definitions" element={
-        <ProtectedRoute>
-          {withFundSuspense(FundDefinitions)}
-        </ProtectedRoute>
-      } />
-      <Route path="/fund/activity-definitions" element={
-        <ProtectedRoute>
-          {withFundSuspense(ActivityDefinitions)}
-        </ProtectedRoute>
-      } />
-      <Route path="/fund/sources-expenses" element={
-        <ProtectedRoute>
-          {withFundSuspense(SourcesExpenses)}
-        </ProtectedRoute>
-      } />
-      <Route path="/fund/aid-categories" element={
-        <ProtectedRoute>
-          {withFundSuspense(AidCategories)}
-        </ProtectedRoute>
-      } />
-      
-      {/* System routes */}
-      <Route path="/system/warning-messages" element={
-        <ProtectedRoute>
-          {withSystemSuspense(WarningMessages)}
-        </ProtectedRoute>
-      } />
-      <Route path="/system/structural-controls" element={
-        <ProtectedRoute>
-          {withSystemSuspense(StructuralControls)}
-        </ProtectedRoute>
-      } />
-      <Route path="/system/local-ips" element={
-        <ProtectedRoute>
-          {withSystemSuspense(LocalIPs)}
-        </ProtectedRoute>
-      } />
-      <Route path="/system/ip-blocking" element={
-        <ProtectedRoute>
-          {withSystemSuspense(IPBlocking)}
-        </ProtectedRoute>
-      } />
-      <Route path="/system/user-management" element={
-        <ProtectedRoute>
-          {withSystemSuspense(UserManagement)}
-        </ProtectedRoute>
-      } />
-      
-      {/* Definitions routes */}
-      <Route path="/definitions" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(DefinitionsIndex)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/unit-roles" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(UnitRoles)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/units" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(Units)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/user-accounts" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(UserAccounts)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/permission-groups" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(PermissionGroupsClean)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/buildings" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(Buildings)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/internal-lines" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(InternalLines)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/process-flows" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(ProcessFlows)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/passport-formats" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(PassportFormats)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/countries-cities" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(CountriesCities)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/institution-types" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(InstitutionTypes)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/institution-status" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(InstitutionStatus)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/donation-methods" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(DonationMethods)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/delivery-types" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(DeliveryTypes)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/meeting-requests" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(MeetingRequests)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/gsm-codes" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(GSMCodes)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/interface-languages" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(InterfaceLanguages)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/translations" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(Translations)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/general-settings" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(GeneralSettings)}
-        </ProtectedRoute>
-      } />
-      <Route path="/definitions/module-info" element={
-        <ProtectedRoute>
-          {withDefinitionsSuspense(DefinitionsModuleInfo)}
-        </ProtectedRoute>
-      } />
-      
-      {/* Meetings */}
-      <Route path="/meetings" element={
-        <ProtectedRoute>
-          {withMeetingsSuspense(MeetingsIndex, 'dashboard')}
-        </ProtectedRoute>
-      } />
-      
-      {/* Internal Messages */}
-      <Route path="/internal-messages" element={
-        <ProtectedRoute>
-          {withInternalMessagesSuspense(InternalMessagesIndex, 'dashboard')}
-        </ProtectedRoute>
-      } />
-      
-      {/* Tasks */}
-      <Route path="/tasks" element={
-        <ProtectedRoute>
-          {withTasksSuspense(TasksIndex, 'dashboard')}
-        </ProtectedRoute>
-      } />
-      
-
-      <Route path="/supabase-test" element={
-        <ProtectedRoute>
-          {withSystemSuspense(SupabaseTest)}
-        </ProtectedRoute>
-      } />
-
-      {/* Demo routes */}
-      <Route path="/demo/related-records" element={
-        <ProtectedRoute>
-          {withSystemSuspense(RelatedRecords)}
-        </ProtectedRoute>
-      } />
-
-      {/* Test routes */}
-      <Route path="/test/error-handling" element={
-        <ProtectedRoute>
-          {withSystemSuspense(ErrorHandlingTest)}
-        </ProtectedRoute>
-      } />
-
-      {/* Catch-all route for 404 errors */}
-      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }
