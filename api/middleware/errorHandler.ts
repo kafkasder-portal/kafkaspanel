@@ -155,10 +155,10 @@ export const handleUncaughtException = () => {
  */
 export const performanceMonitor = (req: Request, res: Response, next: NextFunction) => {
   const startTime = Date.now();
-  
+
   res.on('finish', () => {
     const duration = Date.now() - startTime;
-    
+
     // Log slow requests (> 1 second)
     if (duration > 1000) {
       console.warn('Slow request detected:', {
@@ -168,7 +168,7 @@ export const performanceMonitor = (req: Request, res: Response, next: NextFuncti
         requestId: req.headers['x-request-id']
       });
     }
-    
+
     // Log request metrics
     if (process.env.NODE_ENV === 'development') {
       console.log('Request completed:', {
@@ -180,6 +180,9 @@ export const performanceMonitor = (req: Request, res: Response, next: NextFuncti
       });
     }
   });
-  
+
   next();
 };
+
+// Main error handler export
+export const errorHandler = globalErrorHandler;
