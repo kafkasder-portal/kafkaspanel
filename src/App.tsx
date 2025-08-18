@@ -132,7 +132,7 @@ function AppContent({
   setShowOnboarding: (show: boolean) => void
 }) {
   return (
-    <SidebarProvider defaultOpen={true}>
+    <SidebarProvider defaultOpen={false}>
       <AppLayout />
       
       {/* Onboarding */}
