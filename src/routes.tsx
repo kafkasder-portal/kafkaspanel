@@ -69,6 +69,9 @@ const DashboardIndex = lazy(() => import('./pages/dashboard/Index'))
 const SupabaseTest = lazy(() => import('./components/SupabaseTest'))
 const RelatedRecords = lazy(() => import('./pages/demo/RelatedRecords'))
 
+// Test pages
+const ErrorHandlingTest = lazy(() => import('./pages/test/ErrorHandlingTest'))
+
 // Aid
 const AidIndex = lazy(() => import('./pages/aid/Index'))
 const Beneficiaries = lazy(() => import('./pages/aid/Beneficiaries'))
