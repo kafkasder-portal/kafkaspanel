@@ -75,6 +75,7 @@ app.use('/api/messages', messagesRoutes);
 app.use('/api/tasks', tasksRoutes);
 app.use('/api/donations', donationsRoutes);
 app.use('/api/financial', financialRoutes);
+app.use('/api/payments', paymentsRoutes);
 app.use('/api/errors', errorsRoutes);
 
 // 404 handler
