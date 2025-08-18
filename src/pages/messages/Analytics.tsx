@@ -350,24 +350,24 @@ export default function MessageAnalytics() {
       </div>
 
       {/* Top Performing Templates */}
-      <div className="bg-white rounded-lg border">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900">En Başarılı Şablonlar</h3>
+      <div className="bg-card rounded-lg border border-border shadow-sm">
+        <div className="px-6 py-4 border-b border-border">
+          <h3 className="text-h3">En Başarılı Şablonlar</h3>
         </div>
         <div className="p-6">
           <div className="space-y-4">
             {analyticsData.topTemplates.map((template, index) => (
-              <div key={index} className="flex items-center justify-between p-4 hover:bg-gray-50 rounded-lg transition-colors">
+              <div key={index} className="flex items-center justify-between p-4 hover:bg-muted/50 rounded-lg transition-all duration-200">
                 <div className="flex items-center gap-4">
-                  <div className="text-lg font-bold text-gray-400">#{index + 1}</div>
+                  <div className="text-lg font-bold text-muted-foreground">#{index + 1}</div>
                   <div>
-                    <div className="font-medium text-gray-900">{template.name}</div>
-                    <div className="text-sm text-gray-600">{template.sent.toLocaleString()} gönderim</div>
+                    <div className="font-medium text-foreground">{template.name}</div>
+                    <div className="text-sm text-muted-foreground">{template.sent.toLocaleString()} gönderim</div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-lg font-bold text-green-600">%{template.openRate}</div>
-                  <div className="text-xs text-gray-500">açılma oranı</div>
+                  <div className="text-lg font-bold text-semantic-success">%{template.openRate}</div>
+                  <div className="text-xs text-muted-foreground">açılma oranı</div>
                 </div>
               </div>
             ))}
@@ -376,14 +376,14 @@ export default function MessageAnalytics() {
       </div>
 
       {/* Response Time Metric */}
-      <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6 rounded-lg">
+      <div className="bg-gradient-to-r from-brand-primary to-semantic-info text-white p-6 rounded-lg shadow-lg">
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-lg font-semibold mb-2">Ortalama Yanıt Süresi</h3>
             <div className="text-3xl font-bold">{analyticsData.avgResponseTime} saat</div>
-            <div className="text-blue-100 text-sm">Müşteri yanıt süresinde %15 iyileşme</div>
+            <div className="text-white/80 text-sm">Müşteri yanıt süresinde %15 iyileşme</div>
           </div>
-          <div className="p-4 bg-white bg-opacity-20 rounded-lg">
+          <div className="p-4 bg-white/20 rounded-lg backdrop-blur-sm">
             <Clock className="h-8 w-8" />
           </div>
         </div>
