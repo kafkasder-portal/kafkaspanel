@@ -122,19 +122,37 @@ const AppLayout = memo(function AppLayout() {
 })
 
 // Inner component that uses theme-dependent hooks
-function AppContent({ 
-  user, 
-  resetOnboarding, 
-  setShowOnboarding 
-}: { 
+function AppContent({
+  user,
+  resetOnboarding,
+  setShowOnboarding
+}: {
   user: any
   resetOnboarding: () => void
   setShowOnboarding: (show: boolean) => void
 }) {
   return (
-    <SidebarProvider defaultOpen={false}>
-      <AppLayout />
-      
+    <>
+      <ErrorBoundary level="page">
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+          </div>
+        }>
+          <AppRoutes />
+        </Suspense>
+      </ErrorBoundary>
+
+      {/* Global UI Components - sadece authenticated kullanıcılar için */}
+      <Toaster
+        position="top-right"
+        expand={true}
+        richColors
+        closeButton
+      />
+      <PWAPrompt />
+      <OfflineIndicator />
+
       {/* Onboarding */}
       <OnboardingModal
         isOpen={false} // Disabled for now
@@ -142,7 +160,7 @@ function AppContent({
         onComplete={() => {}}
         steps={onboardingSteps}
       />
-      
+
       {/* Development Tools */}
       {process.env.NODE_ENV === 'development' && (
         <OnboardingTestButton
@@ -150,7 +168,7 @@ function AppContent({
           onStart={() => setShowOnboarding(true)}
         />
       )}
-    </SidebarProvider>
+    </>
   )
 }
 
