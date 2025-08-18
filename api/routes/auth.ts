@@ -10,6 +10,20 @@ dotenv.config();
 
 const router = Router();
 
+// Validation schemas
+const registerSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+  full_name: z.string().min(1),
+  department: z.string().optional(),
+  phone: z.string().optional()
+});
+
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(1)
+});
+
 // Initialize Supabase client with service role key for admin operations
 const supabaseAdmin = createClient(
   process.env.SUPABASE_URL || 'https://demo.supabase.co',
