@@ -23,6 +23,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
+import { getErrorMessage, createOperationErrorMessage, logErrorSafely } from '../../utils/errorMessageUtils'
 import { AdvancedSearchModal } from '@components/AdvancedSearchModal'
 import {
   createApplicationsFilterConfig,
@@ -275,7 +276,7 @@ export default function Applications() {
       console.error('Başvuru kaydedilirken hata:', {
         message: error instanceof Error ? error.message : String(error)
       })
-      toast.error('Başvuru kaydedilirken hata oluştu')
+      toast.error('Ba��vuru kaydedilirken hata oluştu')
     }
   }
 
