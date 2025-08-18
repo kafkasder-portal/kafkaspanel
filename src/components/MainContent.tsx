@@ -1,7 +1,6 @@
 import React, { memo } from 'react'
-import { SidebarInset, SidebarTrigger } from './ui/sidebar'
-import { HeaderActions } from './HeaderActions'
-import { Separator } from './ui/separator'
+import { SidebarInset } from './ui/sidebar'
+import { MinimalHeader } from './MinimalHeader'
 import { useLocation } from 'react-router-dom'
 import { allPages } from '../constants/navigation'
 import { cn } from '../lib/utils'
@@ -34,34 +33,22 @@ const MainContent = memo(function MainContent({
 
   return (
     <SidebarInset>
-      {/* Header */}
-      <header className="flex h-16 shrink-0 items-center gap-2 border-b">
-        <div className="flex items-center gap-2 px-4 flex-1">
-          <SidebarTrigger className="-ml-1" />
-          
-          {showBreadcrumbs && currentPage && (
-            <>
-              <Separator orientation="vertical" className="mr-2 h-4" />
-              <div className="flex items-center gap-2">
-                <h1 className="font-semibold text-lg">{currentPage.title}</h1>
-                {currentPage.description && (
-                  <span className="text-sm text-muted-foreground hidden md:inline">
-                    {currentPage.description}
-                  </span>
-                )}
-              </div>
-            </>
-          )}
-        </div>
-        
-        <div className="px-4">
-          <HeaderActions />
-        </div>
-      </header>
+      {/* Minimal Header */}
+      <MinimalHeader />
 
       {/* Main Content */}
       <main className={cn("flex-1 overflow-auto", className)}>
-        <div className="container mx-auto p-4 lg:p-6">
+        {showBreadcrumbs && currentPage && (
+          <div className="border-b bg-muted/40 px-4 py-2">
+            <h1 className="text-sm font-medium">{currentPage.title}</h1>
+            {currentPage.description && (
+              <p className="text-xs text-muted-foreground mt-1">
+                {currentPage.description}
+              </p>
+            )}
+          </div>
+        )}
+        <div className="p-4">
           {children}
         </div>
       </main>
