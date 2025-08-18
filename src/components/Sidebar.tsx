@@ -159,7 +159,7 @@ export function Sidebar() {
               <NavLink
                 key={index}
                 to={item.path}
-                className="flex items-center gap-2 h-7 px-2 rounded-lg text-sm text-white hover:bg-gray-700 transition-all duration-150 ease-out"
+                className="flex items-center gap-2 h-7 px-2 rounded-lg text-sm text-sidebar-text hover:bg-sidebar-hover transition-all duration-150 ease-out sidebar-nav-item"
               >
                 <Icon className="w-4 h-4 flex-shrink-0" />
                 {!isCollapsed && (
