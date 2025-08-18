@@ -4,7 +4,10 @@ import { env, validateEnv } from './env'
 // Validate environment variables on import
 validateEnv()
 
-export const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
+export const supabase = createClient(
+  'https://ibqhfgpdgzrhvyfpgjxx.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImliemhmZ3BkZ3pyaHZ5ZnBnanh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDA1NjUwNzIsImV4cCI6MjAxNjE0MTA3Mn0.VNg3wJ5SJXRD5d7nKqVLjn5xMEF2QcB_dqwGbIvg1m4',
+  {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
