@@ -62,7 +62,7 @@ describe('ProtectedRoute Component', () => {
   })
 
   test('shows loading spinner when initializing', () => {
-    const { useAuthStore } = require('../store/auth')
+    const { useAuthStore } = require('../../store/auth')
     useAuthStore.mockReturnValue(createMockAuthStore({ 
       initializing: true 
     }))
@@ -80,7 +80,7 @@ describe('ProtectedRoute Component', () => {
   })
 
   test('shows loading spinner when checking auth', async () => {
-    const { useAuthStore } = require('../store/auth')
+    const { useAuthStore } = require('../../store/auth')
     useAuthStore.mockReturnValue(createMockAuthStore())
 
     render(
@@ -96,7 +96,7 @@ describe('ProtectedRoute Component', () => {
   })
 
   test('redirects to login when user is not authenticated', async () => {
-    const { useAuthStore } = require('../store/auth')
+    const { useAuthStore } = require('../../store/auth')
     useAuthStore.mockReturnValue(createMockAuthStore({
       user: null,
       session: null,
@@ -118,7 +118,7 @@ describe('ProtectedRoute Component', () => {
   })
 
   test('shows deactivated account message when user is inactive', async () => {
-    const { useAuthStore } = require('../store/auth')
+    const { useAuthStore } = require('../../store/auth')
     useAuthStore.mockReturnValue(createMockAuthStore({
       user: { id: '1', email: 'test@example.com' },
       session: { access_token: 'token' },
@@ -149,7 +149,7 @@ describe('ProtectedRoute Component', () => {
   })
 
   test('renders protected content when user is authenticated and active', async () => {
-    const { useAuthStore } = require('../store/auth')
+    const { useAuthStore } = require('../../store/auth')
     useAuthStore.mockReturnValue(createMockAuthStore({
       user: { id: '1', email: 'test@example.com' },
       session: { access_token: 'token' },
@@ -179,7 +179,7 @@ describe('ProtectedRoute Component', () => {
   })
 
   test('calls initialize when initializing is true', async () => {
-    const { useAuthStore } = require('../store/auth')
+    const { useAuthStore } = require('../../store/auth')
     useAuthStore.mockReturnValue(createMockAuthStore({
       initializing: true,
       initialize: mockInitialize
@@ -199,7 +199,7 @@ describe('ProtectedRoute Component', () => {
   })
 
   test('handles logout from deactivated account screen', async () => {
-    const { useAuthStore } = require('../store/auth')
+    const { useAuthStore } = require('../../store/auth')
     useAuthStore.mockReturnValue(createMockAuthStore({
       user: { id: '1', email: 'test@example.com' },
       session: { access_token: 'token' },
@@ -235,7 +235,7 @@ describe('ProtectedRoute Component', () => {
   })
 
   test('handles different user roles', async () => {
-    const { useAuthStore } = require('../store/auth')
+    const { useAuthStore } = require('../../store/auth')
     useAuthStore.mockReturnValue(createMockAuthStore({
       user: { id: '1', email: 'test@example.com' },
       session: { access_token: 'token' },
