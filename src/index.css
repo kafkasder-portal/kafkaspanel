@@ -1,6 +1,7 @@
-/* Import optimized color system */
-@import './styles/colors-optimized.css';
+/* Import enhanced color system */
+@import './styles/colors-enhanced.css';
 @import './styles/mobile-optimized.css';
+@import './styles/mobile-enhanced.css';
 
 @tailwind base;
 @tailwind components;
@@ -29,20 +30,24 @@
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
 
-    /* Modern Professional Sidebar Colors */
-    --sidebar-background: 220 13% 18%;
-    --sidebar-foreground: 220 9% 88%;
-    --sidebar-primary: 217 91% 60%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 14% 24%;
-    --sidebar-accent-foreground: 220 9% 88%;
-    --sidebar-border: 220 13% 22%;
-    --sidebar-ring: 217 91% 60%;
+    /* Modern Professional Sidebar Colors - Updated */
+    --sidebar-background: var(--sidebar-bg);
+    --sidebar-foreground: var(--sidebar-text);
+    --sidebar-primary: var(--sidebar-accent);
+    --sidebar-primary-foreground: var(--sidebar-text-active);
+    --sidebar-accent: var(--sidebar-bg-hover);
+    --sidebar-accent-foreground: var(--sidebar-text);
+    --sidebar-border: var(--sidebar-border);
+    --sidebar-ring: var(--sidebar-accent);
 
-    /* Legacy Compatibility - Point to new optimized colors */
-    --financial-primary: var(--brand-primary); /* Use new brand primary */
-    --financial-secondary: var(--financial-success); /* Map to success green */
-    --financial-accent: var(--financial-error); /* Map to error red */
+    /* Legacy Compatibility - Point to enhanced semantic colors */
+    --financial-primary: var(--brand-primary);
+    --financial-secondary: var(--semantic-success);
+    --financial-accent: var(--semantic-danger);
+    --financial-success: var(--semantic-success);
+    --financial-warning: var(--semantic-warning);
+    --financial-error: var(--semantic-danger);
+    --financial-info: var(--semantic-info);
 
     /* Legacy Financial Gray Scale - Point to neutral colors */
     --financial-gray-50: var(--neutral-50);
@@ -56,32 +61,32 @@
     --financial-gray-800: var(--neutral-800);
     --financial-gray-900: var(--neutral-900);
 
-    /* Legacy Status Colors - Point to new financial colors */
-    --status-success: var(--financial-success);
-    --status-warning: var(--financial-warning);
-    --status-error: var(--financial-error);
-    --status-info: var(--financial-info);
+    /* Legacy Status Colors - Point to enhanced semantic colors */
+    --status-success: var(--semantic-success);
+    --status-warning: var(--semantic-warning);
+    --status-error: var(--semantic-danger);
+    --status-info: var(--semantic-info);
     
-    /* Finansal Typography */
-    --font-financial-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-financial-mono: 'JetBrains Mono', 'Fira Code', 'Monaco', monospace;
-    
-    /* Font Sizes - Finansal Hiyerarşi */
-    --text-financial-xs: 0.75rem; /* 12px */
-    --text-financial-sm: 0.875rem; /* 14px */
-    --text-financial-base: 1rem; /* 16px */
-    --text-financial-lg: 1.125rem; /* 18px */
-    --text-financial-xl: 1.25rem; /* 20px */
-    --text-financial-2xl: 1.5rem; /* 24px */
-    --text-financial-3xl: 1.875rem; /* 30px */
-    --text-financial-4xl: 2.25rem; /* 36px */
-    
-    /* Line Heights */
-    --leading-financial-tight: 1.25;
-    --leading-financial-normal: 1.5;
-    --leading-financial-relaxed: 1.75;
-    
-    /* Letter Spacing */
+    /* Enhanced Typography - Pointing to new system */
+    --font-financial-primary: var(--font-family-sans);
+    --font-financial-mono: var(--font-family-mono);
+
+    /* Font Sizes - Enhanced Hierarchy */
+    --text-financial-xs: var(--font-size-xs);
+    --text-financial-sm: var(--font-size-sm);
+    --text-financial-base: var(--font-size-base);
+    --text-financial-lg: var(--font-size-lg);
+    --text-financial-xl: var(--font-size-xl);
+    --text-financial-2xl: var(--font-size-2xl);
+    --text-financial-3xl: var(--font-size-3xl);
+    --text-financial-4xl: var(--font-size-4xl);
+
+    /* Line Heights - Enhanced */
+    --leading-financial-tight: var(--line-height-tight);
+    --leading-financial-normal: var(--line-height-normal);
+    --leading-financial-relaxed: var(--line-height-relaxed);
+
+    /* Letter Spacing - Enhanced */
     --tracking-financial-tight: -0.025em;
     --tracking-financial-normal: 0em;
     --tracking-financial-wide: 0.025em;
