@@ -69,7 +69,7 @@ export const navigationItems: NavigationItem[] = [
     icon: Calendar,
     badge: undefined,
     subPages: [
-      { title: "Tüm Toplantılar", href: "/meetings", description: "Toplantı listesi" },
+      { title: "T��m Toplantılar", href: "/meetings", description: "Toplantı listesi" },
       { title: "Toplantı Planla", href: "/meetings/create", description: "Yeni toplantı oluştur" },
       { title: "Toplantı Takvimi", href: "/meetings/calendar", description: "Takvim görünümü" }
     ]
@@ -106,7 +106,24 @@ export const navigationItems: NavigationItem[] = [
       { title: "Yetim & Öğrenciler", href: "/scholarship", description: "Burs alan öğrenciler" },
       { title: "Burs Kampanyaları", href: "/scholarship/campaigns", description: "Burs kampanya yönetimi" },
       { title: "Okullar", href: "/scholarship/schools", description: "Okul kayıtları" },
-      { title: "Burs Raporları", href: "/scholarship/reports", description: "Burs analiz raporları" }
+      { title: "Burs Raporları", href: "/scholarship/reports", description: "Burs analiz raporları" },
+      { title: "Orphan Form", href: "/scholarship/orphan-form", description: "Yetim formu" },
+      { title: "Adres Etiketleri", href: "/scholarship/address-labels", description: "Adres etiketi yönetimi" }
+    ]
+  },
+  {
+    title: "Fon Yönetimi",
+    icon: Building2,
+    badge: undefined,
+    subPages: [
+      { title: "Fon Tanımları", href: "/fund/fund-definitions", description: "Fon kategori tanımları" },
+      { title: "Çalışma Alanları", href: "/fund/work-areas", description: "Fon çalışma alanları" },
+      { title: "Fon Hareketleri", href: "/fund/fund-movements", description: "Fon hareket kayıtları" },
+      { title: "Fon Bölgeleri", href: "/fund/fund-regions", description: "Bölgesel fon dağılımı" },
+      { title: "Yardım Kategorileri", href: "/fund/aid-categories", description: "Yardım kategori tanımları" },
+      { title: "Kaynak & Giderler", href: "/fund/sources-expenses", description: "Gelir gider yönetimi" },
+      { title: "Aktivite Tanımları", href: "/fund/activity-definitions", description: "Aktivite kategorileri" },
+      { title: "Tam Rapor", href: "/fund/complete-report", description: "Detaylı fon raporu" }
     ]
   }
 ]
