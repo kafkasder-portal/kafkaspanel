@@ -1,5 +1,6 @@
-/* Import enhanced color system */
+/* Import enhanced design system */
 @import './styles/colors-enhanced.css';
+@import './styles/typography-enhanced.css';
 @import './styles/mobile-optimized.css';
 @import './styles/mobile-enhanced.css';
 
