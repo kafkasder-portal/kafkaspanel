@@ -37,7 +37,7 @@ export const navigationItems: NavigationItem[] = [
     badge: undefined,
     subPages: [
       { title: "Genel Bakış", href: "/", description: "Ana sayfa ve özet bilgiler" },
-      { title: "Performans", href: "/performance", description: "Sistem performans metrikleri" },
+      { title: "Performans", href: "/system/performance", description: "Sistem performans metrikleri" },
       { title: "Aktivite Akışı", href: "/activity", description: "Son kullanıcı aktiviteleri" }
     ]
   },
