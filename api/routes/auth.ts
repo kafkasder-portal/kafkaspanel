@@ -1,7 +1,8 @@
 import { Router, type Request, type Response } from 'express';
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
-import { validate, schemas } from '../middleware/validation.js';
+import { validateRequest } from '../middleware/validation.js';
+import { z } from 'zod';
 import { generateCSRFToken } from '../middleware/security.js';
 import { asyncHandler } from '../middleware/errorHandler.js';
 
