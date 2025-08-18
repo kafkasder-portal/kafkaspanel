@@ -98,6 +98,21 @@ export const navigationItems: NavigationItem[] = [
     ]
   },
   {
+    title: "Mali Yönetim",
+    icon: Calculator,
+    badge: undefined,
+    subPages: [
+      { title: "Mali Panel", href: "/finance", description: "Mali durum özeti" },
+      { title: "Hesap Planı", href: "/finance/accounts", description: "Muhasebe hesap planı" },
+      { title: "Yevmiye Defteri", href: "/finance/journal", description: "Muhasebe kayıtları" },
+      { title: "Mali Raporlar", href: "/finance/reports", description: "Finansal raporlama" },
+      { title: "Bütçe Yönetimi", href: "/finance/budget", description: "Bütçe planlama ve takip" },
+      { title: "Hibe Yönetimi", href: "/finance/grants", description: "Hibe takip sistemi" },
+      { title: "Banka Mutabakatı", href: "/finance/reconciliation", description: "Banka hesap mutabakatı" },
+      { title: "Vergi Yönetimi", href: "/finance/tax", description: "Vergi belgeleri" }
+    ]
+  },
+  {
     title: "Mesajlaşma",
     icon: MessageSquare,
     badge: 12,
