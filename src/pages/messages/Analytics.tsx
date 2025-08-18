@@ -292,57 +292,57 @@ export default function MessageAnalytics() {
         </div>
 
         {/* Channel Performance */}
-        <div className="bg-white p-6 rounded-lg border">
+        <div className="bg-card p-6 rounded-lg border border-border shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">Kanal Performansı</h3>
-            <Target className="h-5 w-5 text-gray-400" />
+            <h3 className="text-h3">Kanal Performansı</h3>
+            <Target className="h-5 w-5 text-muted-foreground" />
           </div>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-green-50 rounded-lg">
+            <div className="flex items-center justify-between p-4 bg-semantic-success/5 rounded-lg border border-semantic-success/20">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-green-100 rounded-lg">
-                  <Smartphone className="h-5 w-5 text-green-600" />
+                <div className="p-2 bg-semantic-success/10 rounded-lg">
+                  <Smartphone className="h-5 w-5 text-semantic-success" />
                 </div>
                 <div>
-                  <div className="font-medium text-gray-900">SMS</div>
-                  <div className="text-sm text-gray-600">{analyticsData.channels.sms.count.toLocaleString()} mesaj</div>
+                  <div className="font-medium text-foreground">SMS</div>
+                  <div className="text-sm text-muted-foreground">{analyticsData.channels.sms.count.toLocaleString()} mesaj</div>
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-lg font-bold text-green-600">%{analyticsData.channels.sms.rate}</div>
-                <div className="text-xs text-green-600">başarı oranı</div>
+                <div className="text-lg font-bold text-semantic-success">%{analyticsData.channels.sms.rate}</div>
+                <div className="text-xs text-semantic-success/70">başarı oranı</div>
               </div>
             </div>
             
-            <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
+            <div className="flex items-center justify-between p-4 bg-brand-primary/5 rounded-lg border border-brand-primary/20">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  <Mail className="h-5 w-5 text-blue-600" />
+                <div className="p-2 bg-brand-primary/10 rounded-lg">
+                  <Mail className="h-5 w-5 text-brand-primary" />
                 </div>
                 <div>
-                  <div className="font-medium text-gray-900">E-posta</div>
-                  <div className="text-sm text-gray-600">{analyticsData.channels.email.count.toLocaleString()} mesaj</div>
+                  <div className="font-medium text-foreground">E-posta</div>
+                  <div className="text-sm text-muted-foreground">{analyticsData.channels.email.count.toLocaleString()} mesaj</div>
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-lg font-bold text-blue-600">%{analyticsData.channels.email.rate}</div>
-                <div className="text-xs text-blue-600">başarı oranı</div>
+                <div className="text-lg font-bold text-brand-primary">%{analyticsData.channels.email.rate}</div>
+                <div className="text-xs text-brand-primary/70">başarı oranı</div>
               </div>
             </div>
             
-            <div className="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
+            <div className="flex items-center justify-between p-4 bg-semantic-info/5 rounded-lg border border-semantic-info/20">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-purple-100 rounded-lg">
-                  <Users className="h-5 w-5 text-purple-600" />
+                <div className="p-2 bg-semantic-info/10 rounded-lg">
+                  <Users className="h-5 w-5 text-semantic-info" />
                 </div>
                 <div>
-                  <div className="font-medium text-gray-900">Bildirim</div>
-                  <div className="text-sm text-gray-600">{analyticsData.channels.notification.count.toLocaleString()} mesaj</div>
+                  <div className="font-medium text-foreground">Bildirim</div>
+                  <div className="text-sm text-muted-foreground">{analyticsData.channels.notification.count.toLocaleString()} mesaj</div>
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-lg font-bold text-purple-600">%{analyticsData.channels.notification.rate}</div>
-                <div className="text-xs text-purple-600">başarı oranı</div>
+                <div className="text-lg font-bold text-semantic-info">%{analyticsData.channels.notification.rate}</div>
+                <div className="text-xs text-semantic-info/70">başarı oranı</div>
               </div>
             </div>
           </div>
