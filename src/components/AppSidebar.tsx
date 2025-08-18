@@ -134,20 +134,18 @@ const AppSidebar = memo(function AppSidebar() {
                                 variant={location.pathname === subPage.href ? "secondary" : "ghost"}
                                 size="sm"
                                 className="w-full justify-start h-auto p-2"
-                                asChild
+                                onClick={() => window.location.href = subPage.href}
                               >
-                                <a href={subPage.href}>
-                                  <div className="grid gap-1 text-left">
-                                    <div className="font-medium text-sm">
-                                      {subPage.title}
-                                    </div>
-                                    {subPage.description && (
-                                      <div className="text-xs text-muted-foreground">
-                                        {subPage.description}
-                                      </div>
-                                    )}
+                                <div className="grid gap-1 text-left">
+                                  <div className="font-medium text-sm">
+                                    {subPage.title}
                                   </div>
-                                </a>
+                                  {subPage.description && (
+                                    <div className="text-xs text-muted-foreground">
+                                      {subPage.description}
+                                    </div>
+                                  )}
+                                </div>
                               </Button>
                             ))}
                           </div>
@@ -225,20 +223,18 @@ const AppSidebar = memo(function AppSidebar() {
                                 variant={location.pathname === subPage.href ? "secondary" : "ghost"}
                                 size="sm"
                                 className="w-full justify-start h-auto p-2"
-                                asChild
+                                onClick={() => window.location.href = subPage.href}
                               >
-                                <a href={subPage.href}>
-                                  <div className="grid gap-1 text-left">
-                                    <div className="font-medium text-sm">
-                                      {subPage.title}
-                                    </div>
-                                    {subPage.description && (
-                                      <div className="text-xs text-muted-foreground">
-                                        {subPage.description}
-                                      </div>
-                                    )}
+                                <div className="grid gap-1 text-left">
+                                  <div className="font-medium text-sm">
+                                    {subPage.title}
                                   </div>
-                                </a>
+                                  {subPage.description && (
+                                    <div className="text-xs text-muted-foreground">
+                                      {subPage.description}
+                                    </div>
+                                  )}
+                                </div>
                               </Button>
                             ))}
                           </div>
