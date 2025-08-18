@@ -135,7 +135,7 @@ const AppSidebar = memo(function AppSidebar() {
                                 variant={location.pathname === subPage.href ? "secondary" : "ghost"}
                                 size="sm"
                                 className="w-full justify-start h-auto p-2"
-                                onClick={() => window.location.href = subPage.href}
+                                onClick={() => navigate(subPage.href)}
                               >
                                 <div className="grid gap-1 text-left">
                                   <div className="font-medium text-sm">
@@ -224,7 +224,7 @@ const AppSidebar = memo(function AppSidebar() {
                                 variant={location.pathname === subPage.href ? "secondary" : "ghost"}
                                 size="sm"
                                 className="w-full justify-start h-auto p-2"
-                                onClick={() => window.location.href = subPage.href}
+                                onClick={() => navigate(subPage.href)}
                               >
                                 <div className="grid gap-1 text-left">
                                   <div className="font-medium text-sm">
