@@ -27,7 +27,7 @@ const loginSchema = z.object({
 // Initialize Supabase client with service role key for admin operations
 const supabaseAdmin = createClient(
   'https://ibqhfgpdgzrhvyfpgjxx.supabase.co',
-  process.env.SUPABASE_SERVICE_ROLE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImliemhmZ3BkZ3pyaHZ5ZnBnanh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDA1NjUwNzIsImV4cCI6MjAxNjE0MTA3Mn0.VNg3wJ5SJXRD5d7nKqVLjn5xMEF2QcB_dqwGbIvg1m4',
+  process.env.SUPABASE_SERVICE_ROLE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlicWhmZ3BkZ3pyaHZ5ZnBnanh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUxMDk3NDcsImV4cCI6MjA3MDY4NTc0N30.1vSikm9_Dn978BctKWXhoOfPCKztLaBNgr8OEIVIXNg',
   {
     auth: {
       autoRefreshToken: false,
