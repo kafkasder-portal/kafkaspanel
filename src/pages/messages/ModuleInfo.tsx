@@ -17,6 +17,7 @@ import {
   RefreshCw
 } from 'lucide-react'
 import { Modal } from '@components/Modal'
+import { Button } from '@components/ui/button-enhanced'
 
 interface ModuleFeature {
   id: string
@@ -193,17 +194,19 @@ export default function ModuleInfo() {
           <p className="text-gray-600 mt-1">Sistem modülleri ve özellikler hakkında detaylı bilgiler</p>
         </div>
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => setIsSystemModalOpen(true)}
-            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            <Info className="h-4 w-4" />
-            Sistem Bilgileri
-          </button>
-          <button className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
-            <Download className="h-4 w-4" />
-            Sistem Raporu
-          </button>
+          <Button
+          onClick={() => setIsSystemModalOpen(true)}
+          variant="info"
+          icon={<Info className="h-4 w-4" />}
+        >
+          Sistem Bilgileri
+        </Button>
+        <Button
+          variant="success"
+          icon={<Download className="h-4 w-4" />}
+        >
+          Sistem Raporu
+        </Button>
         </div>
       </div>
 
