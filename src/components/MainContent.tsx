@@ -39,7 +39,7 @@ const MainContent = memo(function MainContent({
       {/* Main Content */}
       <main className={cn("flex-1 overflow-auto", className)}>
         {showBreadcrumbs && currentPage && (
-          <div className="border-b bg-muted/40 px-4 py-2">
+          <div className="border-b bg-muted/40 px-6 py-3">
             <h1 className="text-sm font-medium">{currentPage.title}</h1>
             {currentPage.description && (
               <p className="text-xs text-muted-foreground mt-1">
@@ -48,7 +48,7 @@ const MainContent = memo(function MainContent({
             )}
           </div>
         )}
-        <div className="p-4">
+        <div className="p-6">
           {children}
         </div>
       </main>
