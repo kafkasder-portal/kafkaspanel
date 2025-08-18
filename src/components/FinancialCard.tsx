@@ -24,7 +24,7 @@ interface MiniChartProps {
   data: number[]
 }
 
-function MiniChart({ data }: MiniChartProps) {
+function MiniChart({ data, color }: MiniChartProps & { color?: string }) {
   const max = Math.max(...data)
   const min = Math.min(...data)
   const range = max - min || 1
@@ -43,7 +43,7 @@ function MiniChart({ data }: MiniChartProps) {
           stroke="currentColor"
           strokeWidth="2"
           points={points}
-          className="text-financial-success"
+          className={color || "text-financial-success"}
         />
       </svg>
     </div>
@@ -134,7 +134,7 @@ export function FinancialCard({
       `}>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
-          <div className="p-2 bg-financial-success/10 rounded-lg text-financial-success">
+          <div className={`p-2 rounded-lg ${variantColors.iconBg} ${variantColors.iconText}`}>
             {icon && React.createElement(icon, { className: "h-5 w-5" })}
           </div>
           <h3 className="text-sm font-medium text-foreground">{title}</h3>
@@ -156,7 +156,7 @@ export function FinancialCard({
       
       {trend && trend.length > 0 && (
         <div className="mt-4">
-          <MiniChart data={trend} />
+          <MiniChart data={trend} color={variantColors.chartColor} />
         </div>
       )}
     </div>
