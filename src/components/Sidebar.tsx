@@ -89,19 +89,19 @@ export function Sidebar() {
       } flex flex-col overflow-y-auto`}
     >
       {/* Company Header */}
-      <div className="flex items-center justify-center h-14 px-3 gap-2">
-        <button 
-          className="flex items-center justify-center w-7 h-7 bg-white rounded-lg"
+      <div className="flex items-center justify-center h-14 px-3 gap-2 border-b border-sidebar-border">
+        <button
+          className="flex items-center justify-center w-7 h-7 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
           onClick={() => setIsCollapsed(!isCollapsed)}
         >
-          <Building2 className="w-4 h-4 text-gray-800" />
+          <Building2 className="w-4 h-4" />
         </button>
         {!isCollapsed && (
           <div className="flex-1 grid">
-            <span className="text-sm font-medium text-white truncate">
-              Şirket Adı
+            <span className="text-sm font-medium text-sidebar-text truncate">
+              Dernek Paneli
             </span>
-            <span className="text-xs text-gray-400 truncate">
+            <span className="text-xs text-sidebar-text-muted truncate">
               Enterprise
             </span>
           </div>
