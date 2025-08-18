@@ -93,7 +93,7 @@ const AppSidebar = memo(function AppSidebar() {
                       <SidebarMenuButton
                         isActive={location.pathname === subPage.href}
                         className="text-sm pl-6"
-                        onClick={() => navigate(subPage.href)}
+                        onClick={() => startTransition(() => navigate(subPage.href))}
                       >
                         <div className="w-1.5 h-1.5 rounded-full bg-current opacity-60" />
                         <span className="truncate">{subPage.title}</span>
@@ -170,7 +170,7 @@ const AppSidebar = memo(function AppSidebar() {
                                 variant={location.pathname === subPage.href ? "secondary" : "ghost"}
                                 size="sm"
                                 className="w-full justify-start h-auto p-2"
-                                onClick={() => navigate(subPage.href)}
+                                onClick={() => startTransition(() => navigate(subPage.href))}
                               >
                                 <div className="grid gap-1 text-left">
                                   <div className="font-medium text-sm">
@@ -259,7 +259,7 @@ const AppSidebar = memo(function AppSidebar() {
                                 variant={location.pathname === subPage.href ? "secondary" : "ghost"}
                                 size="sm"
                                 className="w-full justify-start h-auto p-2"
-                                onClick={() => navigate(subPage.href)}
+                                onClick={() => startTransition(() => navigate(subPage.href))}
                               >
                                 <div className="grid gap-1 text-left">
                                   <div className="font-medium text-sm">
