@@ -1,72 +1,14 @@
-// Mock authentication service for development
+// Mock authentication service - DEPRECATED AND DISABLED
+// Real Supabase authentication is now properly configured
+// This file is kept for reference only
+
 export const mockAuth = {
-  isEnabled: import.meta.env.VITE_MOCK_API === 'true',
+  isEnabled: false, // Permanently disabled
   
-  // Mock user data
-  mockUser: {
-    id: 1,
-    email: 'demo@example.com',
-    role: 'admin',
-    name: 'Demo User'
-  },
-
-  // Mock login function
-  async login(credentials: { email: string; password: string }) {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    if (credentials.email === 'demo@example.com' && credentials.password === 'demo') {
-      const tokens = {
-        accessToken: 'mock-access-token',
-        refreshToken: 'mock-refresh-token'
-      };
-      
-      return {
-        success: true,
-        user: this.mockUser,
-        ...tokens
-      };
-    }
-    
-    throw new Error('Invalid credentials. Use demo@example.com / demo');
-  },
-
-  // Mock session validation
-  async validateSession() {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return {
-      success: true,
-      user: this.mockUser
-    };
-  },
-
-  // Mock token refresh
-  async refreshToken() {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return {
-      success: true,
-      accessToken: 'mock-access-token-refreshed',
-      refreshToken: 'mock-refresh-token-refreshed'
-    };
-  },
-
-  // Mock logout
-  async logout() {
-    await new Promise(resolve => setTimeout(resolve, 300));
-    return { success: true };
-  }
+  // Mock data removed for security
 };
 
-// Helper to check if we should use mock auth
+// Always use real Supabase auth
 export const shouldUseMockAuth = () => {
-  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-  const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-  
-  return mockAuth.isEnabled || 
-         !supabaseUrl || 
-         !supabaseKey || 
-         supabaseUrl.includes('placeholder') || 
-         supabaseUrl.includes('your_') ||
-         supabaseKey.includes('placeholder') ||
-         supabaseKey.includes('your_');
+  return false; // Always return false - use real auth only
 };
