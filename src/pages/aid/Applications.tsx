@@ -250,7 +250,7 @@ export default function Applications() {
       }
 
       // Set empty array as fallback
-      setBeneficiariesList([])
+      setBeneficiaries([])
     }
   }
 
@@ -779,7 +779,7 @@ export default function Applications() {
             onClick={() => setShowEvaluationModal(false)}
             className="h-8 w-8 rounded-full bg-red-600 text-white hover:bg-red-700"
           >
-            ×
+            ��
           </button>
         </div>
         
