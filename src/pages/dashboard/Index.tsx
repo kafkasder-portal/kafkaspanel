@@ -274,10 +274,10 @@ export default function DashboardIndex() {
       />
       {showReportGenerator && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-6xl max-h-[90vh] overflow-y-auto bg-white rounded-lg shadow-2xl">
-            <div className="p-6 border-b">
+          <div className="w-full max-w-6xl max-h-[90vh] overflow-y-auto bg-card rounded-lg shadow-2xl border border-border">
+            <div className="p-6 border-b border-border">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Rapor Oluşturucu</h2>
+                <h2 className="text-xl font-semibold text-foreground">Rapor Oluşturucu</h2>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -295,10 +295,10 @@ export default function DashboardIndex() {
       )}
       {showChartDashboard && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-7xl max-h-[90vh] overflow-y-auto bg-white rounded-lg shadow-2xl">
-            <div className="p-6 border-b">
+          <div className="w-full max-w-7xl max-h-[90vh] overflow-y-auto bg-card rounded-lg shadow-2xl border border-border">
+            <div className="p-6 border-b border-border">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Grafik Dashboard</h2>
+                <h2 className="text-xl font-semibold text-foreground">Grafik Dashboard</h2>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -316,10 +316,10 @@ export default function DashboardIndex() {
       )}
       {showWhatsAppManager && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-6xl max-h-[90vh] overflow-y-auto bg-white rounded-lg shadow-2xl">
-            <div className="p-6 border-b">
+          <div className="w-full max-w-6xl max-h-[90vh] overflow-y-auto bg-card rounded-lg shadow-2xl border border-border">
+            <div className="p-6 border-b border-border">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">WhatsApp Yöneticisi</h2>
+                <h2 className="text-xl font-semibold text-foreground">WhatsApp Yöneticisi</h2>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -337,10 +337,10 @@ export default function DashboardIndex() {
       )}
       {showMapDashboard && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-7xl max-h-[90vh] overflow-y-auto bg-white rounded-lg shadow-2xl">
-            <div className="p-6 border-b">
+          <div className="w-full max-w-7xl max-h-[90vh] overflow-y-auto bg-card rounded-lg shadow-2xl border border-border">
+            <div className="p-6 border-b border-border">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Harita Yönetimi</h2>
+                <h2 className="text-xl font-semibold text-foreground">Harita Yönetimi</h2>
                 <Button
                   variant="ghost"
                   size="sm"
