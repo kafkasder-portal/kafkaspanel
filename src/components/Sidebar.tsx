@@ -138,7 +138,7 @@ export function Sidebar() {
                   <>
                     <span className="flex-1 truncate">{item.label}</span>
                     {item.badge && (
-                      <span className="flex items-center justify-center h-4 px-1.5 text-xs font-medium bg-gray-600 text-white rounded">
+                      <span className="flex items-center justify-center h-4 px-1.5 text-xs font-medium bg-accent text-accent-foreground rounded">
                         {item.badge}
                       </span>
                     )}
