@@ -65,7 +65,7 @@ const AppSidebar = memo(function AppSidebar() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton size="sm" className="h-10">
-                <div className="flex aspect-square size-6 items-center justify-center rounded bg-blue-600 text-white">
+                <div className="flex aspect-square size-6 items-center justify-center rounded bg-brand-primary text-white">
                   <Building2 className="size-3" />
                 </div>
                 {!isCollapsed && (
