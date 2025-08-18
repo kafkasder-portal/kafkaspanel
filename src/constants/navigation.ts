@@ -15,6 +15,7 @@ import {
   Shield,
   Database,
   CheckSquare,
+  Calculator,
   LucideIcon
 } from 'lucide-react'
 
