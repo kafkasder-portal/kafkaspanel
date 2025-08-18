@@ -211,6 +211,16 @@ function ProtectedAppLayout() {
           <Route path="/donations/piggy-bank" element={withDonationsSuspense(PiggyBankTracking)} />
           <Route path="/donations/piggy-bank-tracking" element={withDonationsSuspense(PiggyBankTracking)} />
           <Route path="/donations/bulk-provisioning" element={withDonationsSuspense(BulkProvisioning)} />
+
+          {/* Financial Management routes */}
+          <Route path="/finance" element={<FinancialManagement />} />
+          <Route path="/finance/accounts" element={<FinancialManagement />} />
+          <Route path="/finance/journal" element={<FinancialManagement />} />
+          <Route path="/finance/reports" element={<FinancialManagement />} />
+          <Route path="/finance/budget" element={<FinancialManagement />} />
+          <Route path="/finance/grants" element={<FinancialManagement />} />
+          <Route path="/finance/reconciliation" element={<FinancialManagement />} />
+          <Route path="/finance/tax" element={<FinancialManagement />} />
           
           {/* Messages routes */}
           <Route path="/messages" element={withMessagesSuspense(MessagesIndex)} />
