@@ -112,7 +112,7 @@ export function Sidebar() {
       <div className="flex-1 flex flex-col gap-2 overflow-y-auto p-2">
         {/* Navigation Header */}
         {!isCollapsed && (
-          <div className="flex items-center h-7 px-2 text-xs font-medium text-gray-300 uppercase opacity-0 -mt-7 transition-all duration-200 linear">
+          <div className="flex items-center h-7 px-2 text-xs font-medium text-sidebar-text-muted uppercase transition-all duration-200 linear">
             Navigasyon
           </div>
         )}
