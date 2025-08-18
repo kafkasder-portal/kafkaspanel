@@ -207,7 +207,7 @@ export default function Applications() {
       } else if (errorMessage.includes('connection') || errorMessage.includes('network')) {
         toast.error('Bağlantı hatası. İnternet bağlantınızı kontrol edin.')
       } else {
-        toast.error(`Ba��vurular yüklenirken hata oluştu: ${errorMessage}`)
+        toast.error(`Başvurular yüklenirken hata oluştu: ${errorMessage}`)
       }
 
       // Use empty array as fallback
@@ -238,7 +238,18 @@ export default function Applications() {
       setBeneficiaries(data || [])
     } catch (error) {
       logErrorSafely('İhtiyaç sahipleri yüklenirken hata', error)
-      toast.error('İhtiyaç sahipleri yüklenirken hata oluştu: ' + getErrorMessage(error))
+
+      const errorMessage = getErrorMessage(error)
+      if (errorMessage.includes('relation') || errorMessage.includes('table') || errorMessage.includes('does not exist')) {
+        toast.error('Veritabanı tabloları bulunamadı. Lütfen sistem yöneticisine başvurun.')
+      } else if (errorMessage.includes('connection') || errorMessage.includes('network')) {
+        toast.error('Bağlantı hatası. İnternet bağlantınızı kontrol edin.')
+      } else {
+        toast.error(`İhtiyaç sahipleri yüklenirken hata oluştu: ${errorMessage}`)
+      }
+
+      // Set empty array as fallback
+      setBeneficiariesList([])
     }
   }
 
