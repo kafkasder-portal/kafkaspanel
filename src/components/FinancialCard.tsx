@@ -63,6 +63,7 @@ export function FinancialCard({
   icon,
   trend,
   unit = '₺',
+  variant = 'default',
   className = '',
   onSwipeLeft,
   onSwipeRight,
@@ -73,11 +74,43 @@ export function FinancialCard({
     onSwipeRight,
     threshold: 100
   })
+
+  const getVariantColors = (variant: string) => {
+    switch (variant) {
+      case 'success':
+        return {
+          iconBg: 'bg-financial-success/10',
+          iconText: 'text-financial-success',
+          chartColor: 'text-financial-success'
+        }
+      case 'warning':
+        return {
+          iconBg: 'bg-financial-warning/10',
+          iconText: 'text-financial-warning',
+          chartColor: 'text-financial-warning'
+        }
+      case 'info':
+        return {
+          iconBg: 'bg-financial-info/10',
+          iconText: 'text-financial-info',
+          chartColor: 'text-financial-info'
+        }
+      default:
+        return {
+          iconBg: 'bg-financial-primary/10',
+          iconText: 'text-financial-primary',
+          chartColor: 'text-financial-primary'
+        }
+    }
+  }
+
+  const variantColors = getVariantColors(variant)
+
   const changeColor = changeType === 'increase'
     ? 'text-financial-success'
     : 'text-financial-error'
-  
-  const changeIcon = changeType === 'increase' 
+
+  const changeIcon = changeType === 'increase'
     ? <TrendingUp className="h-4 w-4" />
     : <TrendingDown className="h-4 w-4" />
 
