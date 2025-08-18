@@ -10,7 +10,7 @@ export type UserProfile = {
   full_name: string
   department?: string
   phone?: string
-  role: 'admin' | 'manager' | 'viewer'
+  role: 'super_admin' | 'admin' | 'manager' | 'coordinator' | 'volunteer' | 'user'
   is_active: boolean
   created_at: string
   updated_at: string
@@ -78,7 +78,7 @@ export const useAuthStore = create<AuthState & AuthActions>((set, get) => ({
           const newProfile: Partial<UserProfile> = {
             id: session.user.id,
             full_name: session.user.user_metadata?.full_name || session.user.email?.split('@')[0] || 'User',
-            role: 'viewer',
+            role: 'user',
             is_active: true
           }
 
@@ -287,7 +287,7 @@ export const useAuthStore = create<AuthState & AuthActions>((set, get) => ({
           full_name: userData.full_name,
           department: userData.department,
           phone: userData.phone,
-          role: 'viewer', // Default role
+          role: 'user', // Default role
           is_active: true
         })
 
