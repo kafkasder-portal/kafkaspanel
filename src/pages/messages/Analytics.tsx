@@ -130,13 +130,13 @@ export default function MessageAnalytics() {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-        <div className="bg-white p-6 rounded-lg border">
+        <div className="bg-card p-6 rounded-lg border border-border shadow-sm hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between mb-2">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <Send className="h-5 w-5 text-blue-600" />
+            <div className="p-2 bg-brand-primary/10 rounded-lg">
+              <Send className="h-5 w-5 text-brand-primary" />
             </div>
             <div className={`flex items-center gap-1 text-xs ${
-              analyticsData.trends.totalMessages > 0 ? 'text-green-600' : 'text-red-600'
+              analyticsData.trends.totalMessages > 0 ? 'text-semantic-success' : 'text-semantic-danger'
             }`}>
               {analyticsData.trends.totalMessages > 0 ? (
                 <TrendingUp className="h-3 w-3" />
@@ -146,17 +146,17 @@ export default function MessageAnalytics() {
               {Math.abs(analyticsData.trends.totalMessages)}%
             </div>
           </div>
-          <div className="text-2xl font-bold text-gray-900">{analyticsData.totalMessages.toLocaleString()}</div>
-          <div className="text-sm text-gray-600">Toplam Mesaj</div>
+          <div className="text-amount-lg text-foreground">{analyticsData.totalMessages.toLocaleString()}</div>
+          <div className="text-sm text-muted-foreground">Toplam Mesaj</div>
         </div>
         
-        <div className="bg-white p-6 rounded-lg border">
+        <div className="bg-card p-6 rounded-lg border border-border shadow-sm hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between mb-2">
-            <div className="p-2 bg-green-100 rounded-lg">
-              <CheckCircle className="h-5 w-5 text-green-600" />
+            <div className="p-2 bg-semantic-success/10 rounded-lg">
+              <CheckCircle className="h-5 w-5 text-semantic-success" />
             </div>
             <div className={`flex items-center gap-1 text-xs ${
-              analyticsData.trends.deliveryRate > 0 ? 'text-green-600' : 'text-red-600'
+              analyticsData.trends.deliveryRate > 0 ? 'text-semantic-success' : 'text-semantic-danger'
             }`}>
               {analyticsData.trends.deliveryRate > 0 ? (
                 <TrendingUp className="h-3 w-3" />
@@ -166,17 +166,17 @@ export default function MessageAnalytics() {
               {Math.abs(analyticsData.trends.deliveryRate)}%
             </div>
           </div>
-          <div className="text-2xl font-bold text-gray-900">%{analyticsData.deliveryRate}</div>
-          <div className="text-sm text-gray-600">Teslimat Oranı</div>
+          <div className="text-amount-lg text-foreground">%{analyticsData.deliveryRate}</div>
+          <div className="text-sm text-muted-foreground">Teslimat Oranı</div>
         </div>
         
-        <div className="bg-white p-6 rounded-lg border">
+        <div className="bg-card p-6 rounded-lg border border-border shadow-sm hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between mb-2">
-            <div className="p-2 bg-purple-100 rounded-lg">
-              <Eye className="h-5 w-5 text-purple-600" />
+            <div className="p-2 bg-semantic-info/10 rounded-lg">
+              <Eye className="h-5 w-5 text-semantic-info" />
             </div>
             <div className={`flex items-center gap-1 text-xs ${
-              analyticsData.trends.openRate > 0 ? 'text-green-600' : 'text-red-600'
+              analyticsData.trends.openRate > 0 ? 'text-semantic-success' : 'text-semantic-danger'
             }`}>
               {analyticsData.trends.openRate > 0 ? (
                 <TrendingUp className="h-3 w-3" />
@@ -186,17 +186,17 @@ export default function MessageAnalytics() {
               {Math.abs(analyticsData.trends.openRate)}%
             </div>
           </div>
-          <div className="text-2xl font-bold text-gray-900">%{analyticsData.openRate}</div>
-          <div className="text-sm text-gray-600">Açılma Oranı</div>
+          <div className="text-amount-lg text-foreground">%{analyticsData.openRate}</div>
+          <div className="text-sm text-muted-foreground">Açılma Oranı</div>
         </div>
         
-        <div className="bg-white p-6 rounded-lg border">
+        <div className="bg-card p-6 rounded-lg border border-border shadow-sm hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between mb-2">
-            <div className="p-2 bg-yellow-100 rounded-lg">
-              <Target className="h-5 w-5 text-yellow-600" />
+            <div className="p-2 bg-semantic-warning/10 rounded-lg">
+              <Target className="h-5 w-5 text-semantic-warning" />
             </div>
             <div className={`flex items-center gap-1 text-xs ${
-              analyticsData.trends.clickRate > 0 ? 'text-green-600' : 'text-red-600'
+              analyticsData.trends.clickRate > 0 ? 'text-semantic-success' : 'text-semantic-danger'
             }`}>
               {analyticsData.trends.clickRate > 0 ? (
                 <TrendingUp className="h-3 w-3" />
@@ -206,17 +206,17 @@ export default function MessageAnalytics() {
               {Math.abs(analyticsData.trends.clickRate)}%
             </div>
           </div>
-          <div className="text-2xl font-bold text-gray-900">%{analyticsData.clickRate}</div>
-          <div className="text-sm text-gray-600">Tıklama Oranı</div>
+          <div className="text-amount-lg text-foreground">%{analyticsData.clickRate}</div>
+          <div className="text-sm text-muted-foreground">Tıklama Oranı</div>
         </div>
         
-        <div className="bg-white p-6 rounded-lg border">
+        <div className="bg-card p-6 rounded-lg border border-border shadow-sm hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between mb-2">
-            <div className="p-2 bg-red-100 rounded-lg">
-              <XCircle className="h-5 w-5 text-red-600" />
+            <div className="p-2 bg-semantic-danger/10 rounded-lg">
+              <XCircle className="h-5 w-5 text-semantic-danger" />
             </div>
             <div className={`flex items-center gap-1 text-xs ${
-              analyticsData.trends.failureRate < 0 ? 'text-green-600' : 'text-red-600'
+              analyticsData.trends.failureRate < 0 ? 'text-semantic-success' : 'text-semantic-danger'
             }`}>
               {analyticsData.trends.failureRate < 0 ? (
                 <TrendingDown className="h-3 w-3" />
@@ -226,8 +226,8 @@ export default function MessageAnalytics() {
               {Math.abs(analyticsData.trends.failureRate)}%
             </div>
           </div>
-          <div className="text-2xl font-bold text-gray-900">%{analyticsData.failureRate}</div>
-          <div className="text-sm text-gray-600">Hata Oranı</div>
+          <div className="text-amount-lg text-foreground">%{analyticsData.failureRate}</div>
+          <div className="text-sm text-muted-foreground">Hata Oranı</div>
         </div>
       </div>
 
