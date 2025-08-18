@@ -50,6 +50,9 @@ const BulkProvisioning = lazy(() => import('./pages/donations/BulkProvisioning')
 // Financial Management
 const FinancialManagement = lazy(() => import('./pages/finance/FinancialManagement'))
 
+// Donor CRM
+const DonorCRM = lazy(() => import('./pages/donors/DonorCRM'))
+
 // Messages
 const MessagesIndex = lazy(() => import('./pages/messages/Index'))
 const BulkSend = lazy(() => import('./pages/messages/BulkSend'))
