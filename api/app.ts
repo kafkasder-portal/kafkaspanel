@@ -14,6 +14,7 @@ import messagesRoutes from './routes/messages.js';
 import tasksRoutes from './routes/tasks.js';
 import donationsRoutes from './routes/donations.js';
 import financialRoutes from './routes/financial.js';
+import paymentsRoutes from './routes/payments.js';
 import errorsRoutes from './routes/errors.js';
 
 // Import middleware
