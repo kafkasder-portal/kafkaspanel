@@ -1,5 +1,8 @@
 import { useEffect, Suspense } from 'react'
+import { Toaster } from 'sonner'
 import ErrorBoundary from './components/ErrorBoundary'
+import PWAPrompt from './components/PWAPrompt'
+import OfflineIndicator from './components/OfflineIndicator'
 import { SocketProvider } from './contexts/SocketContext'
 import { OfflineProvider } from './contexts/OfflineContext'
 import { ThemeProvider } from './contexts/ThemeContext'
