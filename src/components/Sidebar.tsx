@@ -83,10 +83,10 @@ export function Sidebar() {
   ]
 
   return (
-    <aside 
-      className={`fixed top-0 left-0 z-10 h-screen bg-gray-800 text-white transition-all duration-200 linear ${
+    <aside
+      className={`fixed top-0 left-0 z-10 h-screen bg-sidebar-bg text-sidebar-text border-r border-sidebar-border transition-all duration-200 linear ${
         isCollapsed ? 'w-14' : 'w-64'
-      } flex flex-col`}
+      } flex flex-col overflow-y-auto`}
     >
       {/* Company Header */}
       <div className="flex items-center justify-center h-14 px-3 gap-2">
