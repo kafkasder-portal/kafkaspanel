@@ -2,9 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import enhanced design system after Tailwind */
+/* Import enhanced design system in correct order */
 @import './styles/colors-enhanced.css';
 @import './styles/typography-enhanced.css';
+@import './styles/compatibility-layer.css';
 @import './styles/mobile-optimized.css';
 @import './styles/mobile-enhanced.css';
 
