@@ -90,14 +90,12 @@ const AppSidebar = memo(function AppSidebar() {
                   {activeMainItem.subPages.map((subPage) => (
                     <SidebarMenuItem key={subPage.href}>
                       <SidebarMenuButton
-                        asChild
                         isActive={location.pathname === subPage.href}
-                        className="text-sm"
+                        className="text-sm pl-6"
+                        onClick={() => navigate(subPage.href)}
                       >
-                        <button onClick={() => navigate(subPage.href)}>
-                          <div className="w-1.5 h-1.5 rounded-full bg-current opacity-60" />
-                          <span className="truncate">{subPage.title}</span>
-                        </button>
+                        <div className="w-1.5 h-1.5 rounded-full bg-current opacity-60" />
+                        <span className="truncate">{subPage.title}</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   ))}
