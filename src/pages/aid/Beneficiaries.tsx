@@ -263,8 +263,17 @@ export default function Beneficiaries() {
     
     const { data, error } = await query
     if (error) {
-      console.warn('Beneficiaries fetch error:', error)
-      toast.error('Veriler yüklenirken hata oluştu')
+      logErrorSafely('Beneficiaries fetch error', error)
+
+      const errorMessage = getErrorMessage(error)
+      if (errorMessage.includes('relation') || errorMessage.includes('table') || errorMessage.includes('does not exist')) {
+        toast.error('Veritabanı tabloları bulunamadı. Lütfen sistem yöneticisine başvurun.')
+      } else if (errorMessage.includes('connection') || errorMessage.includes('network')) {
+        toast.error('Bağlantı hatası. İnternet bağlantınızı kontrol edin.')
+      } else {
+        toast.error(`İhtiyaç sahipleri yüklenirken hata oluştu: ${errorMessage}`)
+      }
+
       setRows([])
     } else {
       setRows(data || [])
