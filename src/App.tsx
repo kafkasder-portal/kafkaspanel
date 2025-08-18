@@ -20,11 +20,9 @@ import AppRoutes from './routes'
 
 // Inner component that uses theme-dependent hooks
 function AppContent({
-  user,
   resetOnboarding,
   setShowOnboarding
 }: {
-  user: any
   resetOnboarding: () => void
   setShowOnboarding: (show: boolean) => void
 }) {
