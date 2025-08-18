@@ -238,6 +238,15 @@ function ProtectedAppLayout() {
           <Route path="/donors/tasks" element={<DonorCRM />} />
           <Route path="/donors/analytics" element={<DonorCRM />} />
           <Route path="/donors/communications" element={<DonorCRM />} />
+
+          {/* Volunteer Management routes */}
+          <Route path="/volunteers" element={<VolunteerManagement />} />
+          <Route path="/volunteers/list" element={<VolunteerManagement />} />
+          <Route path="/volunteers/applications" element={<VolunteerManagement />} />
+          <Route path="/volunteers/shifts" element={<VolunteerManagement />} />
+          <Route path="/volunteers/training" element={<VolunteerManagement />} />
+          <Route path="/volunteers/events" element={<VolunteerManagement />} />
+          <Route path="/volunteers/performance" element={<VolunteerManagement />} />
           
           {/* Messages routes */}
           <Route path="/messages" element={withMessagesSuspense(MessagesIndex)} />
