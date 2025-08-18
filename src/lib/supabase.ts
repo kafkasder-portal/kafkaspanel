@@ -217,6 +217,56 @@ export type Database = {
           created_at?: string
         }
       }
+      user_profiles: {
+        Row: {
+          id: string
+          full_name: string
+          display_name: string | null
+          email: string | null
+          phone: string | null
+          role: 'super_admin' | 'admin' | 'manager' | 'coordinator' | 'volunteer' | 'user'
+          department: string | null
+          position: string | null
+          avatar_url: string | null
+          is_active: boolean
+          last_login_at: string | null
+          created_at: string
+          updated_at: string
+          status: 'active' | 'inactive' | 'suspended' | 'pending'
+        }
+        Insert: {
+          id: string
+          full_name: string
+          display_name?: string | null
+          email?: string | null
+          phone?: string | null
+          role?: 'super_admin' | 'admin' | 'manager' | 'coordinator' | 'volunteer' | 'user'
+          department?: string | null
+          position?: string | null
+          avatar_url?: string | null
+          is_active?: boolean
+          last_login_at?: string | null
+          created_at?: string
+          updated_at?: string
+          status?: 'active' | 'inactive' | 'suspended' | 'pending'
+        }
+        Update: {
+          id?: string
+          full_name?: string
+          display_name?: string | null
+          email?: string | null
+          phone?: string | null
+          role?: 'super_admin' | 'admin' | 'manager' | 'coordinator' | 'volunteer' | 'user'
+          department?: string | null
+          position?: string | null
+          avatar_url?: string | null
+          is_active?: boolean
+          last_login_at?: string | null
+          created_at?: string
+          updated_at?: string
+          status?: 'active' | 'inactive' | 'suspended' | 'pending'
+        }
+      }
       in_kind_aids: {
         Row: {
           id: string
