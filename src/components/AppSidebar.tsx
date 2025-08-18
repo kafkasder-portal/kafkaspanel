@@ -48,6 +48,15 @@ const AppSidebar = memo(function AppSidebar() {
     return item.subPages.find((page: any) => page.href === location.pathname)
   }
 
+  // Get the currently active main navigation item
+  const getActiveMainItem = () => {
+    return [...navigationItems, ...supportItems].find(item =>
+      item.subPages.some(page => page.href === location.pathname)
+    )
+  }
+
+  const activeMainItem = getActiveMainItem()
+
   return (
     <TooltipProvider>
       <Sidebar variant="inset" collapsible="icon">
@@ -70,6 +79,33 @@ const AppSidebar = memo(function AppSidebar() {
 
         {/* Main Content */}
         <SidebarContent>
+          {/* Active Item Sub-Navigation */}
+          {activeMainItem && !isCollapsed && (
+            <SidebarGroup>
+              <SidebarGroupLabel className="text-xs font-medium text-sidebar-foreground/70">
+                {activeMainItem.title}
+              </SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {activeMainItem.subPages.map((subPage) => (
+                    <SidebarMenuItem key={subPage.href}>
+                      <SidebarMenuButton
+                        asChild
+                        isActive={location.pathname === subPage.href}
+                        className="text-sm"
+                      >
+                        <button onClick={() => navigate(subPage.href)}>
+                          <div className="w-1.5 h-1.5 rounded-full bg-current opacity-60" />
+                          <span className="truncate">{subPage.title}</span>
+                        </button>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          )}
+
           {/* Main Navigation */}
           <SidebarGroup>
             <SidebarGroupLabel>Navigasyon</SidebarGroupLabel>
