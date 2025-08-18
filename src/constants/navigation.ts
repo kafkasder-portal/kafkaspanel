@@ -113,6 +113,20 @@ export const navigationItems: NavigationItem[] = [
     ]
   },
   {
+    title: "Bağışçı CRM",
+    icon: Users,
+    badge: undefined,
+    subPages: [
+      { title: "CRM Panel", href: "/donors", description: "Bağışçı yönetim paneli" },
+      { title: "Bağışçı Listesi", href: "/donors/list", description: "Tüm bağışçılar" },
+      { title: "Bağışçı Segmentleri", href: "/donors/segments", description: "Bağışçı grupları" },
+      { title: "CRM Kampanyaları", href: "/donors/campaigns", description: "Pazarlama kampanyaları" },
+      { title: "Bağışçı Görevleri", href: "/donors/tasks", description: "Takip görevleri" },
+      { title: "Bağışçı Analitikleri", href: "/donors/analytics", description: "Detaylı analizler" },
+      { title: "İletişim Geçmişi", href: "/donors/communications", description: "İletişim kayıtları" }
+    ]
+  },
+  {
     title: "Mesajlaşma",
     icon: MessageSquare,
     badge: 12,
