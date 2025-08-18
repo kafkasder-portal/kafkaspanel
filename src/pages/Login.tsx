@@ -8,7 +8,6 @@ import { useAuthStore } from '../store/auth'
 import { Button } from '../components/ui/button'
 import { Card } from '../components/ui/card'
 import { DevelopmentNotice } from '../components/DevelopmentNotice'
-import { AuthDebugger } from '../components/AuthDebugger'
 
 const loginSchema = z.object({
   email: z.string().email('Geçerli bir email adresi giriniz'),
@@ -122,7 +121,6 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-4">
       <div className="w-full max-w-md">
         <DevelopmentNotice />
-        <AuthDebugger />
         <Card className="p-8 shadow-xl border-0 bg-white/80 backdrop-blur-sm">
         <div className="text-center mb-8">
           <div className="mx-auto w-16 h-16 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center mb-4">

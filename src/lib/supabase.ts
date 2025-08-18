@@ -1,13 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import { env, validateEnv } from './env'
 
-// Debug environment variables
-console.log('🔧 Supabase Environment Debug:', {
-  SUPABASE_URL: env.SUPABASE_URL,
-  SUPABASE_ANON_KEY_PREVIEW: env.SUPABASE_ANON_KEY.substring(0, 20) + '...',
-  isDevelopment: env.isDevelopment
-});
-
 // Validate environment variables on import
 validateEnv()
 
