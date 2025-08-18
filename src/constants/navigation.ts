@@ -128,6 +128,20 @@ export const navigationItems: NavigationItem[] = [
     ]
   },
   {
+    title: "Gönüllü Yönetimi",
+    icon: Users,
+    badge: undefined,
+    subPages: [
+      { title: "Gönüllü Panel", href: "/volunteers", description: "Gönüllü yönetim paneli" },
+      { title: "Gönüllü Listesi", href: "/volunteers/list", description: "Tüm gönüllüler" },
+      { title: "Başvurular", href: "/volunteers/applications", description: "Gönüllü başvuruları" },
+      { title: "Vardiya Yönetimi", href: "/volunteers/shifts", description: "Vardiya planlaması" },
+      { title: "Eğitim Programları", href: "/volunteers/training", description: "Gönüllü eğitimleri" },
+      { title: "Etkinlik Yönetimi", href: "/volunteers/events", description: "Gönüllü etkinlikleri" },
+      { title: "Performans Takibi", href: "/volunteers/performance", description: "Gönüllü değerlendirmeleri" }
+    ]
+  },
+  {
     title: "Mesajlaşma",
     icon: MessageSquare,
     badge: 12,
