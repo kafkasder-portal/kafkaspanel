@@ -72,7 +72,8 @@ export const useAuthStore = create<AuthState & AuthActions>((set, get) => ({
           .single()
 
         if (profileError) {
-          logSystemError(profileError as unknown as Error, { component: 'authStore', action: 'initialize.fetchProfile' })
+          const errorMsg = `Database error querying schema: ${JSON.stringify(profileError)}`
+          logSystemError(new Error(errorMsg), { component: 'authStore', action: 'initialize.fetchProfile', additionalData: { supabaseError: profileError } })
           // Create profile if it doesn't exist
           const newProfile: Partial<UserProfile> = {
             id: session.user.id,
@@ -88,7 +89,8 @@ export const useAuthStore = create<AuthState & AuthActions>((set, get) => ({
             .single()
 
           if (createError) {
-            logSystemError(createError as unknown as Error, { component: 'authStore', action: 'initialize.createProfile' })
+            const createErrorMsg = `Database error creating profile: ${JSON.stringify(createError)}`
+            logSystemError(new Error(createErrorMsg), { component: 'authStore', action: 'initialize.createProfile', additionalData: { supabaseError: createError } })
             startTransition(() => {
               set({ initializing: false, error: 'Failed to create user profile' })
             })
@@ -144,7 +146,10 @@ export const useAuthStore = create<AuthState & AuthActions>((set, get) => ({
             .eq('id', session.user.id)
             .single()
 
-          if (!profileError && profile) {
+          if (profileError) {
+            const errorMsg = `Database error in auth state change: ${JSON.stringify(profileError)}`
+            logSystemError(new Error(errorMsg), { component: 'authStore', action: 'onAuthStateChange.fetchProfile', additionalData: { supabaseError: profileError } })
+          } else if (profile) {
             startTransition(() => {
               set({
                 user: { ...session.user, profile },
@@ -210,7 +215,8 @@ export const useAuthStore = create<AuthState & AuthActions>((set, get) => ({
         .single()
 
       if (profileError) {
-        logSystemError(profileError as unknown as Error, { component: 'authStore', action: 'signIn.fetchProfile' })
+        const errorMsg = `Database error fetching profile: ${JSON.stringify(profileError)}`
+        logSystemError(new Error(errorMsg), { component: 'authStore', action: 'signIn.fetchProfile', additionalData: { supabaseError: profileError } })
         throw new Error('Failed to fetch user profile')
       }
 
@@ -286,7 +292,8 @@ export const useAuthStore = create<AuthState & AuthActions>((set, get) => ({
         })
 
       if (profileError) {
-        logSystemError(profileError as unknown as Error, { component: 'authStore', action: 'signUp.createProfile' })
+        const errorMsg = `Database error creating signup profile: ${JSON.stringify(profileError)}`
+        logSystemError(new Error(errorMsg), { component: 'authStore', action: 'signUp.createProfile', additionalData: { supabaseError: profileError } })
         // Don't throw here, user can still use the account
       }
 
@@ -381,7 +388,8 @@ export const useAuthStore = create<AuthState & AuthActions>((set, get) => ({
 
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Profile update failed'
-      logSystemError(error instanceof Error ? error : new Error(String(error)), { component: 'authStore', action: 'updateProfile' })
+      const enhancedError = error instanceof Error ? error : new Error(`Profile update error: ${JSON.stringify(error)}`)
+      logSystemError(enhancedError, { component: 'authStore', action: 'updateProfile', additionalData: { originalError: error } })
       
       startTransition(() => {
         set({ loading: false, error: errorMessage })
