@@ -3,7 +3,7 @@ import { useState } from 'react'
 import {
   Building2,
   Home,
-  ChartColumn,
+  BarChart3,
   FolderOpen,
   Calendar,
   Users,
@@ -16,7 +16,7 @@ import {
   Search,
   Sun,
   Keyboard,
-  PlusIcon
+  Plus
 } from 'lucide-react'
 
 export function Sidebar() {
