@@ -114,8 +114,7 @@ export default function App() {
           <QueryClientProvider client={queryClient}>
             <OfflineProvider>
               <SocketProvider>
-                <AppContent 
-                  user={user}
+                <AppContent
                   resetOnboarding={resetOnboarding}
                   setShowOnboarding={setShowOnboarding}
                 />
