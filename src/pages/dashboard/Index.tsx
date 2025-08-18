@@ -35,7 +35,7 @@ export default function DashboardIndex() {
   const { settings, updateWidgets } = useDashboardCustomization()
 
   return (
-    <div className="min-h-screen bg-background space-y-4 sm:space-y-6">
+    <div className="space-y-6">
       {/* Hoş Geldin Bölümü */}
       <div className="bg-gradient-to-r from-brand-primary to-brand-600 rounded-xl p-6 sm:p-8 text-white shadow-lg relative">
         <div className="flex items-start justify-between">
