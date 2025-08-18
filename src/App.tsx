@@ -1,68 +1,44 @@
-import { DashboardLayout } from './layouts/DashboardLayout'
-import AppRoutes from './routes'
+import { useEffect, Suspense } from 'react'
 import { Toaster } from 'sonner'
 import ErrorBoundary from './components/ErrorBoundary'
 import PWAPrompt from './components/PWAPrompt'
+import OfflineIndicator from './components/OfflineIndicator'
 import { SocketProvider } from './contexts/SocketContext'
 import { OfflineProvider } from './contexts/OfflineContext'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { LanguageProvider } from './contexts/LanguageContext'
-import ChatContainer from './components/Chat/ChatContainer'
-import { useState, useEffect, startTransition } from 'react'
-import CommandPalette from './components/CommandPalette'
-import AICommandCenter from './components/AICommandCenter'
-import { useAICommandCenter } from './hooks/useAICommandCenter'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { queryClient, cacheUtils } from './lib/queryClient'
-import OfflineIndicator from './components/OfflineIndicator'
 import { useAuthStore } from './store/auth'
 import { OnboardingModal } from './components/onboarding/OnboardingModal'
 import { OnboardingTestButton } from './components/onboarding/OnboardingTestButton'
 import { useOnboarding } from './hooks/useOnboarding'
 import { onboardingSteps } from './constants/onboardingSteps.tsx'
 
+import AppRoutes from './routes'
+
 // Inner component that uses theme-dependent hooks
-function AppContent({ 
-  user, 
-  resetOnboarding, 
-  setShowOnboarding 
-}: { 
-  user: any
+function AppContent({
+  resetOnboarding,
+  setShowOnboarding
+}: {
   resetOnboarding: () => void
   setShowOnboarding: (show: boolean) => void
 }) {
-  const [isChatOpen, setIsChatOpen] = useState(false)
-  const [isCmdOpen, setIsCmdOpen] = useState(false)
-  const {
-    isOpen: isAIOpen,
-    openCommandCenter,
-    closeCommandCenter,
-    actionContext,
-    userId
-  } = useAICommandCenter()
-
-  useEffect(() => {
-    const open = () => {
-      startTransition(() => {
-        setIsCmdOpen(true)
-      })
-    }
-    window.addEventListener('open-command-palette', open as any)
-    return () => window.removeEventListener('open-command-palette', open as any)
-  }, [])
-
-  const toggleChat = () => {
-    startTransition(() => {
-      setIsChatOpen(!isChatOpen)
-    })
-  }
-
   return (
-    <DashboardLayout onOpenAICenter={openCommandCenter}>
+    <>
       <ErrorBoundary level="page">
-        <AppRoutes />
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+          </div>
+        }>
+          <AppRoutes />
+        </Suspense>
       </ErrorBoundary>
+
+      {/* Global UI Components - sadece authenticated kullanıcılar için */}
       <Toaster
         position="top-right"
         expand={true}
@@ -71,39 +47,29 @@ function AppContent({
       />
       <PWAPrompt />
       <OfflineIndicator />
-      {user && (
-        <ChatContainer
-          currentUserId={user.id}
-          isOpen={isChatOpen}
-          onToggle={toggleChat}
-        />
-      )}
-      <CommandPalette
-        isOpen={isCmdOpen}
-        onClose={() => setIsCmdOpen(false)}
-        toggleChat={toggleChat}
-        onOpenAICenter={openCommandCenter}
+
+      {/* Onboarding */}
+      <OnboardingModal
+        isOpen={false} // Disabled for now
+        onClose={() => {}}
+        onComplete={() => {}}
+        steps={onboardingSteps}
       />
-      <AICommandCenter
-        isOpen={isAIOpen}
-        onClose={closeCommandCenter}
-        context={actionContext}
-        userId={userId}
-      />
+
+      {/* Development Tools */}
       {process.env.NODE_ENV === 'development' && (
         <OnboardingTestButton
           onReset={resetOnboarding}
           onStart={() => setShowOnboarding(true)}
         />
       )}
-    </DashboardLayout>
+    </>
   )
 }
 
 export default function App() {
   const { initializing, initialize } = useAuthStore()
-  const { user } = useAuthStore()
-  const { showOnboarding, completeOnboarding, resetOnboarding, setShowOnboarding, closeOnboarding } = useOnboarding()
+  const { resetOnboarding, setShowOnboarding } = useOnboarding()
 
   // Initialize auth on app start
   useEffect(() => {
@@ -147,17 +113,10 @@ export default function App() {
           <QueryClientProvider client={queryClient}>
             <OfflineProvider>
               <SocketProvider>
-                <AppContent 
-                  user={user}
+                <AppContent
                   resetOnboarding={resetOnboarding}
                   setShowOnboarding={setShowOnboarding}
                 />
-                        <OnboardingModal
-          isOpen={showOnboarding}
-          onClose={closeOnboarding}
-          onComplete={completeOnboarding}
-          steps={onboardingSteps}
-        />
               </SocketProvider>
             </OfflineProvider>
             <ReactQueryDevtools initialIsOpen={false} />
