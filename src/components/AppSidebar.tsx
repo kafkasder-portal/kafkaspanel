@@ -126,7 +126,7 @@ const AppSidebar = memo(function AppSidebar() {
                                 className="w-full"
                                 tooltip={isCollapsed ? item.title : undefined}
                               >
-                                <Icon className="size-4" />
+                                <Icon className="size-4 flex-shrink-0" />
                                 {!isCollapsed && (
                                   <>
                                     <span className="flex-1 truncate">{item.title}</span>
@@ -215,7 +215,7 @@ const AppSidebar = memo(function AppSidebar() {
                                 className="w-full"
                                 tooltip={isCollapsed ? item.title : undefined}
                               >
-                                <Icon className="size-4" />
+                                <Icon className="size-4 flex-shrink-0" />
                                 {!isCollapsed && (
                                   <>
                                     <span className="flex-1 truncate">{item.title}</span>
