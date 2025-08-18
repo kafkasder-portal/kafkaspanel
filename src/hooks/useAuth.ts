@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { toast } from 'sonner';
+import { mockAuth, shouldUseMockAuth } from '../lib/mockAuth';
 
 interface User {
   id: number;
@@ -231,7 +232,30 @@ export const useAuth = () => {
   const login = useCallback(async (credentials: LoginCredentials): Promise<boolean> => {
     try {
       setAuthState(prev => ({ ...prev, isLoading: true }));
-      
+
+      // Use mock auth if enabled or Supabase not configured
+      if (shouldUseMockAuth()) {
+        console.log('🔧 Using mock authentication');
+        const result = await mockAuth.login(credentials);
+
+        // Store tokens
+        localStorage.setItem(TOKEN_STORAGE_KEY, result.accessToken);
+        localStorage.setItem(REFRESH_TOKEN_STORAGE_KEY, result.refreshToken);
+
+        setAuthState({
+          user: result.user,
+          accessToken: result.accessToken,
+          refreshToken: result.refreshToken,
+          isAuthenticated: true,
+          isLoading: false,
+          sessionExpiry: null,
+          isNearExpiry: false
+        });
+
+        toast.success('Login successful! (Mock Mode)');
+        return true;
+      }
+
       const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {
@@ -242,11 +266,11 @@ export const useAuth = () => {
 
       if (response.ok) {
         const data = await response.json();
-        
+
         // Store tokens
         localStorage.setItem(TOKEN_STORAGE_KEY, data.accessToken);
         localStorage.setItem(REFRESH_TOKEN_STORAGE_KEY, data.refreshToken);
-        
+
         setAuthState({
           user: data.user,
           accessToken: data.accessToken,
@@ -256,7 +280,7 @@ export const useAuth = () => {
           sessionExpiry: null,
           isNearExpiry: false
         });
-        
+
         toast.success('Login successful!');
         return true;
       } else {
