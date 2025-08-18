@@ -209,7 +209,7 @@ describe('Login Component', () => {
     )
 
     // Switch to register mode
-    const registerLink = screen.getByText(/hesap oluştur/i)
+    const registerLink = screen.getByText(/kayıt olun/i)
     await user.click(registerLink)
 
     const passwordInput = screen.getByLabelText(/^şifre$/i)
