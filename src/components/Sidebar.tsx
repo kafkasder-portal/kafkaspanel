@@ -23,7 +23,7 @@ export function Sidebar() {
   const location = useLocation()
   const [isCollapsed, setIsCollapsed] = useState(false)
 
-  // Navigation items with badges
+  // Navigation items with badges - mapped to existing routes
   const navigationItems = [
     {
       icon: Home,
@@ -34,25 +34,25 @@ export function Sidebar() {
     {
       icon: ChartColumn,
       label: 'Analizler',
-      path: '/analytics',
+      path: '/messages/analytics',
       badge: 3
     },
     {
       icon: FolderOpen,
-      label: 'Projeler',
-      path: '/projects',
+      label: 'Bağışlar',
+      path: '/donations',
       badge: null
     },
     {
       icon: Calendar,
-      label: 'Takvim',
-      path: '/calendar',
+      label: 'Toplantılar',
+      path: '/meetings',
       badge: null
     },
     {
       icon: Users,
-      label: 'Ekip',
-      path: '/team',
+      label: 'Yardım Yönetimi',
+      path: '/aid',
       badge: null
     },
     {
@@ -63,8 +63,8 @@ export function Sidebar() {
     },
     {
       icon: FileText,
-      label: 'Raporlar',
-      path: '/reports',
+      label: 'Burs Yönetimi',
+      path: '/scholarship',
       badge: null
     }
   ]
@@ -72,13 +72,13 @@ export function Sidebar() {
   const bottomItems = [
     {
       icon: Settings,
-      label: 'Ayarlar',
-      path: '/settings'
+      label: 'Sistem',
+      path: '/system/user-management'
     },
     {
       icon: HelpCircle,
-      label: 'Yardım',
-      path: '/help'
+      label: 'Tanımlamalar',
+      path: '/definitions'
     }
   ]
 
