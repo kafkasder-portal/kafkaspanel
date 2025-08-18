@@ -234,49 +234,58 @@ export default function MessageAnalytics() {
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Daily Performance Chart */}
-        <div className="bg-white p-6 rounded-lg border">
+        <div className="bg-card p-6 rounded-lg border border-border shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">Günlük Performans</h3>
-            <BarChart3 className="h-5 w-5 text-gray-400" />
+            <h3 className="text-h3">Günlük Performans</h3>
+            <BarChart3 className="h-5 w-5 text-muted-foreground" />
           </div>
           <div className="space-y-3">
             {analyticsData.dailyStats.map((day, index) => (
               <div key={index} className="flex items-center gap-4">
-                <div className="w-8 text-sm font-medium text-gray-600">{day.day}</div>
+                <div className="w-8 text-sm font-medium text-muted-foreground">{day.day}</div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm font-medium">{day.sent.toLocaleString()}</span>
-                    <span className="text-xs text-gray-500">gönderildi</span>
+                    <span className="text-sm font-medium text-foreground">{day.sent.toLocaleString()}</span>
+                    <span className="text-xs text-muted-foreground">gönderildi</span>
                   </div>
                   <div className="flex gap-1 h-2">
-                    <div 
-                      className="bg-green-500 rounded-full" 
-                      style={{ width: `${(day.delivered / day.sent) * 100}%` }}
+                    <div
+                      className="rounded-full"
+                      style={{
+                        width: `${(day.delivered / day.sent) * 100}%`,
+                        backgroundColor: 'hsl(var(--semantic-success))'
+                      }}
                     ></div>
-                    <div 
-                      className="bg-blue-400 rounded-full" 
-                      style={{ width: `${(day.opened / day.sent) * 100}%` }}
+                    <div
+                      className="rounded-full"
+                      style={{
+                        width: `${(day.opened / day.sent) * 100}%`,
+                        backgroundColor: 'hsl(var(--semantic-info))'
+                      }}
                     ></div>
-                    <div 
-                      className="bg-red-400 rounded-full" 
-                      style={{ width: `${(day.failed / day.sent) * 100}%` }}
+                    <div
+                      className="rounded-full"
+                      style={{
+                        width: `${(day.failed / day.sent) * 100}%`,
+                        backgroundColor: 'hsl(var(--semantic-danger))'
+                      }}
                     ></div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-          <div className="flex items-center gap-4 mt-4 text-xs">
+          <div className="flex items-center gap-4 mt-4 text-xs text-muted-foreground">
             <div className="flex items-center gap-1">
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'hsl(var(--semantic-success))' }}></div>
               <span>Teslim Edildi</span>
             </div>
             <div className="flex items-center gap-1">
-              <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
+              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'hsl(var(--semantic-info))' }}></div>
               <span>Açıldı</span>
             </div>
             <div className="flex items-center gap-1">
-              <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'hsl(var(--semantic-danger))' }}></div>
               <span>Başarısız</span>
             </div>
           </div>
