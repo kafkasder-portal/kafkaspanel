@@ -179,6 +179,7 @@ export function TotalDonationsCard({ totalDonations, monthlyChange, trend }: {
       icon={CreditCard}
       trend={trend}
       unit="₺"
+      variant="success"
       className="bg-gradient-to-br from-financial-success/5 to-financial-success/10 border-financial-success/20 sm:min-h-[140px]"
     />
   )
@@ -197,6 +198,7 @@ export function MonthlyGrowthCard({ growthRate, period }: {
       period={period}
       icon={TrendingUp}
       unit="%"
+      variant="warning"
       className="bg-gradient-to-br from-financial-warning/5 to-financial-warning/10 border-financial-warning/20 sm:min-h-[140px]"
     />
   )
@@ -215,6 +217,7 @@ export function ActiveBeneficiariesCard({ count, monthlyChange }: {
       period="Bu ay"
       icon={Users}
       unit=""
+      variant="info"
       className="bg-gradient-to-br from-financial-info/5 to-financial-info/10 border-financial-info/20 sm:min-h-[140px]"
     />
   )
@@ -233,6 +236,7 @@ export function FundDistributionCard({ distributionRate, target }: {
       period={`Hedef: %${target}`}
       icon={BarChart3}
       unit="%"
+      variant="default"
       className="bg-gradient-to-br from-financial-primary/5 to-financial-primary/10 border-financial-primary/20 sm:min-h-[140px]"
     />
   )
