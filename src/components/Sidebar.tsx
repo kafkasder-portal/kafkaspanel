@@ -127,10 +127,10 @@ export function Sidebar() {
               <NavLink
                 key={index}
                 to={item.path}
-                className={`flex items-center gap-2 h-7 px-2 rounded-lg text-sm transition-all duration-150 ease-out ${
-                  isActive 
-                    ? 'bg-white text-gray-800' 
-                    : 'text-white hover:bg-gray-700'
+                className={`flex items-center gap-2 h-7 px-2 rounded-lg text-sm transition-all duration-150 ease-out sidebar-nav-item ${
+                  isActive
+                    ? 'active bg-sidebar-active text-sidebar-text'
+                    : 'text-sidebar-text hover:bg-sidebar-hover'
                 }`}
               >
                 <Icon className="w-4 h-4 flex-shrink-0" />
