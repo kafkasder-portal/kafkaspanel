@@ -26,8 +26,8 @@ const loginSchema = z.object({
 
 // Initialize Supabase client with service role key for admin operations
 const supabaseAdmin = createClient(
-  process.env.SUPABASE_URL || 'https://demo.supabase.co',
-  process.env.SUPABASE_SERVICE_ROLE_KEY || 'demo_service_key',
+  'https://ibqhfgpdgzrhvyfpgjxx.supabase.co',
+  process.env.SUPABASE_SERVICE_ROLE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImliemhmZ3BkZ3pyaHZ5ZnBnanh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDA1NjUwNzIsImV4cCI6MjAxNjE0MTA3Mn0.VNg3wJ5SJXRD5d7nKqVLjn5xMEF2QcB_dqwGbIvg1m4',
   {
     auth: {
       autoRefreshToken: false,
@@ -38,8 +38,8 @@ const supabaseAdmin = createClient(
 
 // Regular Supabase client for user operations
 const supabase = createClient(
-  process.env.SUPABASE_URL || 'https://demo.supabase.co',
-  process.env.SUPABASE_ANON_KEY || 'demo_key'
+  'https://ibqhfgpdgzrhvyfpgjxx.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImliemhmZ3BkZ3pyaHZ5ZnBnanh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDA1NjUwNzIsImV4cCI6MjAxNjE0MTA3Mn0.VNg3wJ5SJXRD5d7nKqVLjn5xMEF2QcB_dqwGbIvg1m4'
 );
 
 /**
