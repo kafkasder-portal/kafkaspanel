@@ -215,6 +215,7 @@ function ProtectedAppLayout() {
           <Route path="/donations/piggy-bank" element={withDonationsSuspense(PiggyBankTracking)} />
           <Route path="/donations/piggy-bank-tracking" element={withDonationsSuspense(PiggyBankTracking)} />
           <Route path="/donations/bulk-provisioning" element={withDonationsSuspense(BulkProvisioning)} />
+          <Route path="/donations/recurring" element={withDonationsSuspense(RecurringDonations)} />
 
           {/* Financial Management routes */}
           <Route path="/finance" element={<FinancialManagement />} />
