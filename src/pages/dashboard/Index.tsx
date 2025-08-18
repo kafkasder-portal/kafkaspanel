@@ -35,7 +35,7 @@ export default function DashboardIndex() {
   const { settings, updateWidgets } = useDashboardCustomization()
 
   return (
-    <div className="min-h-screen bg-neutral-50 space-y-4 sm:space-y-6 p-4 sm:p-6">
+    <div className="space-y-6">
       {/* Hoş Geldin Bölümü */}
       <div className="bg-gradient-to-r from-brand-primary to-brand-600 rounded-xl p-6 sm:p-8 text-white shadow-lg relative">
         <div className="flex items-start justify-between">
@@ -103,7 +103,7 @@ export default function DashboardIndex() {
       </div>
 
       {/* Finansal İstatistik Kartları */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <TotalDonationsCard 
           totalDonations={45230}
           monthlyChange={8.2}
@@ -124,7 +124,7 @@ export default function DashboardIndex() {
       </div>
 
       {/* Hızlı Erişim Kartları */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
         <QuickAccessCard
           title="Yeni Başvuru"
           description="İhtiyaç sahibi başvurusu oluştur"

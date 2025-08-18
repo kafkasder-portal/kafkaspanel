@@ -25,9 +25,18 @@ export const csrfProtection = (req: Request, res: Response, next: NextFunction) 
     });
   }
   
-  // Simple CSRF validation (in production, use more sophisticated method)
+  // CSRF validation with required environment variable
+  const csrfSecret = process.env.CSRF_SECRET;
+  if (!csrfSecret) {
+    console.error('CSRF_SECRET environment variable is required');
+    return res.status(500).json({
+      success: false,
+      error: 'Server configuration error'
+    });
+  }
+
   const expectedToken = crypto
-    .createHmac('sha256', process.env.CSRF_SECRET || 'default-csrf-secret')
+    .createHmac('sha256', csrfSecret)
     .update(sessionToken)
     .digest('hex');
   
@@ -45,8 +54,13 @@ export const csrfProtection = (req: Request, res: Response, next: NextFunction) 
  * Generate CSRF token
  */
 export const generateCSRFToken = (sessionToken: string): string => {
+  const csrfSecret = process.env.CSRF_SECRET;
+  if (!csrfSecret) {
+    throw new Error('CSRF_SECRET environment variable is required');
+  }
+
   return crypto
-    .createHmac('sha256', process.env.CSRF_SECRET || 'default-csrf-secret')
+    .createHmac('sha256', csrfSecret)
     .update(sessionToken)
     .digest('hex');
 };

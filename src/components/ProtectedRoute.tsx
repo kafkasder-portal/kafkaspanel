@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react'
-// import { useLocation } from 'react-router-dom'
+import { useLocation, Navigate } from 'react-router-dom'
 import { useAuthStore } from '../store/auth'
 import { Loader2 } from 'lucide-react'
 
@@ -10,9 +10,9 @@ interface ProtectedRouteProps {
 export function ProtectedRoute({
   children
 }: ProtectedRouteProps) {
-  const { initializing, initialize } = useAuthStore()
+  const { user, session, profile, initializing, initialize } = useAuthStore()
   const [isChecking, setIsChecking] = useState(true)
-  // const _location = useLocation()
+  const location = useLocation()
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -38,31 +38,29 @@ export function ProtectedRoute({
   }
 
   // Redirect to login if not authenticated
-  // GEÇICI: Login kontrolü devre dışı
-  // if (!session || !user) {
-  //   return <Navigate to="/login" state={{ from: location }} replace />
-  // }
+  if (!session || !user) {
+    return <Navigate to="/login" state={{ from: location }} replace />
+  }
 
   // Check if user account is active
-  // GEÇICI: Profil aktiflik kontrolü devre dışı
-  // if (profile && !profile.is_active) {
-  //   return (
-  //     <div className="min-h-screen flex items-center justify-center bg-background">
-  //       <div className="text-center space-y-4 max-w-md mx-auto p-6">
-  //         <h2 className="text-2xl font-bold text-destructive">Hesap Deaktif</h2>
-  //         <p className="text-muted-foreground">
-  //           Hesabınız deaktif edilmiştir. Erişim için sistem yöneticisiyle iletişime geçin.
-  //         </p>
-  //         <button
-  //           onClick={() => useAuthStore.getState().signOut()}
-  //           className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
-  //         >
-  //           Çıkış Yap
-  //         </button>
-  //       </div>
-  //     </div>
-  //   )
-  // }
+  if (profile && !profile.is_active) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center space-y-4 max-w-md mx-auto p-6">
+          <h2 className="text-2xl font-bold text-destructive">Hesap Deaktif</h2>
+          <p className="text-muted-foreground">
+            Hesabınız deaktif edilmiştir. Erişim için sistem yöneticisiyle iletişime geçin.
+          </p>
+          <button
+            onClick={() => useAuthStore.getState().signOut()}
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+          >
+            Çıkış Yap
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   // Check role requirement
   // GEÇICI: Rol kontrolü devre dışı

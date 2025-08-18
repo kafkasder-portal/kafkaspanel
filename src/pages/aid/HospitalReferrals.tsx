@@ -28,6 +28,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
+import { getErrorMessage, logErrorSafely } from '../../utils/errorMessageUtils'
 
 interface HospitalReferral {
   id: string
@@ -279,10 +280,8 @@ export default function HospitalReferrals() {
       if (error) throw error
       setBeneficiaries(beneficiariesData || [])
     } catch (error) {
-      console.error('İhtiyaç sahipleri yüklenirken hata:', {
-        message: error instanceof Error ? error.message : String(error),
-        stack: error instanceof Error ? error.stack : undefined
-      })
+      logErrorSafely('İhtiyaç sahipleri yüklenirken hata', error)
+      toast.error('İhtiyaç sahipleri yüklenirken hata oluştu: ' + getErrorMessage(error))
     }
   }
 
