@@ -1,15 +1,16 @@
-/* Import enhanced design system */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import enhanced design system after Tailwind */
 @import './styles/colors-enhanced.css';
 @import './styles/typography-enhanced.css';
 @import './styles/mobile-optimized.css';
 @import './styles/mobile-enhanced.css';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer base {
   :root {
+    /* Core Tailwind variables */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -31,66 +32,15 @@
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
 
-    /* Modern Professional Sidebar Colors - Updated */
-    --sidebar-background: var(--sidebar-bg);
-    --sidebar-foreground: var(--sidebar-text);
-    --sidebar-primary: var(--sidebar-accent);
-    --sidebar-primary-foreground: var(--sidebar-text-active);
-    --sidebar-accent: var(--sidebar-bg-hover);
-    --sidebar-accent-foreground: var(--sidebar-text);
-    --sidebar-border: var(--sidebar-border);
-    --sidebar-ring: var(--sidebar-accent);
-
-    /* Legacy Compatibility - Point to enhanced semantic colors */
-    --financial-primary: var(--brand-primary);
-    --financial-secondary: var(--semantic-success);
-    --financial-accent: var(--semantic-danger);
-    --financial-success: var(--semantic-success);
-    --financial-warning: var(--semantic-warning);
-    --financial-error: var(--semantic-danger);
-    --financial-info: var(--semantic-info);
-
-    /* Legacy Financial Gray Scale - Point to neutral colors */
-    --financial-gray-50: var(--neutral-50);
-    --financial-gray-100: var(--neutral-100);
-    --financial-gray-200: var(--neutral-200);
-    --financial-gray-300: var(--neutral-300);
-    --financial-gray-400: var(--neutral-400);
-    --financial-gray-500: var(--neutral-500);
-    --financial-gray-600: var(--neutral-600);
-    --financial-gray-700: var(--neutral-700);
-    --financial-gray-800: var(--neutral-800);
-    --financial-gray-900: var(--neutral-900);
-
-    /* Legacy Status Colors - Point to enhanced semantic colors */
-    --status-success: var(--semantic-success);
-    --status-warning: var(--semantic-warning);
-    --status-error: var(--semantic-danger);
-    --status-info: var(--semantic-info);
-    
-    /* Enhanced Typography - Pointing to new system */
-    --font-financial-primary: var(--font-family-sans);
-    --font-financial-mono: var(--font-family-mono);
-
-    /* Font Sizes - Enhanced Hierarchy */
-    --text-financial-xs: var(--font-size-xs);
-    --text-financial-sm: var(--font-size-sm);
-    --text-financial-base: var(--font-size-base);
-    --text-financial-lg: var(--font-size-lg);
-    --text-financial-xl: var(--font-size-xl);
-    --text-financial-2xl: var(--font-size-2xl);
-    --text-financial-3xl: var(--font-size-3xl);
-    --text-financial-4xl: var(--font-size-4xl);
-
-    /* Line Heights - Enhanced */
-    --leading-financial-tight: var(--line-height-tight);
-    --leading-financial-normal: var(--line-height-normal);
-    --leading-financial-relaxed: var(--line-height-relaxed);
-
-    /* Letter Spacing - Enhanced */
-    --tracking-financial-tight: -0.025em;
-    --tracking-financial-normal: 0em;
-    --tracking-financial-wide: 0.025em;
+    /* Sidebar Colors - Fallback values */
+    --sidebar-background: 220 13% 18%;
+    --sidebar-foreground: 220 9% 88%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 24%;
+    --sidebar-accent-foreground: 220 9% 88%;
+    --sidebar-border: 220 13% 22%;
+    --sidebar-ring: 217 91% 60%;
   }
 
   .dark {
