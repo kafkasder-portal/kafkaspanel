@@ -93,8 +93,8 @@ export default function BeneficiariesDetail() {
   }
 
   return (
-    <div className="p-4 bg-gray-50 min-h-screen">
-      <div className="bg-white border border-gray-200 shadow-sm rounded-lg max-w-7xl mx-auto overflow-hidden">
+    <div className="space-y-6">
+      <div className="bg-card border border-border shadow-sm rounded-lg max-w-7xl mx-auto overflow-hidden">
         <header className="px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white text-sm font-medium flex items-center justify-between">
           <span>İhtiyaç Sahibi Kişi ID # 1012</span>
           <div className="flex space-x-2">

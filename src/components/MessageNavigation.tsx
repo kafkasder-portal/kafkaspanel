@@ -83,10 +83,10 @@ export default function MessageNavigation({ currentPath = '/messages' }: Message
   ]
 
   return (
-    <div className="bg-white border rounded-lg p-4 mb-6">
+    <div className="bg-card border border-border rounded-lg p-4 mb-6 shadow-sm">
       <div className="flex items-center gap-2 mb-4">
-        <Mail className="h-5 w-5 text-blue-600" />
-        <h2 className="text-lg font-semibold text-gray-900">Mesaj Yönetimi</h2>
+        <Mail className="h-5 w-5 text-brand-primary" />
+        <h2 className="text-lg font-semibold text-foreground">Mesaj Yönetimi</h2>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -95,27 +95,27 @@ export default function MessageNavigation({ currentPath = '/messages' }: Message
             key={index}
             href={item.href}
             className={`group p-3 rounded-lg border transition-all duration-200 hover:shadow-md ${
-              item.isActive 
-                ? 'border-blue-500 bg-blue-50 shadow-sm' 
-                : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+              item.isActive
+                ? 'border-brand-primary bg-brand-primary/5 shadow-sm ring-1 ring-brand-primary/10'
+                : 'border-border hover:border-brand-primary/30 hover:bg-muted/50'
             }`}
           >
             <div className="flex items-start gap-3">
-              <div className={`p-2 rounded-lg ${
-                item.isActive 
-                  ? 'bg-blue-100 text-blue-600' 
-                  : 'bg-gray-100 text-gray-600 group-hover:bg-gray-200'
+              <div className={`p-2 rounded-lg transition-colors ${
+                item.isActive
+                  ? 'bg-brand-primary/10 text-brand-primary'
+                  : 'bg-muted text-muted-foreground group-hover:bg-muted-foreground/10 group-hover:text-foreground'
               }`}>
                 {item.icon}
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className={`font-medium text-sm ${
-                  item.isActive ? 'text-blue-900' : 'text-gray-900'
+                  item.isActive ? 'text-brand-primary' : 'text-foreground'
                 }`}>
                   {item.title}
                 </h3>
                 <p className={`text-xs mt-1 leading-relaxed ${
-                  item.isActive ? 'text-blue-700' : 'text-gray-600'
+                  item.isActive ? 'text-brand-primary/70' : 'text-muted-foreground'
                 }`}>
                   {item.description}
                 </p>

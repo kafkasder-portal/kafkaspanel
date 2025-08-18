@@ -42,7 +42,7 @@ const mockBankDonations: BankDonation[] = [
     purpose: 'Genel Bağış',
     status: 'eşleştirildi',
     matchedDonor: 'Mehmet Yılmaz',
-    notes: 'Düzenli bağışçı'
+    notes: 'Düzenli bağış��ı'
   },
   {
     id: '2',
@@ -313,46 +313,46 @@ export default function BankDonations() {
 
   return (
     <div className="space-y-6">
-      <div className="bg-white p-6 rounded-lg shadow">
+      <div className="card-pattern p-6">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Banka Bağışları</h2>
+          <h2 className="text-h2">Banka Bağışları</h2>
           <button
             onClick={openAddModal}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="bg-brand-primary text-white px-4 py-2 rounded-lg hover:bg-brand-primary/90 transition-all duration-200 shadow-sm hover:shadow-md"
           >
             Yeni Banka Bağışı
           </button>
         </div>
 
         {/* Özet Bilgiler */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-blue-50 p-4 rounded-lg">
-            <h3 className="text-sm font-medium text-blue-600">Toplam Bağış</h3>
-            <p className="text-2xl font-bold text-blue-900">{filteredDonations.length}</p>
+        <div className="grid-pattern-4 gap-4 mb-6">
+          <div className="metric-card bg-brand-primary/5 border-brand-primary/20">
+            <h3 className="text-sm font-medium text-brand-primary">Toplam Bağış</h3>
+            <p className="metric-value text-brand-primary">{filteredDonations.length}</p>
           </div>
-          <div className="bg-green-50 p-4 rounded-lg">
-            <h3 className="text-sm font-medium text-green-600">Toplam Tutar</h3>
-            <p className="text-2xl font-bold text-green-900">{totalAmount.toLocaleString('tr-TR')} ₺</p>
+          <div className="metric-card bg-semantic-success/5 border-semantic-success/20">
+            <h3 className="text-sm font-medium text-semantic-success">Toplam Tutar</h3>
+            <p className="metric-value text-semantic-success">{totalAmount.toLocaleString('tr-TR')} ₺</p>
           </div>
-          <div className="bg-yellow-50 p-4 rounded-lg">
-            <h3 className="text-sm font-medium text-yellow-600">Bekleyen</h3>
-            <p className="text-2xl font-bold text-yellow-900">{pendingCount}</p>
+          <div className="metric-card bg-semantic-warning/5 border-semantic-warning/20">
+            <h3 className="text-sm font-medium text-semantic-warning">Bekleyen</h3>
+            <p className="metric-value text-semantic-warning">{pendingCount}</p>
           </div>
-          <div className="bg-purple-50 p-4 rounded-lg">
-            <h3 className="text-sm font-medium text-purple-600">Bugünkü</h3>
-            <p className="text-2xl font-bold text-purple-900">1</p>
+          <div className="metric-card bg-semantic-info/5 border-semantic-info/20">
+            <h3 className="text-sm font-medium text-semantic-info">Bugünkü</h3>
+            <p className="metric-value text-semantic-info">1</p>
           </div>
         </div>
 
         {/* Banka Hesapları */}
         <div className="mb-6">
-          <h3 className="text-lg font-medium mb-3">Banka Hesaplarımız</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <h3 className="text-h3 mb-3">Banka Hesaplarımız</h3>
+          <div className="grid-pattern-3 gap-4">
             {bankAccounts.map((account, index) => (
-              <div key={index} className="border rounded-lg p-4">
-                <h4 className="font-medium">{account.name}</h4>
-                <p className="text-sm text-gray-600">{account.bank}</p>
-                <p className="text-sm font-mono">{account.iban}</p>
+              <div key={index} className="card-pattern p-4">
+                <h4 className="font-medium text-foreground">{account.name}</h4>
+                <p className="text-sm text-muted-foreground">{account.bank}</p>
+                <p className="text-sm font-mono text-foreground">{account.iban}</p>
               </div>
             ))}
           </div>

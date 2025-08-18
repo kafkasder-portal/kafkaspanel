@@ -1,6 +1,11 @@
-/* Import optimized color system */
-@import './styles/colors-optimized.css';
-@import './styles/mobile-responsiveness.css';
+/* Import enhanced design system BEFORE Tailwind */
+@import './styles/colors-enhanced.css';
+@import './styles/typography-enhanced.css';
+@import './styles/compatibility-layer.css';
+@import './styles/ui-patterns.css';
+@import './styles/page-patterns.css';
+@import './styles/mobile-optimized.css';
+@import './styles/mobile-enhanced.css';
 
 @tailwind base;
 @tailwind components;
@@ -8,6 +13,7 @@
 
 @layer base {
   :root {
+    /* Core Tailwind variables */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -28,53 +34,16 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
-    
-    /* Legacy Compatibility - Point to new optimized colors */
-    --financial-primary: var(--brand-primary); /* Use new brand primary */
-    --financial-secondary: var(--financial-success); /* Map to success green */
-    --financial-accent: var(--financial-error); /* Map to error red */
 
-    /* Legacy Financial Gray Scale - Point to neutral colors */
-    --financial-gray-50: var(--neutral-50);
-    --financial-gray-100: var(--neutral-100);
-    --financial-gray-200: var(--neutral-200);
-    --financial-gray-300: var(--neutral-300);
-    --financial-gray-400: var(--neutral-400);
-    --financial-gray-500: var(--neutral-500);
-    --financial-gray-600: var(--neutral-600);
-    --financial-gray-700: var(--neutral-700);
-    --financial-gray-800: var(--neutral-800);
-    --financial-gray-900: var(--neutral-900);
-
-    /* Legacy Status Colors - Point to new financial colors */
-    --status-success: var(--financial-success);
-    --status-warning: var(--financial-warning);
-    --status-error: var(--financial-error);
-    --status-info: var(--financial-info);
-    
-    /* Finansal Typography */
-    --font-financial-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-financial-mono: 'JetBrains Mono', 'Fira Code', 'Monaco', monospace;
-    
-    /* Font Sizes - Finansal Hiyerarşi */
-    --text-financial-xs: 0.75rem; /* 12px */
-    --text-financial-sm: 0.875rem; /* 14px */
-    --text-financial-base: 1rem; /* 16px */
-    --text-financial-lg: 1.125rem; /* 18px */
-    --text-financial-xl: 1.25rem; /* 20px */
-    --text-financial-2xl: 1.5rem; /* 24px */
-    --text-financial-3xl: 1.875rem; /* 30px */
-    --text-financial-4xl: 2.25rem; /* 36px */
-    
-    /* Line Heights */
-    --leading-financial-tight: 1.25;
-    --leading-financial-normal: 1.5;
-    --leading-financial-relaxed: 1.75;
-    
-    /* Letter Spacing */
-    --tracking-financial-tight: -0.025em;
-    --tracking-financial-normal: 0em;
-    --tracking-financial-wide: 0.025em;
+    /* Sidebar Colors - Fallback values */
+    --sidebar-background: 220 13% 18%;
+    --sidebar-foreground: 220 9% 88%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 24%;
+    --sidebar-accent-foreground: 220 9% 88%;
+    --sidebar-border: 220 13% 22%;
+    --sidebar-ring: 217 91% 60%;
   }
 
   .dark {
@@ -97,6 +66,16 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+
+    /* Dark Professional Sidebar Colors */
+    --sidebar-background: 220 13% 9%;
+    --sidebar-foreground: 220 9% 88%;
+    --sidebar-primary: 217 91% 65%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 14%;
+    --sidebar-accent-foreground: 220 9% 88%;
+    --sidebar-border: 220 13% 12%;
+    --sidebar-ring: 217 91% 65%;
   }
 }
 

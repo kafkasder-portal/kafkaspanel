@@ -1,7 +1,8 @@
 import { Router, type Request, type Response } from 'express';
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
-import { validate, schemas } from '../middleware/validation.js';
+import { validateRequest } from '../middleware/validation.js';
+import { z } from 'zod';
 import { generateCSRFToken } from '../middleware/security.js';
 import { asyncHandler } from '../middleware/errorHandler.js';
 
@@ -9,10 +10,24 @@ dotenv.config();
 
 const router = Router();
 
+// Validation schemas
+const registerSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+  full_name: z.string().min(1),
+  department: z.string().optional(),
+  phone: z.string().optional()
+});
+
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(1)
+});
+
 // Initialize Supabase client with service role key for admin operations
 const supabaseAdmin = createClient(
-  process.env.SUPABASE_URL || 'https://demo.supabase.co',
-  process.env.SUPABASE_SERVICE_ROLE_KEY || 'demo_service_key',
+  'https://ibqhfgpdgzrhvyfpgjxx.supabase.co',
+  process.env.SUPABASE_SERVICE_ROLE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlicWhmZ3BkZ3pyaHZ5ZnBnanh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUxMDk3NDcsImV4cCI6MjA3MDY4NTc0N30.1vSikm9_Dn978BctKWXhoOfPCKztLaBNgr8OEIVIXNg',
   {
     auth: {
       autoRefreshToken: false,
@@ -23,8 +38,8 @@ const supabaseAdmin = createClient(
 
 // Regular Supabase client for user operations
 const supabase = createClient(
-  process.env.SUPABASE_URL || 'https://demo.supabase.co',
-  process.env.SUPABASE_ANON_KEY || 'demo_key'
+  'https://ibqhfgpdgzrhvyfpgjxx.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlicWhmZ3BkZ3pyaHZ5ZnBnanh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUxMDk3NDcsImV4cCI6MjA3MDY4NTc0N30.1vSikm9_Dn978BctKWXhoOfPCKztLaBNgr8OEIVIXNg'
 );
 
 /**
@@ -45,7 +60,7 @@ router.get('/csrf-token', (req: Request, res: Response): void => {
  * User Registration
  * POST /api/auth/register
  */
-router.post('/register', validate(schemas.register), asyncHandler(async (req: Request, res: Response): Promise<void> => {
+router.post('/register', validateRequest(registerSchema), asyncHandler(async (req: Request, res: Response): Promise<void> => {
   const { email, password, full_name, department, phone } = req.body;
 
   // Validate required fields
@@ -143,7 +158,7 @@ router.post('/register', validate(schemas.register), asyncHandler(async (req: Re
  * User Login
  * POST /api/auth/login
  */
-router.post('/login', validate(schemas.login), asyncHandler(async (req: Request, res: Response): Promise<void> => {
+router.post('/login', validateRequest(loginSchema), asyncHandler(async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body;
 
   // Validate required fields

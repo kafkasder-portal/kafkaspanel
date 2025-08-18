@@ -80,9 +80,35 @@ export const env = {
 
 // Validation function
 export const validateEnv = () => {
-  const missing = ['SUPABASE_URL', 'SUPABASE_ANON_KEY'].filter(k => !env[k as keyof typeof env])
-  if (missing.length && !env.isDevelopment) throw new Error(`Missing env: ${missing.join(', ')}`)
-  if (env.DEBUG_MODE) console.log('Env loaded:', { APP_NAME: env.APP_NAME, APP_VERSION: env.APP_VERSION, APP_ENVIRONMENT: env.APP_ENVIRONMENT })
+  const missing = ['SUPABASE_URL', 'SUPABASE_ANON_KEY'].filter(k => {
+    const value = env[k as keyof typeof env] as string;
+    return !value || value.includes('placeholder') || value.includes('your_');
+  });
+
+  if (missing.length) {
+    const errorMessage = `⚠️ CONFIGURATION ERROR: Missing or invalid environment variables: ${missing.join(', ')}\n\n` +
+      `This app requires Supabase configuration. Please:\n` +
+      `1. Connect to Supabase: https://supabase.com\n` +
+      `2. Update your .env file with valid credentials\n` +
+      `3. Or enable VITE_MOCK_API=true for development\n\n` +
+      `See SETUP.md for detailed instructions.`;
+
+    console.error(errorMessage);
+
+    if (!env.isDevelopment) {
+      throw new Error(errorMessage);
+    }
+  }
+
+  if (env.DEBUG_MODE) {
+    console.log('🔧 Environment loaded:', {
+      APP_NAME: env.APP_NAME,
+      APP_VERSION: env.APP_VERSION,
+      APP_ENVIRONMENT: env.APP_ENVIRONMENT,
+      SUPABASE_CONFIGURED: !env.SUPABASE_URL.includes('placeholder'),
+      API_BASE_URL: env.API_BASE_URL
+    });
+  }
 }
 
 export default env

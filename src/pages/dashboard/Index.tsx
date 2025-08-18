@@ -35,7 +35,7 @@ export default function DashboardIndex() {
   const { settings, updateWidgets } = useDashboardCustomization()
 
   return (
-    <div className="min-h-screen bg-neutral-50 space-y-4 sm:space-y-6 p-4 sm:p-6">
+    <div className="space-y-6">
       {/* Hoş Geldin Bölümü */}
       <div className="bg-gradient-to-r from-brand-primary to-brand-600 rounded-xl p-6 sm:p-8 text-white shadow-lg relative">
         <div className="flex items-start justify-between">
@@ -103,7 +103,7 @@ export default function DashboardIndex() {
       </div>
 
       {/* Finansal İstatistik Kartları */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <TotalDonationsCard 
           totalDonations={45230}
           monthlyChange={8.2}
@@ -124,7 +124,7 @@ export default function DashboardIndex() {
       </div>
 
       {/* Hızlı Erişim Kartları */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
         <QuickAccessCard
           title="Yeni Başvuru"
           description="İhtiyaç sahibi başvurusu oluştur"
@@ -274,10 +274,10 @@ export default function DashboardIndex() {
       />
       {showReportGenerator && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-6xl max-h-[90vh] overflow-y-auto bg-white rounded-lg shadow-2xl">
-            <div className="p-6 border-b">
+          <div className="w-full max-w-6xl max-h-[90vh] overflow-y-auto bg-card rounded-lg shadow-2xl border border-border">
+            <div className="p-6 border-b border-border">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Rapor Oluşturucu</h2>
+                <h2 className="text-xl font-semibold text-foreground">Rapor Oluşturucu</h2>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -295,10 +295,10 @@ export default function DashboardIndex() {
       )}
       {showChartDashboard && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-7xl max-h-[90vh] overflow-y-auto bg-white rounded-lg shadow-2xl">
-            <div className="p-6 border-b">
+          <div className="w-full max-w-7xl max-h-[90vh] overflow-y-auto bg-card rounded-lg shadow-2xl border border-border">
+            <div className="p-6 border-b border-border">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Grafik Dashboard</h2>
+                <h2 className="text-xl font-semibold text-foreground">Grafik Dashboard</h2>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -316,10 +316,10 @@ export default function DashboardIndex() {
       )}
       {showWhatsAppManager && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-6xl max-h-[90vh] overflow-y-auto bg-white rounded-lg shadow-2xl">
-            <div className="p-6 border-b">
+          <div className="w-full max-w-6xl max-h-[90vh] overflow-y-auto bg-card rounded-lg shadow-2xl border border-border">
+            <div className="p-6 border-b border-border">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">WhatsApp Yöneticisi</h2>
+                <h2 className="text-xl font-semibold text-foreground">WhatsApp Yöneticisi</h2>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -337,10 +337,10 @@ export default function DashboardIndex() {
       )}
       {showMapDashboard && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-7xl max-h-[90vh] overflow-y-auto bg-white rounded-lg shadow-2xl">
-            <div className="p-6 border-b">
+          <div className="w-full max-w-7xl max-h-[90vh] overflow-y-auto bg-card rounded-lg shadow-2xl border border-border">
+            <div className="p-6 border-b border-border">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Harita Yönetimi</h2>
+                <h2 className="text-xl font-semibold text-foreground">Harita Yönetimi</h2>
                 <Button
                   variant="ghost"
                   size="sm"
