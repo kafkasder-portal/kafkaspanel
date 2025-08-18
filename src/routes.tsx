@@ -627,6 +627,13 @@ function AppRoutes() {
         </ProtectedRoute>
       } />
 
+      {/* Test routes */}
+      <Route path="/test/error-handling" element={
+        <ProtectedRoute>
+          {withSystemSuspense(ErrorHandlingTest)}
+        </ProtectedRoute>
+      } />
+
       {/* Catch-all route for 404 errors */}
       <Route path="*" element={<NotFound />} />
     </Routes>
