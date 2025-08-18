@@ -164,7 +164,7 @@ export function MonthlyGrowthCard({ growthRate, period }: {
       period={period}
       icon={TrendingUp}
       unit="%"
-      className="sm:min-h-[140px]"
+      className="bg-gradient-to-br from-financial-warning/5 to-financial-warning/10 border-financial-warning/20 sm:min-h-[140px]"
     />
   )
 }
@@ -182,7 +182,7 @@ export function ActiveBeneficiariesCard({ count, monthlyChange }: {
       period="Bu ay"
       icon={Users}
       unit=""
-      className="sm:min-h-[140px]"
+      className="bg-gradient-to-br from-financial-info/5 to-financial-info/10 border-financial-info/20 sm:min-h-[140px]"
     />
   )
 }
@@ -200,7 +200,7 @@ export function FundDistributionCard({ distributionRate, target }: {
       period={`Hedef: %${target}`}
       icon={BarChart3}
       unit="%"
-      className="sm:min-h-[140px]"
+      className="bg-gradient-to-br from-financial-primary/5 to-financial-primary/10 border-financial-primary/20 sm:min-h-[140px]"
     />
   )
 }
