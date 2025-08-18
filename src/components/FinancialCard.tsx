@@ -24,7 +24,7 @@ interface MiniChartProps {
   data: number[]
 }
 
-function MiniChart({ data }: MiniChartProps) {
+function MiniChart({ data, color }: MiniChartProps & { color?: string }) {
   const max = Math.max(...data)
   const min = Math.min(...data)
   const range = max - min || 1
@@ -43,7 +43,7 @@ function MiniChart({ data }: MiniChartProps) {
           stroke="currentColor"
           strokeWidth="2"
           points={points}
-          className="text-financial-primary"
+          className={color || "text-financial-success"}
         />
       </svg>
     </div>
@@ -63,6 +63,7 @@ export function FinancialCard({
   icon,
   trend,
   unit = '₺',
+  variant = 'default',
   className = '',
   onSwipeLeft,
   onSwipeRight,
@@ -73,11 +74,43 @@ export function FinancialCard({
     onSwipeRight,
     threshold: 100
   })
+
+  const getVariantColors = (variant: string) => {
+    switch (variant) {
+      case 'success':
+        return {
+          iconBg: 'bg-financial-success/10',
+          iconText: 'text-financial-success',
+          chartColor: 'text-financial-success'
+        }
+      case 'warning':
+        return {
+          iconBg: 'bg-financial-warning/10',
+          iconText: 'text-financial-warning',
+          chartColor: 'text-financial-warning'
+        }
+      case 'info':
+        return {
+          iconBg: 'bg-financial-info/10',
+          iconText: 'text-financial-info',
+          chartColor: 'text-financial-info'
+        }
+      default:
+        return {
+          iconBg: 'bg-financial-primary/10',
+          iconText: 'text-financial-primary',
+          chartColor: 'text-financial-primary'
+        }
+    }
+  }
+
+  const variantColors = getVariantColors(variant)
+
   const changeColor = changeType === 'increase'
     ? 'text-financial-success'
     : 'text-financial-error'
-  
-  const changeIcon = changeType === 'increase' 
+
+  const changeIcon = changeType === 'increase'
     ? <TrendingUp className="h-4 w-4" />
     : <TrendingDown className="h-4 w-4" />
 
@@ -88,9 +121,9 @@ export function FinancialCard({
       className={`
         bg-card
         border-border
-        border rounded-xl shadow-sm p-4 sm:p-6
+        border rounded-xl shadow-sm p-6
         hover:shadow-md transition-all duration-200
-        min-h-[120px] sm:min-h-[160px]
+        min-h-[160px]
         group cursor-pointer
         hover:scale-[1.02] active:scale-[0.98]
         touch-manipulation
@@ -101,7 +134,7 @@ export function FinancialCard({
       `}>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
-          <div className="p-2 bg-brand-primary/10 rounded-lg text-brand-primary">
+          <div className={`p-2 rounded-lg ${variantColors.iconBg} ${variantColors.iconText}`}>
             {icon && React.createElement(icon, { className: "h-5 w-5" })}
           </div>
           <h3 className="text-sm font-medium text-foreground">{title}</h3>
@@ -123,7 +156,7 @@ export function FinancialCard({
       
       {trend && trend.length > 0 && (
         <div className="mt-4">
-          <MiniChart data={trend} />
+          <MiniChart data={trend} color={variantColors.chartColor} />
         </div>
       )}
     </div>
@@ -146,7 +179,8 @@ export function TotalDonationsCard({ totalDonations, monthlyChange, trend }: {
       icon={CreditCard}
       trend={trend}
       unit="₺"
-      className="bg-gradient-to-br from-financial-success-light to-financial-success-light border-financial-success/20 sm:min-h-[140px]"
+      variant="success"
+      className="bg-gradient-to-br from-financial-success/5 to-financial-success/10 border-financial-success/20"
     />
   )
 }
@@ -164,7 +198,8 @@ export function MonthlyGrowthCard({ growthRate, period }: {
       period={period}
       icon={TrendingUp}
       unit="%"
-      className="sm:min-h-[140px]"
+      variant="warning"
+      className="bg-gradient-to-br from-financial-warning/5 to-financial-warning/10 border-financial-warning/20"
     />
   )
 }
@@ -182,7 +217,8 @@ export function ActiveBeneficiariesCard({ count, monthlyChange }: {
       period="Bu ay"
       icon={Users}
       unit=""
-      className="sm:min-h-[140px]"
+      variant="info"
+      className="bg-gradient-to-br from-financial-info/5 to-financial-info/10 border-financial-info/20"
     />
   )
 }
@@ -200,7 +236,8 @@ export function FundDistributionCard({ distributionRate, target }: {
       period={`Hedef: %${target}`}
       icon={BarChart3}
       unit="%"
-      className="sm:min-h-[140px]"
+      variant="default"
+      className="bg-gradient-to-br from-financial-primary/5 to-financial-primary/10 border-financial-primary/20"
     />
   )
 }

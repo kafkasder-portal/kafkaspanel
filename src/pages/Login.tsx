@@ -7,6 +7,7 @@ import { Eye, EyeOff, Loader2, Mail, Lock, User, Phone, Building } from 'lucide-
 import { useAuthStore } from '../store/auth'
 import { Button } from '../components/ui/button'
 import { Card } from '../components/ui/card'
+import { DevelopmentNotice } from '../components/DevelopmentNotice'
 
 const loginSchema = z.object({
   email: z.string().email('Geçerli bir email adresi giriniz'),
@@ -118,7 +119,9 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-4">
-      <Card className="w-full max-w-md p-8 shadow-xl border-0 bg-white/80 backdrop-blur-sm">
+      <div className="w-full max-w-md">
+        <DevelopmentNotice />
+        <Card className="p-8 shadow-xl border-0 bg-white/80 backdrop-blur-sm">
         <div className="text-center mb-8">
           <div className="mx-auto w-16 h-16 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center mb-4">
             <Building className="w-8 h-8 text-white" />
@@ -170,7 +173,7 @@ export default function Login() {
                 <input
                   {...loginForm.register('password')}
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="••••••••"
+                  placeholder="��•••••••"
                   className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                 />
                 <button
@@ -421,7 +424,8 @@ export default function Login() {
             </div>
           </form>
         )}
-      </Card>
+        </Card>
+      </div>
     </div>
   )
 }

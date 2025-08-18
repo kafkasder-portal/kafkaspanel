@@ -1,24 +1,31 @@
--- Disable RLS Completely - Manual SQL Commands
--- Bu komutları Supabase Dashboard > SQL Editor'da çalıştırın
-
+-- ⚠️  GÜVENLIK UYARISI - Bu dosya devre dışı bırakılmıştır
 -- =============================================
--- DISABLE RLS ON ALL TABLES
+-- 🚨 KRİTİK GÜVENLİK AÇIĞI - KULLANMAYIN!
 -- =============================================
+--
+-- Bu dosya tüm RLS (Row Level Security) korumasını kaldırır ve
+-- VERİ GÜVENLİĞİNİ CİDDİ RİSKE ATAR!
+--
+-- ❌ YAPMAYINIZ:
+-- - RLS'yi tamamen devre dışı bırakmak
+-- - Anonim kullanıcılara tam erişim vermek
+-- - Production'da bu dosyayı kullanmak
+--
+-- ✅ BUNUN YERİNE:
+-- - enable-rls-secure.sql dosyasını kullanın
+-- - Güvenli RLS policy'leri uygulayın
+-- - Principle of least privilege'ı takip edin
+--
+-- Bu dosya güvenlik nedeniyle devre dışı bırakılmıştır.
 
--- Disable RLS on all tables
-ALTER TABLE public.user_profiles DISABLE ROW LEVEL SECURITY;
-ALTER TABLE public.beneficiaries DISABLE ROW LEVEL SECURITY;
-ALTER TABLE public.family_members DISABLE ROW LEVEL SECURITY;
-ALTER TABLE public.applications DISABLE ROW LEVEL SECURITY;
-ALTER TABLE public.aid_records DISABLE ROW LEVEL SECURITY;
-ALTER TABLE public.payments DISABLE ROW LEVEL SECURITY;
-ALTER TABLE public.in_kind_aids DISABLE ROW LEVEL SECURITY;
-ALTER TABLE public.meetings DISABLE ROW LEVEL SECURITY;
-ALTER TABLE public.meeting_attendees DISABLE ROW LEVEL SECURITY;
-ALTER TABLE public.meeting_agenda DISABLE ROW LEVEL SECURITY;
-ALTER TABLE public.meeting_minutes DISABLE ROW LEVEL SECURITY;
-ALTER TABLE public.documents DISABLE ROW LEVEL SECURITY;
-ALTER TABLE public.notifications DISABLE ROW LEVEL SECURITY;
+-- UYARI: Bu komutları çalıştırmayın!
+-- Eğer RLS'yi yeniden aktifleştirmek istiyorsanız:
+-- 1. enable-rls-secure.sql dosyasını kullanın
+-- 2. Her tablo için uygun policy'ler oluşturun
+-- 3. Authenticated kullanıcılara minimum gerekli izinleri verin
+
+-- G��VENLİ ALTERNATİF:
+-- \i enable-rls-secure.sql
 
 -- =============================================
 -- DROP ALL EXISTING POLICIES

@@ -25,6 +25,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
+import { getErrorMessage, logErrorSafely } from '../../utils/errorMessageUtils'
 
 interface InKindOperation {
   id: string
@@ -192,10 +193,8 @@ export default function InKindOperations() {
       
       setOperations(transformedData)
     } catch (error) {
-      console.error('Ayni yardım işlemleri yüklenirken hata:', {
-        message: error instanceof Error ? error.message : String(error),
-        stack: error instanceof Error ? error.stack : undefined
-      })
+      logErrorSafely('Ayni yardım işlemleri yüklenirken hata', error)
+      toast.error('Ayni yardım işlemleri yüklenirken hata oluştu: ' + getErrorMessage(error))
       toast.error('Ayni yardım işlemleri yüklenirken hata oluştu')
     } finally {
       setLoading(false)
@@ -221,9 +220,8 @@ export default function InKindOperations() {
         setStats({ totalReceived, totalDistributed, currentStock, todayOperations })
       }
     } catch (error) {
-      console.error('İstatistikler yüklenirken hata:', {
-        message: error instanceof Error ? error.message : String(error)
-      })
+      logErrorSafely('İstatistikler yüklenirken hata', error)
+      toast.error('İstatistikler yüklenirken hata oluştu: ' + getErrorMessage(error))
     }
   }
 
@@ -238,10 +236,8 @@ export default function InKindOperations() {
       if (error) throw error
       setBeneficiaries(data || [])
     } catch (error) {
-      console.error('İhtiyaç sahipleri yüklenirken hata:', {
-        message: error instanceof Error ? error.message : String(error),
-        stack: error instanceof Error ? error.stack : undefined
-      })
+      logErrorSafely('İhtiyaç sahipleri yüklenirken hata', error)
+      toast.error('İhtiyaç sahipleri yüklenirken hata oluştu: ' + getErrorMessage(error))
     }
   }
 
@@ -312,9 +308,8 @@ export default function InKindOperations() {
       loadOperations()
       loadStats()
     } catch (error) {
-      console.error('Ayni yardım işlemi kaydedilirken hata:', {
-        message: error instanceof Error ? error.message : String(error)
-      })
+      logErrorSafely('Ayni yardım işlemi kaydedilirken hata', error)
+      toast.error('Ayni yardım işlemi kaydedilemedi: ' + getErrorMessage(error))
       toast.error('Ayni yardım işlemi kaydedilirken hata oluştu')
     }
   }

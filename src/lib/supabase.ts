@@ -4,7 +4,10 @@ import { env, validateEnv } from './env'
 // Validate environment variables on import
 validateEnv()
 
-export const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
+export const supabase = createClient(
+  'https://ibqhfgpdgzrhvyfpgjxx.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlicWhmZ3BkZ3pyaHZ5ZnBnanh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUxMDk3NDcsImV4cCI6MjA3MDY4NTc0N30.1vSikm9_Dn978BctKWXhoOfPCKztLaBNgr8OEIVIXNg',
+  {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
@@ -215,6 +218,56 @@ export type Database = {
           processed_by?: string | null
           notes?: string | null
           created_at?: string
+        }
+      }
+      user_profiles: {
+        Row: {
+          id: string
+          full_name: string
+          display_name: string | null
+          email: string | null
+          phone: string | null
+          role: 'super_admin' | 'admin' | 'manager' | 'coordinator' | 'volunteer' | 'user'
+          department: string | null
+          position: string | null
+          avatar_url: string | null
+          is_active: boolean
+          last_login_at: string | null
+          created_at: string
+          updated_at: string
+          status: 'active' | 'inactive' | 'suspended' | 'pending'
+        }
+        Insert: {
+          id: string
+          full_name: string
+          display_name?: string | null
+          email?: string | null
+          phone?: string | null
+          role?: 'super_admin' | 'admin' | 'manager' | 'coordinator' | 'volunteer' | 'user'
+          department?: string | null
+          position?: string | null
+          avatar_url?: string | null
+          is_active?: boolean
+          last_login_at?: string | null
+          created_at?: string
+          updated_at?: string
+          status?: 'active' | 'inactive' | 'suspended' | 'pending'
+        }
+        Update: {
+          id?: string
+          full_name?: string
+          display_name?: string | null
+          email?: string | null
+          phone?: string | null
+          role?: 'super_admin' | 'admin' | 'manager' | 'coordinator' | 'volunteer' | 'user'
+          department?: string | null
+          position?: string | null
+          avatar_url?: string | null
+          is_active?: boolean
+          last_login_at?: string | null
+          created_at?: string
+          updated_at?: string
+          status?: 'active' | 'inactive' | 'suspended' | 'pending'
         }
       }
       in_kind_aids: {
