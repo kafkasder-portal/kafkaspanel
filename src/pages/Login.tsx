@@ -7,6 +7,7 @@ import { Eye, EyeOff, Loader2, Mail, Lock, User, Phone, Building } from 'lucide-
 import { useAuthStore } from '../store/auth'
 import { Button } from '../components/ui/button'
 import { Card } from '../components/ui/card'
+import { DevelopmentNotice } from '../components/DevelopmentNotice'
 
 const loginSchema = z.object({
   email: z.string().email('Geçerli bir email adresi giriniz'),
@@ -170,7 +171,7 @@ export default function Login() {
                 <input
                   {...loginForm.register('password')}
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="••••••••"
+                  placeholder="��•••••••"
                   className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                 />
                 <button
