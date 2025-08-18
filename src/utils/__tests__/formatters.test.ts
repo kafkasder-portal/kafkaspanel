@@ -1,257 +1,207 @@
-import { describe, it, expect } from 'vitest'
-import {
-  formatDate,
-  formatCurrency,
+import { 
+  formatCurrency, 
+  formatDate, 
+  formatDateTime, 
   formatPhoneNumber,
-  formatFileSize,
-  formatDuration,
   formatPercentage,
+  formatFileSize,
   truncateText,
   capitalizeFirst,
-  slugify
+  formatNumber
 } from '../formatters'
+import { expect, test, describe } from 'vitest'
 
 describe('Formatters Utilities', () => {
-  describe('formatDate', () => {
-    it('formats date correctly', () => {
-      const date = new Date('2023-01-15')
-      const result = formatDate(date)
-      expect(result).toMatch(/^\d{1,2}\/\d{1,2}\/\d{4}$/)
+  describe('formatCurrency', () => {
+    test('formats currency in TRY', () => {
+      expect(formatCurrency(1234.56)).toBe('₺1.234,56')
+      expect(formatCurrency(0)).toBe('₺0,00')
+      expect(formatCurrency(1000000)).toBe('₺1.000.000,00')
     })
 
-    it('handles string dates', () => {
-      const result = formatDate('2023-01-15')
-      expect(result).toMatch(/^\d{1,2}\/\d{1,2}\/\d{4}$/)
+    test('formats currency in different currencies', () => {
+      expect(formatCurrency(1234.56, 'USD')).toBe('$1,234.56')
+      expect(formatCurrency(1234.56, 'EUR')).toBe('€1.234,56')
     })
 
-    it('handles invalid dates', () => {
-      const result = formatDate('invalid-date')
-      expect(result).toBe('Invalid Date')
+    test('handles negative values', () => {
+      expect(formatCurrency(-1234.56)).toBe('-₺1.234,56')
     })
 
-    it('formats with custom format', () => {
-      const date = new Date('2023-01-15')
-      const result = formatDate(date, 'yyyy-MM-dd')
-      expect(result).toBe('2023-01-15')
+    test('handles null/undefined values', () => {
+      expect(formatCurrency(null)).toBe('₺0,00')
+      expect(formatCurrency(undefined)).toBe('₺0,00')
     })
   })
 
-  describe('formatCurrency', () => {
-    it('formats USD currency', () => {
-      const result = formatCurrency(1234.56)
-      expect(result).toMatch(/\$1,234\.56/)
+  describe('formatDate', () => {
+    test('formats date string', () => {
+      const date = '2023-12-25T10:30:00Z'
+      expect(formatDate(date)).toMatch(/25[.\/]12[.\/]2023/)
     })
 
-    it('formats with custom currency', () => {
-      const result = formatCurrency(1234.56, 'EUR')
-      expect(result).toMatch(/1,234\.56/)
+    test('formats Date object', () => {
+      const date = new Date('2023-12-25T10:30:00Z')
+      expect(formatDate(date)).toMatch(/25[.\/]12[.\/]2023/)
     })
 
-    it('handles zero amount', () => {
-      const result = formatCurrency(0)
-      expect(result).toMatch(/\$0\.00/)
+    test('handles invalid dates', () => {
+      expect(formatDate('invalid-date')).toBe('Geçersiz tarih')
+      expect(formatDate(null)).toBe('Geçersiz tarih')
+      expect(formatDate(undefined)).toBe('Geçersiz tarih')
     })
 
-    it('handles negative amounts', () => {
-      const result = formatCurrency(-1234.56)
-      expect(result).toMatch(/-\$1,234\.56/)
+    test('formats with custom format', () => {
+      const date = '2023-12-25T10:30:00Z'
+      expect(formatDate(date, 'dd/MM/yyyy')).toBe('25/12/2023')
+      expect(formatDate(date, 'MMM d, yyyy')).toMatch(/Ara 25, 2023|Dec 25, 2023/)
+    })
+  })
+
+  describe('formatDateTime', () => {
+    test('formats date and time', () => {
+      const date = '2023-12-25T10:30:00Z'
+      const result = formatDateTime(date)
+      expect(result).toMatch(/25[.\/]12[.\/]2023.*1[0-3][:.]30/)
     })
 
-    it('handles large numbers', () => {
-      const result = formatCurrency(1234567.89)
-      expect(result).toMatch(/\$1,234,567\.89/)
+    test('handles invalid dates', () => {
+      expect(formatDateTime('invalid-date')).toBe('Geçersiz tarih')
     })
   })
 
   describe('formatPhoneNumber', () => {
-    it('formats 10-digit number', () => {
-      const result = formatPhoneNumber('1234567890')
-      expect(result).toBe('(123) 456-7890')
+    test('formats Turkish phone numbers', () => {
+      expect(formatPhoneNumber('5551234567')).toBe('(555) 123-4567')
+      expect(formatPhoneNumber('905551234567')).toBe('+90 (555) 123-4567')
+      expect(formatPhoneNumber('+905551234567')).toBe('+90 (555) 123-4567')
     })
 
-    it('formats 11-digit number with country code', () => {
-      const result = formatPhoneNumber('11234567890')
-      expect(result).toBe('+1 (123) 456-7890')
+    test('formats international numbers', () => {
+      expect(formatPhoneNumber('+1234567890', 'US')).toBe('+1 (234) 567-890')
     })
 
-    it('handles already formatted numbers', () => {
-      const result = formatPhoneNumber('(123) 456-7890')
-      expect(result).toBe('(123) 456-7890')
-    })
-
-    it('handles empty string', () => {
-      const result = formatPhoneNumber('')
-      expect(result).toBe('')
-    })
-  })
-
-  describe('formatFileSize', () => {
-    it('formats bytes', () => {
-      const result = formatFileSize(512)
-      expect(result).toBe('512 B')
-    })
-
-    it('formats kilobytes', () => {
-      const result = formatFileSize(1024)
-      expect(result).toBe('1 KB')
-    })
-
-    it('formats megabytes', () => {
-      const result = formatFileSize(1048576)
-      expect(result).toBe('1 MB')
-    })
-
-    it('formats gigabytes', () => {
-      const result = formatFileSize(1073741824)
-      expect(result).toBe('1 GB')
-    })
-
-    it('handles zero size', () => {
-      const result = formatFileSize(0)
-      expect(result).toBe('0 B')
-    })
-
-    it('formats with custom decimals', () => {
-      const result = formatFileSize(1536, 2)
-      expect(result).toBe('1.5 KB')
-    })
-  })
-
-  describe('formatDuration', () => {
-    it('formats seconds only', () => {
-      const result = formatDuration(30)
-      expect(result).toBe('30s')
-    })
-
-    it('formats minutes and seconds', () => {
-      const result = formatDuration(90)
-      expect(result).toBe('1m 30s')
-    })
-
-    it('formats hours, minutes and seconds', () => {
-      const result = formatDuration(3665)
-      expect(result).toBe('1h 1m 5s')
-    })
-
-    it('handles zero duration', () => {
-      const result = formatDuration(0)
-      expect(result).toBe('0s')
-    })
-
-    it('formats hours only', () => {
-      const result = formatDuration(3600)
-      expect(result).toBe('1h')
-    })
-
-    it('formats minutes only', () => {
-      const result = formatDuration(120)
-      expect(result).toBe('2m')
+    test('handles invalid phone numbers', () => {
+      expect(formatPhoneNumber('123')).toBe('123')
+      expect(formatPhoneNumber('')).toBe('')
+      expect(formatPhoneNumber(null)).toBe('')
     })
   })
 
   describe('formatPercentage', () => {
-    it('formats decimal to percentage', () => {
-      const result = formatPercentage(0.1234)
-      expect(result).toBe('12.34%')
+    test('formats percentage values', () => {
+      expect(formatPercentage(0.5)).toBe('%50,00')
+      expect(formatPercentage(0.125)).toBe('%12,50')
+      expect(formatPercentage(1)).toBe('%100,00')
     })
 
-    it('formats with custom decimals', () => {
-      const result = formatPercentage(0.1234, 1)
-      expect(result).toBe('12.3%')
+    test('formats with custom decimal places', () => {
+      expect(formatPercentage(0.12345, 1)).toBe('%12,3')
+      expect(formatPercentage(0.12345, 3)).toBe('%12,345')
     })
 
-    it('handles zero', () => {
-      const result = formatPercentage(0)
-      expect(result).toBe('0.00%')
+    test('handles edge cases', () => {
+      expect(formatPercentage(0)).toBe('%0,00')
+      expect(formatPercentage(null)).toBe('%0,00')
+      expect(formatPercentage(undefined)).toBe('%0,00')
+    })
+  })
+
+  describe('formatFileSize', () => {
+    test('formats bytes', () => {
+      expect(formatFileSize(512)).toBe('512 B')
+      expect(formatFileSize(0)).toBe('0 B')
     })
 
-    it('handles one hundred percent', () => {
-      const result = formatPercentage(1)
-      expect(result).toBe('100.00%')
+    test('formats kilobytes', () => {
+      expect(formatFileSize(1024)).toBe('1.0 KB')
+      expect(formatFileSize(1536)).toBe('1.5 KB')
     })
 
-    it('handles negative values', () => {
-      const result = formatPercentage(-0.1)
-      expect(result).toBe('-10.00%')
+    test('formats megabytes', () => {
+      expect(formatFileSize(1024 * 1024)).toBe('1.0 MB')
+      expect(formatFileSize(2.5 * 1024 * 1024)).toBe('2.5 MB')
+    })
+
+    test('formats gigabytes', () => {
+      expect(formatFileSize(1024 * 1024 * 1024)).toBe('1.0 GB')
+    })
+
+    test('handles large sizes', () => {
+      expect(formatFileSize(1024 * 1024 * 1024 * 1024)).toBe('1.0 TB')
+    })
+
+    test('handles invalid sizes', () => {
+      expect(formatFileSize(-1)).toBe('0 B')
+      expect(formatFileSize(null)).toBe('0 B')
+      expect(formatFileSize(undefined)).toBe('0 B')
     })
   })
 
   describe('truncateText', () => {
-    it('truncates long text', () => {
-      const text = 'This is a very long text that should be truncated'
-      const result = truncateText(text, 20)
-      expect(result).toBe('This is a very lo...')
+    test('truncates long text', () => {
+      const longText = 'Bu çok uzun bir metin örneğidir'
+      expect(truncateText(longText, 10)).toBe('Bu çok uz...')
     })
 
-    it('does not truncate short text', () => {
-      const text = 'Short text'
-      const result = truncateText(text, 20)
-      expect(result).toBe('Short text')
+    test('returns short text unchanged', () => {
+      const shortText = 'Kısa'
+      expect(truncateText(shortText, 10)).toBe('Kısa')
     })
 
-    it('handles custom suffix', () => {
-      const text = 'This is a long text'
-      const result = truncateText(text, 10, ' [more]')
-      expect(result).toBe('Thi [more]')
+    test('handles edge cases', () => {
+      expect(truncateText('', 10)).toBe('')
+      expect(truncateText(null, 10)).toBe('')
+      expect(truncateText(undefined, 10)).toBe('')
     })
 
-    it('handles empty string', () => {
-      const result = truncateText('', 10)
-      expect(result).toBe('')
+    test('uses custom suffix', () => {
+      const text = 'Uzun metin örneği'
+      expect(truncateText(text, 5, '***')).toBe('Uzun ***')
     })
   })
 
   describe('capitalizeFirst', () => {
-    it('capitalizes first letter', () => {
-      const result = capitalizeFirst('hello world')
-      expect(result).toBe('Hello world')
+    test('capitalizes first letter', () => {
+      expect(capitalizeFirst('hello')).toBe('Hello')
+      expect(capitalizeFirst('HELLO')).toBe('Hello')
+      expect(capitalizeFirst('hELLO')).toBe('Hello')
     })
 
-    it('handles already capitalized', () => {
-      const result = capitalizeFirst('Hello World')
-      expect(result).toBe('Hello World')
+    test('handles special characters', () => {
+      expect(capitalizeFirst('çok güzel')).toBe('Çok güzel')
+      expect(capitalizeFirst('özel karakter')).toBe('Özel karakter')
     })
 
-    it('handles empty string', () => {
-      const result = capitalizeFirst('')
-      expect(result).toBe('')
-    })
-
-    it('handles single character', () => {
-      const result = capitalizeFirst('a')
-      expect(result).toBe('A')
+    test('handles edge cases', () => {
+      expect(capitalizeFirst('')).toBe('')
+      expect(capitalizeFirst('a')).toBe('A')
+      expect(capitalizeFirst(null)).toBe('')
+      expect(capitalizeFirst(undefined)).toBe('')
     })
   })
 
-  describe('slugify', () => {
-    it('converts text to slug', () => {
-      const result = slugify('Hello World')
-      expect(result).toBe('hello-world')
+  describe('formatNumber', () => {
+    test('formats numbers with separators', () => {
+      expect(formatNumber(1234)).toBe('1.234')
+      expect(formatNumber(1234567)).toBe('1.234.567')
+      expect(formatNumber(1234.56)).toBe('1.234,56')
     })
 
-    it('handles special characters', () => {
-      const result = slugify('Hello, World!')
-      expect(result).toBe('hello-world')
+    test('handles decimal places', () => {
+      expect(formatNumber(1234.5678, 2)).toBe('1.234,57')
+      expect(formatNumber(1234.1, 2)).toBe('1.234,10')
     })
 
-    it('handles multiple spaces', () => {
-      const result = slugify('Hello   World')
-      expect(result).toBe('hello-world')
+    test('handles negative numbers', () => {
+      expect(formatNumber(-1234)).toBe('-1.234')
+      expect(formatNumber(-1234.56)).toBe('-1.234,56')
     })
 
-    it('handles accented characters', () => {
-      const result = slugify('café résumé')
-      expect(result).toBe('cafe-resume')
-    })
-
-    it('handles numbers', () => {
-      const result = slugify('Page 123')
-      expect(result).toBe('page-123')
-    })
-
-    it('handles empty string', () => {
-      const result = slugify('')
-      expect(result).toBe('')
+    test('handles edge cases', () => {
+      expect(formatNumber(0)).toBe('0')
+      expect(formatNumber(null)).toBe('0')
+      expect(formatNumber(undefined)).toBe('0')
     })
   })
 })
