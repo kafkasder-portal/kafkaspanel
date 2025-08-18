@@ -14,6 +14,7 @@ import {
   HelpingHand,
   Shield,
   Database,
+  CheckSquare,
   LucideIcon
 } from 'lucide-react'
 
@@ -69,7 +70,7 @@ export const navigationItems: NavigationItem[] = [
     icon: Calendar,
     badge: undefined,
     subPages: [
-      { title: "T��m Toplantılar", href: "/meetings", description: "Toplantı listesi" },
+      { title: "Tüm Toplantılar", href: "/meetings", description: "Toplantı listesi" },
       { title: "Toplantı Planla", href: "/meetings/create", description: "Yeni toplantı oluştur" },
       { title: "Toplantı Takvimi", href: "/meetings/calendar", description: "Takvim görünümü" }
     ]
