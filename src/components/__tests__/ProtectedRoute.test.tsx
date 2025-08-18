@@ -57,7 +57,7 @@ describe('ProtectedRoute Component', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     // Reset to default mock
-    const { useAuthStore } = require('../store/auth')
+    const { useAuthStore } = require('../../store/auth')
     useAuthStore.mockReturnValue(createMockAuthStore())
   })
 
