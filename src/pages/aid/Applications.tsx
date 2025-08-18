@@ -199,7 +199,19 @@ export default function Applications() {
       setApplications(data || [])
     } catch (error) {
       logErrorSafely('Error loading applications', error)
-      toast.error(createOperationErrorMessage('load', error))
+
+      // Provide more specific error messages
+      const errorMessage = getErrorMessage(error)
+      if (errorMessage.includes('relation') || errorMessage.includes('table') || errorMessage.includes('does not exist')) {
+        toast.error('Veritabanı tabloları bulunamadı. Lütfen sistem yöneticisine başvurun.')
+      } else if (errorMessage.includes('connection') || errorMessage.includes('network')) {
+        toast.error('Bağlantı hatası. İnternet bağlantınızı kontrol edin.')
+      } else {
+        toast.error(`Ba��vurular yüklenirken hata oluştu: ${errorMessage}`)
+      }
+
+      // Use empty array as fallback
+      setApplications([])
     } finally {
       setLoading(false)
     }
