@@ -10,30 +10,30 @@ import rateLimit from 'express-rate-limit';
 import compression from 'compression';
 import morgan from 'morgan';
 // import { fileURLToPath } from 'url';
-import authRoutes from './routes/auth.js';
-import meetingsRoutes from './routes/meetings.js';
-import tasksRoutes from './routes/tasks.js';
-import messagesRoutes from './routes/messages.js';
-import errorsRoutes from './routes/errors.js';
-import healthRoutes from './routes/health.js';
-import beneficiariesRoutes from './routes/beneficiaries.js';
+import authRoutes from './routes/auth.ts';
+import meetingsRoutes from './routes/meetings.ts';
+import tasksRoutes from './routes/tasks.ts';
+import messagesRoutes from './routes/messages.ts';
+import errorsRoutes from './routes/errors.ts';
+import healthRoutes from './routes/health.ts';
+import beneficiariesRoutes from './routes/beneficiaries.ts';
 
 // Import custom middleware
-import { sanitizeInput } from './middleware/validation.js';
+import { sanitizeInput } from './middleware/validation.ts';
 import { 
   csrfProtection, 
   sqlInjectionProtection, 
   requestSizeLimiter, 
   requestId, 
   additionalSecurityHeaders 
-} from './middleware/security.js';
+} from './middleware/security.ts';
 import { 
   globalErrorHandler, 
   notFoundHandler, 
   performanceMonitor,
   handleUnhandledRejection,
   handleUncaughtException
-} from './middleware/errorHandler.js';
+} from './middleware/errorHandler.ts';
 
 // for esm mode
 // const _filename = fileURLToPath(import.meta.url);
