@@ -47,6 +47,9 @@ const RamadanPeriods = lazy(() => import('./pages/donations/RamadanPeriods'))
 const PiggyBankTracking = lazy(() => import('./pages/donations/PiggyBankTracking'))
 const BulkProvisioning = lazy(() => import('./pages/donations/BulkProvisioning'))
 
+// Financial Management
+const FinancialManagement = lazy(() => import('./pages/finance/FinancialManagement'))
+
 // Messages
 const MessagesIndex = lazy(() => import('./pages/messages/Index'))
 const BulkSend = lazy(() => import('./pages/messages/BulkSend'))
