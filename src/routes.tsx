@@ -1,6 +1,9 @@
 import { lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { ProtectedRoute } from './components/ProtectedRoute'
+import { SidebarProvider } from './components/ui/sidebar'
+import { AppSidebar } from './components/AppSidebar'
+import { MainContent } from './components/MainContent'
 import {
   withAidSuspense,
   withDonationsSuspense,
