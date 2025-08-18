@@ -113,6 +113,14 @@ export const navigationItems: NavigationItem[] = [
     ]
   },
   {
+    title: "Görev Yönetimi",
+    icon: CheckSquare,
+    badge: undefined,
+    subPages: [
+      { title: "Görevler", href: "/tasks", description: "Görev listesi ve yönetimi" }
+    ]
+  },
+  {
     title: "Fon Yönetimi",
     icon: Building2,
     badge: undefined,
