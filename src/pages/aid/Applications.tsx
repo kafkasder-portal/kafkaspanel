@@ -23,6 +23,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
+import { getErrorMessage, createOperationErrorMessage, logErrorSafely } from '../../utils/errorMessageUtils'
 import { AdvancedSearchModal } from '@components/AdvancedSearchModal'
 import {
   createApplicationsFilterConfig,
@@ -197,8 +198,8 @@ export default function Applications() {
       if (error) throw error
       setApplications(data || [])
     } catch (error) {
-      console.error('Error loading applications:', error)
-      toast.error('Başvurular yüklenirken hata oluştu')
+      logErrorSafely('Error loading applications', error)
+      toast.error(createOperationErrorMessage('load', error))
     } finally {
       setLoading(false)
     }
@@ -224,10 +225,8 @@ export default function Applications() {
       if (error) throw error
       setBeneficiaries(data || [])
     } catch (error) {
-      console.error('İhtiyaç sahipleri yüklenirken hata:', {
-        message: error instanceof Error ? error.message : String(error),
-        stack: error instanceof Error ? error.stack : undefined
-      })
+      logErrorSafely('İhtiyaç sahipleri yüklenirken hata', error)
+      toast.error('İhtiyaç sahipleri yüklenirken hata oluştu: ' + getErrorMessage(error))
     }
   }
 
@@ -272,10 +271,8 @@ export default function Applications() {
       reset()
       loadApplications()
     } catch (error) {
-      console.error('Başvuru kaydedilirken hata:', {
-        message: error instanceof Error ? error.message : String(error)
-      })
-      toast.error('Başvuru kaydedilirken hata oluştu')
+      logErrorSafely('Başvuru kaydedilirken hata', error)
+      toast.error('Başvuru kaydedilemedi: ' + getErrorMessage(error))
     }
   }
 
@@ -298,10 +295,8 @@ export default function Applications() {
       setEvaluatingApplication(null)
       loadApplications()
     } catch (error) {
-      console.error('Başvuru değerlendirilirken hata:', {
-        message: error instanceof Error ? error.message : String(error)
-      })
-      toast.error('Başvuru değerlendirilirken hata oluştu')
+      logErrorSafely('Başvuru değerlendirilirken hata', error)
+      toast.error('Başvuru değerlendirilemedi: ' + getErrorMessage(error))
     }
   }
 

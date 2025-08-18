@@ -28,7 +28,17 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
-    
+
+    /* Modern Professional Sidebar Colors */
+    --sidebar-background: 220 13% 18%;
+    --sidebar-foreground: 220 9% 88%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 24%;
+    --sidebar-accent-foreground: 220 9% 88%;
+    --sidebar-border: 220 13% 22%;
+    --sidebar-ring: 217 91% 60%;
+
     /* Legacy Compatibility - Point to new optimized colors */
     --financial-primary: var(--brand-primary); /* Use new brand primary */
     --financial-secondary: var(--financial-success); /* Map to success green */
@@ -97,6 +107,16 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+
+    /* Dark Professional Sidebar Colors */
+    --sidebar-background: 220 13% 9%;
+    --sidebar-foreground: 220 9% 88%;
+    --sidebar-primary: 217 91% 65%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 14%;
+    --sidebar-accent-foreground: 220 9% 88%;
+    --sidebar-border: 220 13% 12%;
+    --sidebar-ring: 217 91% 65%;
   }
 }
 

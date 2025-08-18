@@ -11,6 +11,7 @@ import { supabase, type Database } from '@lib/supabase'
 import { QrCode, FileSpreadsheet, FileText, Download, Filter, ChevronDown, ChevronUp } from 'lucide-react'
 import { AdvancedSearchModal } from '@components/AdvancedSearchModal'
 import { toast } from 'sonner'
+import { getErrorMessage, logErrorSafely } from '../../utils/errorMessageUtils'
 import { createBeneficiariesFilterConfig } from '@utils/filterManager'
 import { createBeneficiariesURLConfig } from '@utils/urlFilterManager'
 import { createBeneficiariesSavedFiltersConfig, getBeneficiariesQuickFilters } from '@utils/tempFix'
@@ -497,7 +498,7 @@ export default function Beneficiaries() {
 
       if (error) {
         console.error('Temp save error:', error)
-        toast.error('Geçici kayıt sırasında hata oluştu: ' + error.message)
+        toast.error('Geçici kayıt sırasında hata olu��tu: ' + error.message)
       } else {
         toast.success('Geçici kayıt başarıyla oluşturuldu')
         setTempOpen(false)
@@ -829,7 +830,7 @@ export default function Beneficiaries() {
           setRows(prev => [...prev, ...mockData as any])
           toast.success(`${mockData.length} demo kayıt mock data olarak eklendi`)
         } else {
-          const errorMessage = errorDetails?.message || errorDetails?.details || JSON.stringify(errorDetails, null, 2) || 'Bilinmeyen hata'
+          const errorMessage = getErrorMessage(errorDetails)
           toast.error(`Demo kayıtlar oluşturulurken hata oluştu: ${errorMessage}`)
         }
       } else {
@@ -838,21 +839,8 @@ export default function Beneficiaries() {
         loadBeneficiaries()
       }
     } catch (error) {
-      console.error('Demo records error:', {
-        message: error instanceof Error ? error.message : String(error),
-        stack: error instanceof Error ? error.stack : undefined,
-        type: typeof error
-      })
-
-      let errorMessage = 'Bilinmeyen hata'
-      if (error instanceof Error) {
-        errorMessage = error.message
-      } else if (typeof error === 'string') {
-        errorMessage = error
-      } else if (error && typeof error === 'object') {
-        errorMessage = JSON.stringify(error, null, 2)
-      }
-
+      logErrorSafely('Demo records error', error)
+      const errorMessage = getErrorMessage(error)
       toast.error(`Demo kayıtlar oluşturulurken beklenmeyen hata oluştu: ${errorMessage}`)
     } finally {
       setSaving(false)
