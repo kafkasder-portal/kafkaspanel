@@ -32,7 +32,7 @@ export function Sidebar() {
       badge: null
     },
     {
-      icon: ChartColumn,
+      icon: BarChart3,
       label: 'Analizler',
       path: '/messages/analytics',
       badge: 3
