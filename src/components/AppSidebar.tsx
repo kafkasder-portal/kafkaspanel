@@ -34,6 +34,7 @@ import { cn } from '../lib/utils'
 
 const AppSidebar = memo(function AppSidebar() {
   const location = useLocation()
+  const navigate = useNavigate()
   const { state } = useSidebar()
   const isCollapsed = state === 'collapsed'
 
