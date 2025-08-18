@@ -77,15 +77,15 @@ export default function MessageAnalytics() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Mesaj Analitikleri</h1>
-          <p className="text-gray-600 mt-1">Mesaj performansı ve istatistikleri</p>
+          <h1 className="text-h1">Mesaj Analitikleri</h1>
+          <p className="text-muted-foreground mt-1">Mesaj performansı ve istatistikleri</p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="flex items-center gap-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors">
+          <button className="flex items-center gap-2 bg-muted text-muted-foreground px-4 py-2 rounded-lg hover:bg-muted-foreground/10 hover:text-foreground transition-all duration-200">
             <RefreshCw className="h-4 w-4" />
             Yenile
           </button>
-          <button className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+          <button className="flex items-center gap-2 bg-semantic-success text-white px-4 py-2 rounded-lg hover:bg-semantic-success/90 transition-all duration-200 shadow-sm hover:shadow-md">
             <Download className="h-4 w-4" />
             Rapor İndir
           </button>
@@ -93,19 +93,19 @@ export default function MessageAnalytics() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white p-4 rounded-lg border">
+      <div className="bg-card p-4 rounded-lg border border-border shadow-sm">
         <div className="flex items-center gap-4 flex-wrap">
           <div className="flex items-center gap-2">
-            <Filter className="h-4 w-4 text-gray-400" />
-            <span className="text-sm font-medium text-gray-700">Filtreler:</span>
+            <Filter className="h-4 w-4 text-muted-foreground" />
+            <span className="text-sm font-medium text-foreground">Filtreler:</span>
           </div>
           
           <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-gray-400" />
+            <Calendar className="h-4 w-4 text-muted-foreground" />
             <select
               value={timeFilter}
               onChange={(e) => setTimeFilter(e.target.value)}
-              className="border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-input rounded-lg px-3 py-2 text-sm bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all duration-200"
             >
               <option value="today">Bugün</option>
               <option value="week">Bu Hafta</option>
@@ -118,7 +118,7 @@ export default function MessageAnalytics() {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="border border-input rounded-lg px-3 py-2 text-sm bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all duration-200"
           >
             <option value="all">Tüm Kanallar</option>
             <option value="sms">SMS</option>
