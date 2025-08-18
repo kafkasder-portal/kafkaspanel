@@ -3,6 +3,7 @@ import { DataTable } from '@components/DataTable'
 import type { Column } from '@components/DataTable'
 import { exportToCsv } from '@lib/exportToCsv'
 import { AlertTriangle, Trash2, RefreshCw, Search } from 'lucide-react'
+import { Button, ButtonGroup } from '@components/ui/button-enhanced'
 
 interface WarningMessage {
   id: string
@@ -208,14 +209,22 @@ export default function WarningMessages() {
     <div className="space-y-4">
       {/* Header Controls */}
       <div className="flex items-center gap-2 overflow-x-auto rounded border p-2">
-        <button className="flex items-center gap-2 rounded bg-red-600 px-3 py-1 text-sm text-white">
-          <Trash2 className="h-4 w-4" />
-          Tümünü Sil
-        </button>
-        <button className="flex items-center gap-2 rounded bg-blue-600 px-3 py-1 text-sm text-white">
-          <RefreshCw className="h-4 w-4" />
-          Yenile
-        </button>
+        <ButtonGroup variant="separated">
+          <Button
+            variant="destructive"
+            size="sm"
+            icon={<Trash2 className="h-4 w-4" />}
+          >
+            Tümünü Sil
+          </Button>
+          <Button
+            variant="soft-primary"
+            size="sm"
+            icon={<RefreshCw className="h-4 w-4" />}
+          >
+            Yenile
+          </Button>
+        </ButtonGroup>
         <select 
           value={selectedSeverity}
           onChange={(e) => setSelectedSeverity(e.target.value)}
@@ -242,10 +251,13 @@ export default function WarningMessages() {
           className="min-w-64 flex-1 rounded border px-2 py-1 text-sm" 
           placeholder="Uyarı mesajı ara..." 
         />
-        <button className="flex items-center gap-2 rounded bg-green-600 px-3 py-1 text-sm text-white">
-          <Search className="h-4 w-4" />
+        <Button
+          variant="success"
+          size="sm"
+          icon={<Search className="h-4 w-4" />}
+        >
           Ara
-        </button>
+        </Button>
         <button 
           onClick={() => exportToCsv('uyari-mesajlari.csv', filtered)} 
           className="rounded bg-gray-600 px-3 py-1 text-sm text-white"
