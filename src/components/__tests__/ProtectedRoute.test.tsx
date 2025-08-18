@@ -31,7 +31,7 @@ const createMockAuthStore = (overrides = {}) => ({
   ...overrides
 })
 
-vi.mock('../store/auth', () => ({
+vi.mock('../../store/auth', () => ({
   useAuthStore: vi.fn()
 }))
 
