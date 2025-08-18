@@ -80,31 +80,6 @@ const AppSidebar = memo(function AppSidebar() {
 
         {/* Main Content */}
         <SidebarContent>
-          {/* Active Item Sub-Navigation */}
-          {activeMainItem && !isCollapsed && (
-            <SidebarGroup>
-              <SidebarGroupLabel className="text-xs font-medium text-sidebar-foreground/70">
-                {activeMainItem.title}
-              </SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {activeMainItem.subPages.map((subPage) => (
-                    <SidebarMenuItem key={subPage.href}>
-                      <SidebarMenuButton
-                        isActive={location.pathname === subPage.href}
-                        className="text-sm pl-6"
-                        onClick={() => startTransition(() => navigate(subPage.href))}
-                      >
-                        <div className="w-1.5 h-1.5 rounded-full bg-current opacity-60" />
-                        <span className="truncate">{subPage.title}</span>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          )}
-
           {/* Main Navigation */}
           <SidebarGroup>
             <SidebarGroupLabel>Navigasyon</SidebarGroupLabel>
