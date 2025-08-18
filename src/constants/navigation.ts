@@ -88,7 +88,12 @@ export const navigationItems: NavigationItem[] = [
       { title: "Yardım Başvuruları", href: "/aid/applications", description: "Başvuru yönetimi" },
       { title: "Nakdi Yardımlar", href: "/aid/cash-operations", description: "Nakdi yardım işlemleri" },
       { title: "Ayni Yardımlar", href: "/aid/in-kind-operations", description: "Ayni yardım dağıtımı" },
-      { title: "Raporlar", href: "/aid/reports", description: "Yardım raporları" }
+      { title: "Raporlar", href: "/aid/reports", description: "Yardım raporları" },
+      { title: "Nakit Kasası", href: "/aid/cash-vault", description: "Nakit kasa yönetimi" },
+      { title: "Banka Emirleri", href: "/aid/bank-orders", description: "Banka havale emirleri" },
+      { title: "Hastane Sevkleri", href: "/aid/hospital-referrals", description: "Hastane sevk işlemleri" },
+      { title: "Veri Kontrolü", href: "/aid/data-control", description: "Veri doğrulama ve kontrol" },
+      { title: "Hizmet Takibi", href: "/aid/service-tracking", description: "Hizmet takip sistemi" }
     ]
   },
   {
