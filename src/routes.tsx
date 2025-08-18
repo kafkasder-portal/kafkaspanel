@@ -46,6 +46,7 @@ const SacrificeShares = lazy(() => import('./pages/donations/SacrificeShares'))
 const RamadanPeriods = lazy(() => import('./pages/donations/RamadanPeriods'))
 const PiggyBankTracking = lazy(() => import('./pages/donations/PiggyBankTracking'))
 const BulkProvisioning = lazy(() => import('./pages/donations/BulkProvisioning'))
+const RecurringDonations = lazy(() => import('./pages/donations/RecurringDonations'))
 
 // Financial Management
 const FinancialManagement = lazy(() => import('./pages/finance/FinancialManagement'))
