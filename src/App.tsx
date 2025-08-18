@@ -1,4 +1,4 @@
-import { memo, useState, useEffect, startTransition } from 'react'
+import { memo, useState, useEffect, startTransition, Suspense } from 'react'
 import { Toaster } from 'sonner'
 import ErrorBoundary from './components/ErrorBoundary'
 import PWAPrompt from './components/PWAPrompt'
@@ -73,7 +73,13 @@ const AppLayout = memo(function AppLayout() {
       <AppSidebar />
       <MainContent>
         <ErrorBoundary level="page">
-          <AppRoutes />
+          <Suspense fallback={
+            <div className="flex items-center justify-center min-h-[400px]">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
+          }>
+            <AppRoutes />
+          </Suspense>
         </ErrorBoundary>
       </MainContent>
 
